@@ -3,7 +3,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    return "NetLab orxxccxroject!"
+    return "NetLab!"
 
 @app.route("/login")
 def login():
