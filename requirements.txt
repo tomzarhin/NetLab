@@ -1,4 +1,3 @@
---requirements_file requirements.txt
 firebase_admin==2.8.0
 Flask==1.1.1
 
