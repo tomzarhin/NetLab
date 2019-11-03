@@ -12,7 +12,6 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    db = firestore.Client()
      #[START quickstart_add_data_one]
     doc_ref = db.collection(u'users').document(u'alovelace')
     doc_ref.set({
