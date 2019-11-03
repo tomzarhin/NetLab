@@ -1,26 +1,26 @@
 from flask import Flask
-#import firebase_admin
-#from firebase_admin import credentials
-#from firebase_admin import firestore
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
 
 # Use a service account
-#cred = credentials.Certificate('./serviceAccount.json')
-#firebase_admin.initialize_app(cred)
+cred = credentials.Certificate('./serviceAccount.json')
+firebase_admin.initialize_app(cred)
 
-#db = firestore.client()
+db = firestore.client()
 app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    #db = firestore.Client()
-    # [START quickstart_add_data_one]
-    #doc_ref = db.collection(u'users').document(u'alovelace')
-    #doc_ref.set({
-    #    u'first': u'Ada',
-    #    u'last': u'Lovelace',
-    #    u'born': 1815
-    #})
-    # [END quickstart_add_data_one]
+    db = firestore.Client()
+     #[START quickstart_add_data_one]
+    doc_ref = db.collection(u'users').document(u'alovelace')
+    doc_ref.set({
+        u'first': u'Ada',
+        u'last': u'Lovelace',
+        u'born': 1815
+    })
+     #[END quickstart_add_data_one]
     return "YES!"
 
 @app.route("/login")
