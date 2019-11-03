@@ -4,10 +4,10 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 
 # Use a service account
-cred = credentials.Certificate('./serviceAccount.json')
-firebase_admin.initialize_app(cred)
+#cred = credentials.Certificate('./serviceAccount.json')
+#firebase_admin.initialize_app(cred)
 
-db = firestore.client()
+#db = firestore.client()
 app = Flask(__name__)
 
 @app.route("/")
@@ -28,5 +28,4 @@ def login():
     return "tom!"
 
 if __name__ == '__main__':
-
     app.run(host='127.0.0.1', port=8080, debug=True)
