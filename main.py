@@ -9,9 +9,13 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    ##firebase = firebase.FirebaseApplication('https://netlab-dfb99.firebaseio.com', None)
-    result = cred.get('/users', None)
-    return result
+    doc_ref = db.collection(u'users').document(u'alovelace')
+    doc_ref.set({
+        u'first': u'Ada',
+        u'last': u'Lovelace',
+        u'born': 1815
+    })
+    return "YES!"
 
 @app.route("/login")
 def login():
