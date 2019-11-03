@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import render_template
 
 import firebase_admin
 from firebase_admin import credentials
@@ -8,7 +9,7 @@ cred = credentials.Certificate('./serviceAccount.json')
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 
 @app.route("/")
 def hello():
@@ -20,7 +21,7 @@ def hello():
         u'born': 1815
     })
      #[END quickstart_add_data_one]
-    return "YES!"
+    return render_template('home.html')
 
 @app.route("/login")
 def login():
