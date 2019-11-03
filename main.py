@@ -12,14 +12,14 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    db = firestore.Client()
+    #db = firestore.Client()
     # [START quickstart_add_data_one]
-    doc_ref = db.collection(u'users').document(u'alovelace')
-    doc_ref.set({
-        u'first': u'Ada',
-        u'last': u'Lovelace',
-        u'born': 1815
-    })
+    #doc_ref = db.collection(u'users').document(u'alovelace')
+    #doc_ref.set({
+    #    u'first': u'Ada',
+    #    u'last': u'Lovelace',
+    #    u'born': 1815
+    #})
     # [END quickstart_add_data_one]
     return "YES!"
 
