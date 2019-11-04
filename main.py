@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import render_template
-import requests as req
+from flask import request
 
 import firebase_admin
 from firebase_admin import credentials
@@ -25,10 +25,14 @@ def hello():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    url = '/login'
-    x = req.get("http://127.0.0.1:8080/login")
-    print(x.text)
-    return "tom!"
+    #url = 'http://127.0.0.1:8080/'
+    #x = req.get("http://127.0.0.1:8080/login")
+    user = request.form
+    password = user.get('password')
+    inputEmail=user.get('inputEmail')
+    print(password)
+    print(inputEmail)
+    return password
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
