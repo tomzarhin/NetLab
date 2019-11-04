@@ -23,10 +23,11 @@ def hello():
 
     return render_template('home.html')
 
-@app.route("/login")
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    resp = req.get("http://netlabapp.azurewebsites.net/static/loginScreen/website.html")
-    return resp.text
+    url = '/login'
+    x = req.get("http://127.0.0.1:8080/login")
+    print(x.text)
     return "tom!"
 
 if __name__ == '__main__':
