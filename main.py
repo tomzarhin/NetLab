@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import render_template
+import requests as req
 
 import firebase_admin
 from firebase_admin import credentials
@@ -14,17 +15,19 @@ app = Flask(__name__, static_url_path='/static')
 @app.route("/")
 def hello():
      #[START quickstart_add_data_one]
-    doc_ref = db.collection(u'users').document(u'tomzarhin')
-    doc_ref.set({
-        u'first': u'Tom',
-        u'last': u'Zarhin',
-        u'born': 1815
-    })
+    #doc_ref = db.collection(u'users').document(u'tomzarhin')
+    #doc_ref.set({
+     #    u'first': u'Tom',
+     #   u'last': u'Zarhin',
+     #   u'born': 1815
+    #})
      #[END quickstart_add_data_one]
     return render_template('home.html')
 
 @app.route("/login")
 def login():
+    resp = req.get("http://netlabapp.azurewebsites.net/static/loginScreen/website.html")
+    return resp.text
     return "tom!"
 
 if __name__ == '__main__':
