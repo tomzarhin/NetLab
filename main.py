@@ -14,14 +14,13 @@ app = Flask(__name__, static_url_path='/static')
 
 @app.route("/")
 def hello():
-     #[START quickstart_add_data_one]
     #doc_ref = db.collection(u'users').document(u'tomzarhin')
     #doc_ref.set({
      #    u'first': u'Tom',
      #   u'last': u'Zarhin',
      #   u'born': 1815
     #})
-     #[END quickstart_add_data_one]
+
     return render_template('home.html')
 
 @app.route("/login")
