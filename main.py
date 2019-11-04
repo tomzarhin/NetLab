@@ -14,7 +14,7 @@ app = Flask(__name__, static_url_path='/static')
 @app.route("/")
 def hello():
      #[START quickstart_add_data_one]
-    doc_ref = db.collection(u'users').document(u'alovelace')
+    doc_ref = db.collection(u'users').document(u'tomzarhin')
     doc_ref.set({
         u'first': u'Tom',
         u'last': u'Zarhin',
