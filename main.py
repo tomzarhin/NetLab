@@ -16,7 +16,7 @@ def hello():
      #[START quickstart_add_data_one]
     doc_ref = db.collection(u'users').document(u'alovelace')
     doc_ref.set({
-        u'first': u'Ada',
+        u'first': u'Tom',
         u'last': u'Lovelace',
         u'born': 1815
     })
