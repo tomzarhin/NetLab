@@ -27,7 +27,7 @@ def hello():
 def login():
     #url = 'http://127.0.0.1:8080/'
     #x = req.get("http://127.0.0.1:8080/login")
-    user = request.form
+    user = request.form.getlist('user')
     password = user.get('password')
     inputEmail=user.get('inputEmail')
     print(password)
