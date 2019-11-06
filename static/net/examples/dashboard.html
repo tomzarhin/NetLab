@@ -17,6 +17,9 @@ The above copyright notice and this permission notice shall be included in all c
 
 <!DOCTYPE html>
 <html lang="en">
+        <script src="../assets/js/core/main.js"></script>
+        <script src="../assets/js/core/experiment.js"></script>
+
 
 <head>
   <meta charset="utf-8" />
@@ -175,48 +178,10 @@ The above copyright notice and this permission notice shall be included in all c
       </nav>
             <div class="content">
         <div class="row">
-        <script src="../assets/js/core/main.js"></script>
-  <script src="../assets/js/core/experiment.js"></script>
-      <script>
-        var i;
-        var experiments = [];
-for (i = 1; i < 5; i++) {
-          var x1="EXP "+i;
-        var x2="This is exp "+i;
-        experiments.push(new experiment(x1,x2));
-}
 
-var x;
+          <script src="../assets/js/core/CreateListOfExp.js"></script>
 
-for (x of experiments) {
-  document.write("<div class=\"col-lg-3 col-md-6 col-sm-6\">\n" +
-          "            <div class=\"card card-stats\">\n" +
-          "              <div class=\"card-body \">\n" +
-          "                <div class=\"row\">\n" +
-          "                  <div class=\"col-5 col-md-4\">\n" +
-          "                    <div class=\"icon-big text-center icon-warning\">\n" +
-          "                      <i class=\"nc-icon nc-globe text-warning\"></i>\n" +
-          "                    </div>\n" +
-          "                  </div>\n" +
-          "                  <div class=\"col-7 col-md-8\">\n" +
-          "                    <div class=\"numbers\">\n" +
-          "                      <p class=\"card-category text-left\">"+x.ename+"</p>\n" +
-          "                      <p class=\"card-title text-left\">"+x.desc+"\n" +
-          "                        <p>\n" +
-          "                    </div>\n" +
-          "                  </div>\n" +
-          "                </div>\n" +
-          "              </div>\n" +
-          "              <div class=\"card-footer \">\n" +
-          "                <hr>\n" +
-          "                <div class=\"stats\">\n" +
-          "                  <i class=\"fa fa-refresh\"></i> Enter Dataset\n" +
-          "                </div>\n" +
-          "              </div>\n" +
-          "            </div>\n" +
-          "          </div>");
-}
-</script>
+
           </div>
         </div>
       <!-- End Navbar -->
