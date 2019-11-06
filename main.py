@@ -38,5 +38,18 @@ def login():
     except google.cloud.exceptions.NotFound:
         print(u'No such document!')
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    password = request.form.get('password')
+    inputEmail=request.form.get('inputEmail')
+    userFullName=request.form.get('userFullName')
+    doc_ref = db.collection(u'users').document(u''+inputEmail+'')
+    doc_ref.set({
+        u'userName': u'' + inputEmail + '',
+        u'userPassword': u'' + password + '',
+        u'userFullName': u'' + userFullName + ''
+    })
+    return("Registered!")
+
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
