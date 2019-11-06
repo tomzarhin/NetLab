@@ -20,19 +20,23 @@ def hello():
      #   u'last': u'Zarhin',
      #   u'born': 1815
     #})
-
-    return render_template('home.html')
+    return render_template('login.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     #url = 'http://127.0.0.1:8080/'
     #x = req.get("http://127.0.0.1:8080/login")
-    user = request.form.getlist('user')
-    password = user.get('password')
-    inputEmail=user.get('inputEmail')
-    print(password)
-    print(inputEmail)
-    return password
+    password = request.form.get('password')
+    inputEmail=request.form.get('inputEmail')
+    doc_ref = db.collection(u'users').document(u''+inputEmail+'')
+    try:
+        doc = doc_ref.get()
+        print(u'Document data: {}'.format(doc.to_dict()))
+        if(doc.to_dict()['userPassword']==password and doc.to_dict()['userName']==inputEmail):
+            return render_template('home.html')
+        return render_template('login.html')
+    except google.cloud.exceptions.NotFound:
+        print(u'No such document!')
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
