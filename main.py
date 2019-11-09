@@ -1,50 +1,31 @@
 from flask import Flask
 from flask import render_template
 from flask import request
+import pymongo
 
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
+client = pymongo.MongoClient("mongodb+srv://admin:admin@netlab-keluq.azure.mongodb.net/netlabdb?retryWrites=true&w=majority")
+db = client.netlabdb
 
-cred = credentials.Certificate('./serviceAccount.json')
-firebase_admin.initialize_app(cred)
-
-db = firestore.client()
 app = Flask(__name__, static_url_path='/static')
 
 @app.route("/")
 def hello():
-    #doc_ref = db.collection(u'users').document(u'tomzarhin')
-    #doc_ref.set({
-     #    u'first': u'Tom',
-     #   u'last': u'Zarhin',
-     #   u'born': 1815
-    #})
     return render_template('login.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    #url = 'http://127.0.0.1:8080/'
-    #x = req.get("http://127.0.0.1:8080/login")
     password = request.form.get('password')
     inputEmail=request.form.get('inputEmail')
-    doc_ref = db.collection(u'netlabdb').document(u'users')
-    try:
-        doc = doc_ref.get()
-        print(u'Document data: {}'.format(doc.to_dict()))
-        if(doc.to_dict()['userPassword']==password and doc.to_dict()['userName']==inputEmail):
-            return render_template('home.html')
-        return render_template('login.html')
-    except google.cloud.exceptions.NotFound:
-        print(u'No such document!')
+    for user in db.users.find({"userName":inputEmail, "userPassword":password}):
+        return render_template('home.html')
+    return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     password = request.form.get('password')
     inputEmail=request.form.get('inputEmail')
     userFullName=request.form.get('userFullName')
-    doc_ref = db.collection(u'netlabdb').document(u'users')
-    doc_ref.set({
+    db.users.insert({
         u'userName': u'' + inputEmail + '',
         u'userPassword': u'' + password + '',
         u'userFullName': u'' + userFullName + ''
