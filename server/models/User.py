@@ -1,6 +1,6 @@
-from pymongo import Connection
+#from pymongo import Connection
 from bson import ObjectId
-from itertools import imap
+#from itertools import imap
 class User(dict):
     """
     A simple model that wraps mongodb document
@@ -32,7 +32,7 @@ class User(dict):
 # ------------------------------
 
 class Document(User):
-    collection = Connection()["test_database"]["test_collections"]
+ #   collection = Connection()["test_database"]["test_collections"]
 
     @property
     def keywords(self):
@@ -43,12 +43,12 @@ class Document(User):
 # Mapping documents to the model
 # ------------------------------
 
-documents = imap(Document, Document.collection.find())
+#documents = imap(Document, Document.collection.find())
 
 # that's all
 
-for document in documents:
-    print document.title, document.keywords
+#for document in documents:
+#    print document.title, document.keywords
 
 
 # ------------------------------
@@ -60,9 +60,9 @@ document = Document({
     "slug": "test-document"
 })
 
-print document._id # none
+#print document._id # none
 document.save()
-print document._id # "50d3cb0068c0064a21e76be4"
+#print document._id # "50d3cb0068c0064a21e76be4"
 
 # -------------------------
 # Getting a single document
@@ -72,9 +72,9 @@ document = Document({
     "_id": "50d3cb0068c0064a21e76be4"
 })
 
-print document.title # None
+#print document.title # None
 document.reload()
-print document.title # "test document"
+#print document.title # "test document"
 
 # -----------------
 # Updating document
@@ -82,13 +82,13 @@ print document.title # "test document"
 
 document.title = "test document 2"
 document.save()
-print document.title # "test document 2"
+#print document.title # "test document 2"
 document.reload()
-print document.title # "test document 2"
+#print document.title # "test document 2"
 
 # -----------------
 # Removing document
 # -----------------
 
 document.remove()
-print document # {}
+#print document # {}
