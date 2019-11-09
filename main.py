@@ -16,9 +16,9 @@ def hello():
 def login():
     password = request.form.get('password')
     inputEmail=request.form.get('inputEmail')
-    for user in db.users.find({"userName":inputEmail, "userPassword":password}):
-        return render_template('home.html')
-    return render_template('login.html')
+    #for user in db.users.find({"userName":inputEmail, "userPassword":password}):
+        #return render_template('home.html')
+    #return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
