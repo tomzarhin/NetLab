@@ -28,7 +28,7 @@ def login():
     #x = req.get("http://127.0.0.1:8080/login")
     password = request.form.get('password')
     inputEmail=request.form.get('inputEmail')
-    doc_ref = db.collection(u'users').document(u''+inputEmail+'')
+    doc_ref = db.collection(u'netlabdb').document(u'users')
     try:
         doc = doc_ref.get()
         print(u'Document data: {}'.format(doc.to_dict()))
@@ -43,7 +43,7 @@ def register():
     password = request.form.get('password')
     inputEmail=request.form.get('inputEmail')
     userFullName=request.form.get('userFullName')
-    doc_ref = db.collection(u'users').document(u''+inputEmail+'')
+    doc_ref = db.collection(u'netlabdb').document(u'users')
     doc_ref.set({
         u'userName': u'' + inputEmail + '',
         u'userPassword': u'' + password + '',
