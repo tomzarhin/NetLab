@@ -1,6 +1,7 @@
-        class experiment {
+class experiment {
   constructor(name,desc) {
     this.ename = name;
-this.desc = desc;
+    this.desc = desc;
+    experiments.push(this);
   }
 }

@@ -1,4 +1,0 @@
-
-function createExp(name, desc) {
-  experiments.push(new experiment(name,desc));
-}

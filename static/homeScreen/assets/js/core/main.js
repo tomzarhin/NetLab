@@ -1,3 +1,6 @@
-$.getScript('another_file.js', function() {
-    //script is loaded and executed put your dependent JS here
-});
+    var experiments = [];
+for (i = 1; i < 5; i++) {
+    x1=i;
+    x2="this "+i;
+    new experiment(x1,x2);
+}

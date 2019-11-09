@@ -17,8 +17,9 @@ The above copyright notice and this permission notice shall be included in all c
 
 <!DOCTYPE html>
 <html lang="en">
+<script src="../assets/js/core/experiment.js"></script>
         <script src="../assets/js/core/main.js"></script>
-        <script src="../assets/js/core/experiment.js"></script>
+
 
 
 <head>
@@ -62,27 +63,27 @@ The above copyright notice and this permission notice shall be included in all c
       <div class="sidebar-wrapper">
         <ul class="nav">
           <li class="active ">
-            <a href="./dashboard.html">
+            <a href="./home.html">
               <i class="nc-icon nc-bank"></i>
-              <p>Dashboard</p>
+              <p>Home</p>
             </a>
           </li>
           <li>
-            <a href="icons.html">
+            <a href="experiments.html">
               <i class="nc-icon nc-diamond"></i>
-              <p>Icons</p>
+              <p>Experiments</p>
             </a>
           </li>
           <li>
             <a href="map.html">
               <i class="nc-icon nc-pin-3"></i>
-              <p>Maps</p>
+              <p>New experiments</p>
             </a>
           </li>
           <li>
             <a href="notifications.html">
               <i class="nc-icon nc-bell-55"></i>
-              <p>Notifications</p>
+              <p>About us</p>
             </a>
           </li>
           <li>
@@ -177,13 +178,93 @@ The above copyright notice and this permission notice shall be included in all c
         </div>
       </nav>
             <div class="content">
-        <div class="row">
+              <center>
+                 <h5>Welcome back!</h5>
+              </center>
 
-          <script src="../assets/js/core/CreateListOfExp.js"></script>
+        <div class="row justify-content-center">
 
+
+          <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="row">
+
+                  <div class="col-7 col-md-8">
+                    <div class="numbers text-left">
+                      <p class="card-category">New experiment</p>
+                    </div>
+                  </div>
+                   <div class="col-3 col-md-4">
+                    <div class="icon-big text-left icon-warning">
+                      <i class="nc-icon nc-simple-add text-warning"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <center>
+              <div class="card-footer ">
+                <hr>
+                <div class="stats ">
+                  <a class="btn btn-warning " href="#" role="button">Create now</a>
+                </div>
+              </div>
+                </center>
+            </div>
+
+          </div>
+
+           <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="card card-stats">
+              <div class="card-body ">
+                <div class="row">
+
+                  <div class="col-7 col-md-8">
+                    <div class="numbers text-left">
+                                            <p class="card-category">Experminets</p>
+                      <p class="card-title">
+                        <script>document.write(experiments.length);
+                      </script>
+                        <p>
+                    </div>
+                  </div>
+                   <div class="col-3 col-md-4">
+                    <div class="icon-big text-left icon-warning">
+                      <i class="nc-icon nc-paper text-warning"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <center>
+              <div class="card-footer ">
+                <hr>
+                <div class="stats ">
+                  <a class="btn btn-warning " href="#" role="button">See all</a>
+                </div>
+              </div>
+                </center>
+            </div>
+
+          </div>
+
+          </div>
+              <hr>
+
+
+                            <center>
+                 <h5>Last experiments</h5>
+              </center>
+
+        <div class="row justify-content-center">
+
+
+         <script src="../assets/js/core/CreateListOf3Exp.js"></script>
 
           </div>
         </div>
+
+
+
       <!-- End Navbar -->
       <!-- <div class="panel-header panel-header-lg">
 

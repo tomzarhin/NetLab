@@ -1,7 +1,7 @@
 var exp;
 
 
-for (exp of experiments) {
+for (exp of experiments.slice(experiments.length-3)) {
   document.write("<div class=\"col-lg-3 col-md-6 col-sm-6\">\n" +
           "            <div class=\"card card-stats\">\n" +
           "              <div class=\"card-body \">\n" +
