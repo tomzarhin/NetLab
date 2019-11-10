@@ -1,7 +1,9 @@
 var exp;
 
+var j=0;
 
 for (exp of experiments) {
+    j=j+1;
   document.write("<div class=\"col-lg-3 col-md-6 col-sm-6\">\n" +
           "            <div class=\"card card-stats\">\n" +
           "              <div class=\"card-body \">\n" +
@@ -18,9 +20,17 @@ for (exp of experiments) {
           "              <div class=\"card-footer \">\n" +
           "                <hr>\n" +
           "                <div class=\"stats\">\n" +
-          "                  <i class=\"fa fa-refresh\"></i> Enter Dataset\n" +
+          "                   <button class=\"btn btn-warning \" id=\"button="+j+"\" href=\"#\" role=\"button\">Create now</button>" +
           "                </div>\n" +
           "              </div>\n" +
           "            </div>\n" +
           "          </div>");
+}
+
+var buttons = document.getElementsByClassName("btn btn-warning");
+var buttonsCount = buttons.length;
+for (var i = 0; i <= buttonsCount; i += 1) {
+    buttons[i].onclick = function(e) {
+        alert(this.id);
+    };
 }
