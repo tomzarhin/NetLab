@@ -16,9 +16,9 @@ def hello():
 def login():
     password = request.form.get('password')
     inputEmail=request.form.get('inputEmail')
-    #for user in db.users.find({"userName":inputEmail, "userPassword":password}):
-        #return render_template('home.html')
-    #return render_template('login.html')
+    for user in db.users.find({"userName":inputEmail, "userPassword":password}):
+        return render_template('home.html')
+    return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -31,6 +31,18 @@ def register():
         u'userFullName': u'' + userFullName + ''
     })
     return("Registered!")
+
+@app.route('/createExperiment', methods=['GET', 'POST'])
+def createExperiment():
+    name = request.form.get('name')
+    description=request.form.get('description')
+    userName=request.form.get('userName')
+    db.experiments.insert({
+        u'experimentName': u'' + name + '',
+        u'experimentDescription': u'' + description + '',
+        u'userName': u'' + userName + ''
+    })
+    return("YES")
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)

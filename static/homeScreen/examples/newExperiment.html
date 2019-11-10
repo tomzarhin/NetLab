@@ -1,20 +1,3 @@
-<!--
-=========================================================
- Paper Dashboard 2 - v2.0.0
-=========================================================
-
- Product Page: https://www.creative-tim.com/product/paper-dashboard-2
- Copyright 2019 Creative Tim (https://www.creative-tim.com)
- Licensed under MIT (https://github.com/creativetimofficial/paper-dashboard/blob/master/LICENSE)
-
- Coded by Creative Tim
-
-=========================================================
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,7 +36,6 @@ The above copyright notice and this permission notice shall be included in all c
           </div>
         </a>
         <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-          Creative Tim
           <!-- <div class="logo-image-big">
             <img src="../assets/img/logo-big.png">
           </div> -->
@@ -189,12 +171,12 @@ The above copyright notice and this permission notice shall be included in all c
                 <h5 class="card-title">Create new experiment</h5>
               </div>
               <div class="card-body">
-                <form>
+                <form action="/createExperiment" method="post" name='newExperiment'>
                   <div class="row">
                     <div class="col-md-9 pr-1">
                       <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control" id="name">
+                        <input type="text" class="form-control" id="name" name="name">
                       </div>
                     </div>
                   </div>
@@ -202,15 +184,14 @@ The above copyright notice and this permission notice shall be included in all c
                     <div class="col-md-11">
                       <div class="form-group">
                         <label>description</label>
-                        <textarea class="form-control textarea" id="description"></textarea>
+                        <textarea class="form-control textarea" id="description" name="description"></textarea>
+                        <textarea class="form-control textarea" id="userName" name="userName"></textarea>
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="update ml-auto mr-auto">
-
                       <button id="createExp" type="submit" class="btn btn-primary btn-round">Update Profile</button>
-
                     </div>
                   </div>
                 </form>
