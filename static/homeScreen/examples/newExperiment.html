@@ -171,7 +171,7 @@
                 <h5 class="card-title">Create new experiment</h5>
               </div>
               <div class="card-body">
-                <form action="/createExperiment" method="post" name='newExperiment'>
+                <form><!-- action="/createExperiment" method="post" name='newExperiment'>!-->
                   <div class="row">
                     <div class="col-md-9 pr-1">
                       <div class="form-group">
@@ -191,7 +191,7 @@
                   </div>
                   <div class="row">
                     <div class="update ml-auto mr-auto">
-                      <button id="createExp" type="submit" class="btn btn-primary btn-round">Update Profile</button>
+                      <button id="createExp" name="createExp" type="submit" class="btn btn-primary btn-round">Update Profile</button>
                     </div>
                   </div>
                 </form>
@@ -206,7 +206,29 @@
   var name = document.getElementById("name").value;
   var description = document.getElementById("description").value;
 document.getElementById("createExp").addEventListener("click", function() {
-  new experiment(name,description);
+ var exp= new experiment(name,description);
+              var form_data = new FormData();
+              form_data.append('name', document.getElementById("name").value);
+              form_data.append('description', document.getElementById("description").value);
+              form_data.append('userName', document.getElementById("userName").value);
+                $.ajax({
+                    type: 'POST',
+                    url: '/createExperiment',
+                    data: form_data,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function (data) {
+                        console.log('Success!');
+                    },
+                })
+                    .done(function (data) {
+                        if (data.error) {
+                            confirm(data.error);
+                        }
+                        alert("KAKI");
+                    });
+
 });
 </script>
 

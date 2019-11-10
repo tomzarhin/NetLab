@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template
-from flask import request
+from flask import request,jsonify
+
 import pymongo
 
 client = pymongo.MongoClient("mongodb+srv://admin:admin@netlab-keluq.azure.mongodb.net/netlabdb?retryWrites=true&w=majority")
@@ -42,7 +43,7 @@ def createExperiment():
         u'experimentDescription': u'' + description + '',
         u'userName': u'' + userName + ''
     })
-    return("YES")
+    return jsonify({'upload': 'true'})
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
