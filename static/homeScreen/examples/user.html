@@ -191,10 +191,10 @@ The above copyright notice and this permission notice shall be included in all c
               <div class="card-body">
                 <form>
                   <div class="row">
-                    <div class="col-md-4 pr-1">
+                    <div class="col-md-9 pr-1">
                       <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control" placeholder="City" value="Melbourne">
+                        <input type="text" class="form-control" id="name">
                       </div>
                     </div>
                   </div>
@@ -202,7 +202,7 @@ The above copyright notice and this permission notice shall be included in all c
                     <div class="col-md-11">
                       <div class="form-group">
                         <label>description</label>
-                        <textarea class="form-control textarea">Oh so, your weak rhyme You doubt I'll bother, reading into it</textarea>
+                        <textarea class="form-control textarea" id="description"></textarea>
                       </div>
                     </div>
                   </div>
@@ -222,19 +222,14 @@ The above copyright notice and this permission notice shall be included in all c
 
 
 <script>
+  var name = document.getElementById("name").value;
+  var description = document.getElementById("description").value;
 document.getElementById("createExp").addEventListener("click", function() {
-  new experiment('or','or');
+  new experiment(name,description);
 });
 </script>
-            <div class="content">
-                    <center><h5>Experiments</h5></center>
-        <div class="row">
-
-          <script src="../assets/js/core/CreateListOfExp.js"></script>
 
 
-          </div>
-        </div>
 
       <footer class="footer footer-black  footer-white ">
         <div class="container-fluid">
