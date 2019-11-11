@@ -201,39 +201,6 @@
         </div>
       </div>
 
-
-<script>
-  var name = document.getElementById("name").value;
-  var description = document.getElementById("description").value;
-document.getElementById("createExp").addEventListener("click", function() {
- var exp= new experiment(name,description);
-              var form_data = new FormData();
-              form_data.append('name', document.getElementById("name").value);
-              form_data.append('description', document.getElementById("description").value);
-              form_data.append('userName', document.getElementById("userName").value);
-                $.ajax({
-                    type: 'POST',
-                    url: '/createExperiment',
-                    data: form_data,
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    success: function (data) {
-                        console.log('Success!');
-                    },
-                })
-                    .done(function (data) {
-                        if (data.error) {
-                            confirm(data.error);
-                        }
-                        alert("KAKI");
-                    });
-
-});
-</script>
-
-
-
       <footer class="footer footer-black  footer-white ">
         <div class="container-fluid">
           <div class="row">
@@ -278,6 +245,7 @@ document.getElementById("createExp").addEventListener("click", function() {
   <script src="../assets/js/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
   <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
   <script src="../assets/demo/demo.js"></script>
+  <script src="../assets/js/core/newExperiment.js"></script>
 </body>
 
 </html>

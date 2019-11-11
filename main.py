@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import render_template
-from flask import request,jsonify
+from flask import request,json
 
 import pymongo
 
@@ -43,7 +43,7 @@ def createExperiment():
         u'experimentDescription': u'' + description + '',
         u'userName': u'' + userName + ''
     })
-    return jsonify({'upload': 'true'})
+    return json.dumps({'status':'OK'});
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
