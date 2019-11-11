@@ -21,7 +21,7 @@ document.getElementById("createExp").addEventListener("click", function() {
                         if (data.error) {
                             confirm(data.error);
                         }
-                        alert("KAKI");
+                        alert("Experiment has been added successfully");
                     });
 
 });

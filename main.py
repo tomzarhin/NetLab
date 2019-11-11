@@ -45,5 +45,14 @@ def createExperiment():
     })
     return json.dumps({'status':'OK'});
 
+@app.route('/getExperiments', methods=['GET', 'POST'])
+def getExperiments():
+    #userName=request.form.get('userName')
+    userName='tom'
+    experiments=db.experiments.find({"userName": userName})
+    for exp in experiments:
+        exper=exp
+    return json.dumps({'status':'OK','experiments':exper});
+
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)

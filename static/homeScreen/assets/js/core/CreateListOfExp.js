@@ -29,8 +29,8 @@ for (exp of experiments) {
 
 var buttons = document.getElementsByClassName("btn btn-warning");
 var buttonsCount = buttons.length;
-for (var i = 0; i <= buttonsCount; i += 1) {
-    buttons[i].onclick = function(e) {
-        alert(this.id);
-    };
-}
+//for (var i = 0; i <= buttonsCount; i += 1) {
+//    buttons[i].onclick = function(e) {
+//        alert(this.id);
+//    };
+//}
