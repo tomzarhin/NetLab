@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import render_template
-from flask import request,json
+from flask import request,json,jsonify
 
 import pymongo
 
@@ -8,6 +8,7 @@ client = pymongo.MongoClient("mongodb+srv://admin:admin@netlab-keluq.azure.mongo
 db = client.netlabdb
 
 app = Flask(__name__, static_url_path='/static')
+
 
 @app.route("/")
 def hello():
@@ -43,16 +44,19 @@ def createExperiment():
         u'experimentDescription': u'' + description + '',
         u'userName': u'' + userName + ''
     })
-    return json.dumps({'status':'OK'});
+    return json.dumps({'status':'OK'})
 
 @app.route('/getExperiments', methods=['GET', 'POST'])
 def getExperiments():
     #userName=request.form.get('userName')
     userName='tom'
+    experiment_array=[]
     experiments=db.experiments.find({"userName": userName})
     for exp in experiments:
-        exper=exp
-    return json.dumps({'status':'OK','experiments':exper});
+        exp.pop('_id')
+        experiment_array.append(exp)
+    return jsonify({'experiments':experiment_array})
+    return json.dumps({'status':'OK','experiments':experiment_array})
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
