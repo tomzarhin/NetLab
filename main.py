@@ -1,7 +1,8 @@
-from flask import Flask
-from flask import render_template
-from flask import request,json,jsonify
-
+from flask import request,json,jsonify,render_template,Flask
+#-----need to be tested----
+import pandas
+import numpy as np
+#--------------------------
 import pymongo
 
 client = pymongo.MongoClient("mongodb+srv://admin:admin@netlab-keluq.azure.mongodb.net/netlabdb?retryWrites=true&w=majority")
@@ -57,6 +58,26 @@ def getExperiments():
         experiment_array.append(exp)
     return jsonify({'experiments':experiment_array})
     return json.dumps({'status':'OK','experiments':experiment_array})
+
+@app.route('/uploadfile', methods=['GET', 'POST'])
+def uploadfile():
+    file = request.files.getlist("file")
+    #if (file[1] != None):
+    #    file[1].save(secure_filename(file[1].filename))
+    #else:
+    #    return ("No file")
+    #makeNewFile(file[1])
+    df = pandas.read_excel(file[0], sheet_name='Sheet1')
+    print(np.array(df.values))
+    return jsonify({'excelDetails':np.array(df.to_records())})
+
+#--------------------------Functions------------------------------
+#def makeNewFile(name):
+   #df = pandas.read_excel(name, sheet_name='Sheet1')
+   #writer = pandas.ExcelWriter('excel_to_send.xlsx', engine='xlsxwriter')
+   #df.to_excel(writer, sheet_name='Sheet1')
+   #writer.save()
+#------------------------------------------------------------------
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
