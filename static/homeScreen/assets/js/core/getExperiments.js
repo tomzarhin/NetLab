@@ -23,7 +23,7 @@ $( document ).ready(function() {
             var j=0;
             for (exp of data.experiments) {
                  j=j+1;
-                    document.getElementById('experimentsFromDatabase').innerHTML = document.getElementById('experimentsFromDatabase').innerHTML +("<div class=\"col-lg-3 col-md-6 col-sm-6\">\n" +
+                    document.getElementById("p1").innerHTML = document.getElementById("p1").innerHTML +("<div class=\"col-lg-3 col-md-6 col-sm-6\">\n" +
                           "            <div class=\"card card-stats\">\n" +
                           "              <div class=\"card-body \">\n" +
                           "                <div class=\"row\">\n" +
