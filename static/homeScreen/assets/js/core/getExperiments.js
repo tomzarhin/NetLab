@@ -1,9 +1,3 @@
-//   var experiments = [];
-//for (i = 1; i < 5; i++) {
-//  x1=i;
-//   x2="this "+i;
-//    new experiment(x1,x2);
-//}
 $( document ).ready(function() {
     $.ajax({
         type: 'POST',
@@ -39,7 +33,7 @@ $( document ).ready(function() {
                           "              <div class=\"card-footer \">\n" +
                           "                <hr>\n" +
                           "                <div class=\"stats\">\n" +
-                          "                   <button class=\"btn btn-warning \" id=\"button="+j+"\" href=\"#\" role=\"button\">Create now</button>" +
+                          "                   <button class=\"btn btn-warning \" id=\"button="+j+"\" href=\"#\" role=\"button\">Enter now</button>" +
                           "                </div>\n" +
                           "              </div>\n" +
                           "            </div>\n" +
