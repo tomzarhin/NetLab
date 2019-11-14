@@ -69,7 +69,7 @@ def uploadfile():
     #makeNewFile(file[1])
     df = pandas.read_excel(file[0], sheet_name='Sheet1')
     print(np.array(df.values))
-    return jsonify({'excelDetails':np.array(df.to_records())})
+    return jsonify({'excelDetails':[np.array(df.values)]})
 
 #--------------------------Functions------------------------------
 #def makeNewFile(name):
