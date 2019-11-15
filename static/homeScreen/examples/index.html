@@ -1,5 +1,8 @@
 <html>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/js/jquery.jexcel.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jexcel.min.css" type="text/css" />
 <div id="my"></div>
 
 <form id="upload-file" method="post" enctype="multipart/form-data">
@@ -31,7 +34,7 @@ $(function() {
                     confirm(data.error);
                 }
                 alert("kaki");
-                //$('#my').jexcel({ data:data.excelDetails, colWidths: [ 300, 80, 100 ] });
+                $('#my').jexcel({ data:[data.excelDetails], colWidths: [ 300, 80, 100 ] });
             });
     });
 });
