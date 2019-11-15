@@ -72,7 +72,7 @@ def uploadfile():
     for row in np.array(df.values):
         for value in row:
             excel_array.append(value)
-        excel_array=[excel_array]
+        excel_array.append(",")
     return jsonify({'excelDetails':excel_array})
 
 #--------------------------Functions------------------------------

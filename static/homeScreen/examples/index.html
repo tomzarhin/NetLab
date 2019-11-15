@@ -33,8 +33,21 @@ $(function() {
                 if (data.error) {
                     confirm(data.error);
                 }
-                alert("kaki");
-                $('#my').jexcel({ data:[data.excelDetails], colWidths: [ 300, 80, 100 ] });
+                var excel_matrix=[];
+                excel_matrix[0]=[];
+                var i=0,j=0;
+                for (value of data.excelDetails) {
+                    if(value==','){
+                        i++;
+                        excel_matrix[i] = [];
+                        j=0;
+                    }
+                    else{
+                        excel_matrix[i][j]=value;
+                        j++;
+                    }
+                }
+                $('#my').jexcel({ data:excel_matrix, colWidths: [ 300, 80, 100 ] });
             });
     });
 });
