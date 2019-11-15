@@ -1,5 +1,5 @@
 $(function() {
-    $('#upload-file-btn').click(function() {
+    $('#fileElem').change(function() {
         var form_data = new FormData($('#upload-file')[0]);
         $.ajax({
             type: 'POST',
