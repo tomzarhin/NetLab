@@ -20,7 +20,10 @@ def hello():
 def login():
     password = request.form.get('password')
     inputEmail=request.form.get('inputEmail')
-    for user in db.users.find({"userName":inputEmail, "userPassword":password}):
+    for user in db.users.find({"userName":inputEmail, "userPassword":password}):#, "status":"Disconnected"}):
+        myquery = {"userName": user['userName']}
+        newvalues = {"$set": {"status": "Connected"}}
+        db.users.update_one(myquery, newvalues)
         return jsonify({'pstatus':"OK"})
     return jsonify({'pstatus':"NOT OK"})
 
@@ -32,7 +35,8 @@ def register():
     db.users.insert({
         u'userName': u'' + inputEmail + '',
         u'userPassword': u'' + password + '',
-        u'userFullName': u'' + userFullName + ''
+        u'userFullName': u'' + userFullName + '',
+        u'status':u'Disconnected'
     })
     return("Registered!")
 
