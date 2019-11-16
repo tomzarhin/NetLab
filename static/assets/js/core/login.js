@@ -18,11 +18,15 @@ document.getElementById("signin").addEventListener("click", function() {
             if (data.error) {
                 confirm(data.error);
             }
-            alert("dd");
             if(data.pstatus=="OK")
-                alert("OK");
+            {
+                var userNameDB = document.getElementById("your_name").value;
+                window.localStorage.setItem("userNameDB", JSON.stringify(userNameDB));
+                window.location.pathname = 'static/examples/home.html'
+            }
+
             else
-                alert("NOT OK");
+                alert("The details are incorrect, please try again.");
         });
 
 });
