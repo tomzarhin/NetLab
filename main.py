@@ -20,8 +20,8 @@ def login():
     password = request.form.get('password')
     inputEmail=request.form.get('inputEmail')
     for user in db.users.find({"userName":inputEmail, "userPassword":password}):
-        return render_template('home.html')
-    return render_template('login.html')
+        return json.dumps({'status': 'OK'})
+    return json.dumps({'status': 'NOT OK'})
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
