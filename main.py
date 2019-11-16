@@ -1,6 +1,7 @@
 from flask import request,json,jsonify,render_template,Flask
 #-----need to be tested----
 import pandas
+from sklearn.cluster import KMeans
 import numpy as np
 #--------------------------
 import pymongo
@@ -62,26 +63,38 @@ def getExperiments():
 @app.route('/uploadfile', methods=['GET', 'POST'])
 def uploadfile():
     file = request.files.getlist("file")
-    #if (file[1] != None):
-    #    file[1].save(secure_filename(file[1].filename))
-    #else:
-    #    return ("No file")
-    #makeNewFile(file[1])
     df = pandas.read_excel(file[0], sheet_name='Sheet1')
     excel_array=[]
-    for row in np.array(df.values):
+    for value in df.columns.values:
+        excel_array.append(value)
+    excel_array.append(",")
+    for row in np.array(df.head()):
         for value in row:
             excel_array.append(value)
         excel_array.append(",")
     return jsonify({'excelDetails':excel_array})
 
-#--------------------------Functions------------------------------
-#def makeNewFile(name):
-   #df = pandas.read_excel(name, sheet_name='Sheet1')
-   #writer = pandas.ExcelWriter('excel_to_send.xlsx', engine='xlsxwriter')
-   #df.to_excel(writer, sheet_name='Sheet1')
-   #writer.save()
-#------------------------------------------------------------------
+@app.route('/goKmeans', methods=['GET', 'POST'])
+def goKmeans():
+   clusteringNum = request.form['clusteringNum']
+   dataset = request.form['dataset']
+   #x_values,y_values=readDataFromExcelFileTraining(file[0]) #loading data from excel
+   if(clusteringNum=='' or int(float(clusteringNum))<2):
+      clusteringNum=2
+   kmeans = KMeans(n_clusters=int(float(clusteringNum)), random_state=0).fit(x_values,y_values)
+   kmeans.labels_
+   return jsonify({'kmeansLabels': kmeans.labels_})
+
+#-------------------Functions-------------------
+def readDataFromExcelFileTraining(filename):
+   #Read from the excel file
+   df = pandas.read_excel(filename, sheet_name='Sheet1')
+   values=np.matrix(df.values)
+   match=np.array(df.values)
+   y_values=match[:,-1]
+   x_values = np.delete(values,-1,1)
+   return(x_values,y_values)
+#-----------------------------------------------
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
