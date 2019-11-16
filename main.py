@@ -50,8 +50,8 @@ def createExperiment():
 
 @app.route('/getExperiments', methods=['GET', 'POST'])
 def getExperiments():
-    #userName=request.form.get('userName')
-    userName='tom'
+    userName=request.form.get('userNameDB')
+
     experiment_array=[]
     experiments=db.experiments.find({"userName": userName})
     for exp in experiments:

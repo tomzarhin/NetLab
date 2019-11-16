@@ -1,8 +1,11 @@
+var userNameDB = JSON.parse(window.localStorage.getItem("userNameDB"));
 $( document ).ready(function() {
+    var form_data = new FormData();
+  form_data.append('userNameDB', userNameDB);
     $.ajax({
         type: 'POST',
         url: '/getExperiments',
-        data: false,
+        data: form_data,
         contentType: false,
         cache: false,
         processData: false,
