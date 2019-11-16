@@ -21,8 +21,8 @@ def login():
     password = request.form.get('password')
     inputEmail=request.form.get('inputEmail')
     for user in db.users.find({"userName":inputEmail, "userPassword":password}):
-        return json.dumps({'status': 'OK'})
-    return json.dumps({'status': 'NOT OK'})
+        return jsonify({'pstatus':"OK"})
+    return jsonify({'pstatus':"NOT OK"})
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -46,7 +46,7 @@ def createExperiment():
         u'experimentDescription': u'' + description + '',
         u'userName': u'' + userName + ''
     })
-    return json.dumps({'status':'OK'})
+    return json.dumps({'pstatus':'OK'})
 
 @app.route('/getExperiments', methods=['GET', 'POST'])
 def getExperiments():
@@ -58,7 +58,7 @@ def getExperiments():
         exp.pop('_id')
         experiment_array.append(exp)
     return jsonify({'experiments':experiment_array})
-    return json.dumps({'status':'OK','experiments':experiment_array})
+    return json.dumps({'pstatus':'OK','experiments':experiment_array})
 
 @app.route('/uploadfile', methods=['GET', 'POST'])
 def uploadfile():

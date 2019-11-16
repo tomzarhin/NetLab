@@ -19,7 +19,7 @@ document.getElementById("signin").addEventListener("click", function() {
                 confirm(data.error);
             }
             alert("dd");
-            if(data.status=="OK")
+            if(data.pstatus=="OK")
                 alert("OK");
             else
                 alert("NOT OK");
