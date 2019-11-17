@@ -69,11 +69,12 @@ def uploadfile():
     file = request.files.getlist("file")
     df = pandas.read_excel(file[0], sheet_name='Sheet1')
     excel_array=[]
-    for value in df.columns.values:
-        excel_array.append(value)
+    for cols in df.columns.values:
+        excel_array.append(cols)
     excel_array.append(",")
     for row in np.array(df.head()):
         for value in row:
+            value=str(value)
             excel_array.append(value)
         excel_array.append(",")
     return jsonify({'excelDetails':excel_array})
@@ -82,19 +83,21 @@ def uploadfile():
 def goKmeans():
    clusteringNum = request.form['clusteringNum']
    dataset = request.form['dataset']
-   #x_values,y_values=readDataFromExcelFileTraining(file[0]) #loading data from excel
+   #datasetcols = request.form['datasetcols']
+   #x_values,y_values=readDataFromArray(dataset) #loading data from excel
    if(clusteringNum=='' or int(float(clusteringNum))<2):
       clusteringNum=2
-   kmeans = KMeans(n_clusters=int(float(clusteringNum)), random_state=0).fit(x_values,y_values)
+   kmeans = KMeans(n_clusters=int(float(clusteringNum)), random_state=0).fit(dataset)
+   plt.scatter(dataset[:, 0], dataset[:, 1], s=50, cmap='viridis')
    kmeans.labels_
    return jsonify({'kmeansLabels': kmeans.labels_})
 
 #-------------------Functions-------------------
-def readDataFromExcelFileTraining(filename):
+def readDataFromArray(dataset):
    #Read from the excel file
-   df = pandas.read_excel(filename, sheet_name='Sheet1')
-   values=np.matrix(df.values)
-   match=np.array(df.values)
+   #df = pandas.read_excel(filename, sheet_name='Sheet1')
+   values=np.matrix(dataset)
+   match=np.array(dataset)
    y_values=match[:,-1]
    x_values = np.delete(values,-1,1)
    return(x_values,y_values)

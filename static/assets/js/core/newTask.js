@@ -1,3 +1,5 @@
+var cols=[];
+
 $(function() {
     $('#fileElem').change(function() {
         var form_data = new FormData($('#upload-file')[0]);
@@ -17,8 +19,6 @@ $(function() {
                     confirm(data.error);
                 }
                 var excel_matrix=[];
-                var cols=[];
-                excel_matrix[0]=[];
                 var i=0,j=0;
                 var firstComma=false;
                 for (value of data.excelDetails) {
@@ -29,17 +29,19 @@ $(function() {
                     else{
                         firstComma=true;
                         if(value==','){
-                            i++;
                             excel_matrix[i] = [];
+                            i++;
                             j=0;
                         }
                         else{
-                            excel_matrix[i][j]=value;
+                            excel_matrix[i-1][j]=value;
                             j++;
                         }
                     }
                 }
-                $('#spreadsheet1').jexcel({ data:excel_matrix, colWidths: [ 300, 80, 100 ] });
+                $('#spreadsheet1').jexcel({colHeaders: cols,data:excel_matrix, colWidths: [ 300, 80, 100 ] });
+                $('#spreadsheet1').jexcel('deleteRow', excel_matrix.length-1);
+                console.log(excel_matrix.length-1);
                 //$('#spreadsheet1').jexcel.setColumnData(3,cols);
             });
     });
@@ -48,6 +50,7 @@ $(function() {
 $('#goKmeans').click(function() {
     var form_data = new FormData();
     form_data.append('dataset',JSON.stringify($('#spreadsheet1').jexcel('getData', false)));
+    form_data.append('datasetcols',JSON.stringify(cols));
     form_data.append('clusteringNum', document.getElementById("clusteringNum").value);
     $.ajax({
     type: 'POST',
