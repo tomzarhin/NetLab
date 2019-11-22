@@ -18,30 +18,10 @@ $(function() {
                 if (data.error) {
                     confirm(data.error);
                 }
-                var excel_matrix=[];
-                var i=0,j=0;
-                var firstComma=false;
-                for (value of data.excelDetails) {
-                    if(firstComma==false && value!=','){
-                        cols[j]=value;
-                        j++;
-                    }
-                    else{
-                        firstComma=true;
-                        if(value==','){
-                            excel_matrix[i] = [];
-                            i++;
-                            j=0;
-                        }
-                        else{
-                            excel_matrix[i-1][j]=value;
-                            j++;
-                        }
-                    }
-                }
-                $('#spreadsheet1').jexcel({colHeaders: cols,data:excel_matrix, colWidths: [ 300, 80, 100 ] });
-                $('#spreadsheet1').jexcel('deleteRow', excel_matrix.length-1);
-                console.log(excel_matrix.length-1);
+                cols=data.excelCols;
+                $('#spreadsheet1').jexcel({colHeaders: data.excelCols,data:data.excelDetails, colWidths: [ 300, 80, 100 ] });
+                //$('#spreadsheet1').jexcel('deleteRow', excel_matrix.length-1);
+                //console.log(excel_matrix.length-1);
                 //$('#spreadsheet1').jexcel.setColumnData(3,cols);
             });
     });
@@ -67,6 +47,7 @@ $('#goKmeans').click(function() {
         if (data.error) {
             confirm(data.error);
         }
-
+    window.localStorage.setItem("dataset", JSON.stringify(data.inputArray));
+    window.localStorage.setItem("kmeansLabels", JSON.stringify(data.kmeansLabels));
     });
 });

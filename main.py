@@ -4,6 +4,8 @@ import pandas
 from sklearn.cluster import KMeans
 import numpy as np
 #--------------------------
+import matplotlib.pyplot as plt
+
 import pymongo
 
 client = pymongo.MongoClient("mongodb+srv://admin:admin@netlab-keluq.azure.mongodb.net/netlabdb?retryWrites=true&w=majority")
@@ -68,40 +70,22 @@ def getExperiments():
 def uploadfile():
     file = request.files.getlist("file")
     df = pandas.read_excel(file[0], sheet_name='Sheet1')
-    excel_array=[]
-    for cols in df.columns.values:
-        excel_array.append(cols)
-    excel_array.append(",")
-    for row in np.array(df.head()):
-        for value in row:
-            value=str(value)
-            excel_array.append(value)
-        excel_array.append(",")
-    return jsonify({'excelDetails':excel_array})
+    excel_values=np.array(df.values)
+    excel_cols=np.array(df.columns.values)
+    return jsonify({'excelDetails':excel_values.tolist(),'excelCols':excel_cols.tolist()})
 
 @app.route('/goKmeans', methods=['GET', 'POST'])
 def goKmeans():
-   clusteringNum = request.form['clusteringNum']
-   dataset = request.form['dataset']
-   #datasetcols = request.form['datasetcols']
-   #x_values,y_values=readDataFromArray(dataset) #loading data from excel
-   if(clusteringNum=='' or int(float(clusteringNum))<2):
+    clusteringNum = request.form['clusteringNum']
+    dataset = json.loads(request.form['dataset'])
+    if(clusteringNum=='' or int(float(clusteringNum))<2):
       clusteringNum=2
-   kmeans = KMeans(n_clusters=int(float(clusteringNum)), random_state=0).fit(dataset)
-   plt.scatter(dataset[:, 0], dataset[:, 1], s=50, cmap='viridis')
-   kmeans.labels_
-   return jsonify({'kmeansLabels': kmeans.labels_})
-
-#-------------------Functions-------------------
-def readDataFromArray(dataset):
-   #Read from the excel file
-   #df = pandas.read_excel(filename, sheet_name='Sheet1')
-   values=np.matrix(dataset)
-   match=np.array(dataset)
-   y_values=match[:,-1]
-   x_values = np.delete(values,-1,1)
-   return(x_values,y_values)
-#-----------------------------------------------
+    new_list = list(list(int(a) for a in b if a.isdigit()) for b in dataset)
+    kmeans = KMeans(n_clusters=int(float(clusteringNum)), random_state=0).fit(new_list)
+    #centers = np.array(kmeans.cluster_centers_)
+    new_list = np.array(new_list)
+    plt.scatter(new_list[:, 0], new_list[:, 1], s=50, cmap='viridis')
+    return jsonify({'inputArray': new_list.tolist(),'kmeansLabels':kmeans.labels_.tolist()})
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
