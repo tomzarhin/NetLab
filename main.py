@@ -1,9 +1,7 @@
 from flask import request,json,jsonify,render_template,Flask
-#-----need to be tested----
 import pandas
 from sklearn.cluster import KMeans
 import numpy as np
-#--------------------------
 
 import pymongo
 
