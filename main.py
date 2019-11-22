@@ -4,7 +4,6 @@ import pandas
 from sklearn.cluster import KMeans
 import numpy as np
 #--------------------------
-import matplotlib.pyplot as plt
 
 import pymongo
 
@@ -84,7 +83,6 @@ def goKmeans():
     kmeans = KMeans(n_clusters=int(float(clusteringNum)), random_state=0).fit(new_list)
     #centers = np.array(kmeans.cluster_centers_)
     new_list = np.array(new_list)
-    plt.scatter(new_list[:, 0], new_list[:, 1], s=50, cmap='viridis')
     return jsonify({'inputArray': new_list.tolist(),'kmeansLabels':kmeans.labels_.tolist()})
 
 if __name__ == '__main__':
