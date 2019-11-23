@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <script src="../assets/js/core/classes/experiment.js"></script>
-        <script src="../assets/js/core/main.js"></script>
-
-
-
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
@@ -22,6 +18,8 @@
   <link href="../assets/css/paper-dashboard.css?v=2.0.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <script src="../assets/js/core/jquery.min.js"></script>
+
 </head>
 
 <body class="">
@@ -31,13 +29,13 @@
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
       <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-mini">
+        <a href="./home.html" class="simple-text logo-mini">
           <div class="logo-image-small">
-            <img src="../assets/img/logo-small.png">
+            <img src="../assets/img/logo.png">
           </div>
         </a>
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-          Creative Tim
+        <a href="http://www.creative-tim.com" class="text-capitalize simple-text logo-normal">
+          NetLab
           <!-- <div class="logo-image-big">
             <img src="../assets/img/logo-big.png">
           </div> -->
@@ -162,67 +160,29 @@
       </nav>
 
             <div class="content">
-                    <center><h5>Experiments</h5></center>
-        <div class="row">
-
-    <script src="../assets/js/core/Chart.min.js"></script>
-	<script src="../assets/js/core/utils.js"></script>
-<link href="../assets/css/clusterGraph.css" rel="stylesheet" />
-		<canvas id="canvas"></canvas>
-	<button id="randomizeData">Randomize Data</button>
-	<script src="../assets/js/core/clusterGraph.js">
-	</script>
-
-
-
-          </div>
+                            <center>
+                 <h5>Experiments</h5>
+              </center>
+        <div id="p10" class="row justify-content-center">
+          <script src="../assets/js/core/getTasks.js"></script>
         </div>
+            </div>
       <!-- End Navbar -->
       <!-- <div class="panel-header panel-header-lg">
 
   <canvas id="bigDashboardChart"></canvas>
-
-
 </div> -->
-      <footer class="footer footer-black  footer-white ">
-        <div class="container-fluid">
-          <div class="row">
-            <nav class="footer-nav">
-              <ul>
-                <li>
-                  <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>
-                </li>
-                <li>
-                  <a href="http://blog.creative-tim.com/" target="_blank">Blog</a>
-                </li>
-                <li>
-                  <a href="https://www.creative-tim.com/license" target="_blank">Licenses</a>
-                </li>
-              </ul>
-            </nav>
-            <div class="credits ml-auto">
-              <span class="copyright">
-                ©
-                <script>
-                  document.write(new Date().getFullYear())
-                </script>, made with <i class="fa fa-heart heart"></i> by Creative Tim
-              </span>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
+
   </div>
   <!--   Core JS Files   -->
 
-  <script src="../assets/js/core/jquery.min.js"></script>
   <script src="../assets/js/core/jquery.min.js"></script>
   <script src="../assets/js/core/popper.min.js"></script>
   <script src="../assets/js/core/bootstrap.min.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
   <!--  Google Maps Plugin    -->
   <!-- Chart JS -->
-
+  <script src="../assets/js/plugins/chartjs.min.js"></script>
   <!--  Notifications Plugin    -->
   <script src="../assets/js/plugins/bootstrap-notify.js"></script>
   <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
@@ -235,6 +195,7 @@
       demo.initChartsPages();
     });
   </script>
+  </div>
 </body>
 
 </html>

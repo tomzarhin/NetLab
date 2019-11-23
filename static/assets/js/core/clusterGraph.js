@@ -4,7 +4,14 @@
     var numberOfClusters = Math.max.apply(Math, kmeansLabels)+1;
     var data = JSON.parse(window.localStorage.getItem("dataset"));
     console.log(kmeansLabels);
-
+function getRandomColor() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
 		function generateData(counter) {
             var dataset_coordinates=[];
             for (var i=0;i<data.length;i++) {
@@ -32,10 +39,9 @@
                 datasetValue[counter] = {
                     label: 'dataset '+(counter+1),
                     borderColor: window.chartColors.black,
-                    backgroundColor: mycolor,//color(window.chartColors.blue).alpha(0.2).rgbString(),
+                    backgroundColor: getRandomColor(),
                     data: generateData(counter)
 			    }
-
                 if(temp==1){//delete me
                     mycolor=color(window.chartColors.red).alpha(0.2).rgbString();//delete me
                     temp=2;//delete me
