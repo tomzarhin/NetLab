@@ -59,6 +59,17 @@ def getExperiments():
         experiment_array.append(exp)
     return jsonify({'experiments':experiment_array})
 
+@app.route('/getTasks', methods=['GET', 'POST'])
+def getTasks():
+    idExp=request.form.get('idExp')
+    tasks_array=[]
+    tasks=db.tasks.find({"idExp": idExp})
+    for task in tasks:
+        task.pop('_id')
+        tasks_array.append(task)
+    return jsonify({'tasks':tasks_array})
+    return json.dumps({'pstatus':'OK','tasks':tasks_array})
+
 @app.route('/uploadfile', methods=['GET', 'POST'])
 def uploadfile():
     file = request.files.getlist("file")
