@@ -1,15 +1,13 @@
 from flask import request,json,jsonify,render_template,Flask
-import pandas
 from sklearn.cluster import KMeans
 import numpy as np
-
 import pymongo
+import pandas
 
 client = pymongo.MongoClient("mongodb+srv://admin:admin@netlab-keluq.azure.mongodb.net/netlabdb?retryWrites=true&w=majority")
 db = client.netlabdb
 
 app = Flask(__name__, static_url_path='/static')
-
 
 @app.route("/")
 def hello():
@@ -54,14 +52,12 @@ def createExperiment():
 @app.route('/getExperiments', methods=['GET', 'POST'])
 def getExperiments():
     userName=request.form.get('userNameDB')
-
     experiment_array=[]
     experiments=db.experiments.find({"userName": userName})
     for exp in experiments:
         exp.pop('_id')
         experiment_array.append(exp)
     return jsonify({'experiments':experiment_array})
-    return json.dumps({'pstatus':'OK','experiments':experiment_array})
 
 @app.route('/uploadfile', methods=['GET', 'POST'])
 def uploadfile():
