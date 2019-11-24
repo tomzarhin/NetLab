@@ -67,7 +67,7 @@ def get_dim_range(_data, vec):
     return dim, dim_length
 
 
-def score(blob, var, var_parents):
+def score(blob, var, var_parents,data):
     score = 0
     n = blob.n_samples
     dim_var = blob.var_range_length[0, var]
@@ -123,7 +123,7 @@ class data_blob:
 
 
 # k2 uses scoring function to iteratively find best dag given a topological ordering
-def k2(blob, order, constraint_u):
+def k2(blob, order, constraint_u,data):
     dim = blob.var_number
     dag = np.zeros((dim, dim), dtype='int64')
     k2_score = np.zeros((1, dim), dtype='float')
@@ -139,7 +139,7 @@ def k2(blob, order, constraint_u):
                 if (parent[order[j]] == 0):
                     parent[order[j]] = 1
                     # score this node
-                    local_score = score(blob, order[i], find(parent[:, 0], 1))
+                    local_score = score(blob, order[i], find(parent[:, 0], 1),data)
                     # determine local max
                     if (local_score > local_max):
                         local_max = local_score

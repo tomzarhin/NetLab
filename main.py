@@ -86,7 +86,7 @@ def getTasks():
 @app.route('/uploadfile', methods=['GET', 'POST'])
 def uploadfile():
     file = request.files.getlist("file")
-    df = pandas.read_excel(file[0], sheet_name='Sheet1')
+    df = pandas.read_excel(file[0])
     excel_values=np.array(df.values)
     excel_cols=np.array(df.columns.values)
     return jsonify({'excelDetails':excel_values.tolist(),'excelCols':excel_cols.tolist()})
@@ -105,14 +105,18 @@ def goKmeans():
 
 @app.route('/goK2', methods=['GET', 'POST'])
 def goK2():
-    data_set = 'data/titanic.csv'
-    categories = np.genfromtxt(data_set, delimiter=',', max_rows=1, dtype=str)
-    data = K2.genfromtxt(data_set, dtype='int64', delimiter=',', skip_header=True)
+    #data_set = 'server/data/titanic.csv'
+    #categories = np.genfromtxt(data_set, delimiter=',', max_rows=1, dtype=str)
+    categories = json.loads(request.form['datasetcols'])
+    #data = server.K2.genfromtxt(data_set, dtype='int64', delimiter=',', skip_header=True)
+    dataset = json.loads(request.form['dataset'])
+    data = list(list(int(a) for a in b if a.isdigit()) for b in dataset)
+    data = np.array(data)
 
     # initialize "the blob" and map its variable names to indicies
-    g = data_blob(data)
+    g = server.K2.data_blob(data)
 
-    mapping = map_categories(categories)
+    mapping = server.K2.map_categories(categories)
     # set the maximum number of parents any node can have
     iters = 1
     p_lim_max = 5
@@ -120,23 +124,21 @@ def goK2():
     p_lim_floor = 4
     best_score = -10e10
     best_dag = np.zeros((1, 1))
-    time.clock()
     for i in range(iters):
         for u in range(p_lim_floor, p_lim_max):
             # generate random ordering
             order = np.arange(g.var_number)
-            (dag, k2_score) = k2(g, order, u)
+            (dag, k2_score) = server.K2.k2(g, order, u,data)
             score = np.sum(k2_score)
             if (score > best_score):
-                best_score = score
+                server.K2.best_score = score
                 best_dag = dag
 
-    filename = 'graph_out/titanic.gph'
-    graph_out(dag, filename, mapping)
+    filename = 'server/graph_out/graph.gph'
+    server.K2.graph_out(dag, filename, mapping)
     print(score)
     print(dag)
-    print(time.clock())
-
+    return jsonify({'status': 'done'})
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
