@@ -73,7 +73,7 @@ def getTasks():
 @app.route('/uploadfile', methods=['GET', 'POST'])
 def uploadfile():
     file = request.files.getlist("file")
-    df = pandas.read_excel(file[0], sheet_name='Sheet1')
+    df = pandas.read_excel(file[0])
     excel_values=np.array(df.values)
     excel_cols=np.array(df.columns.values)
     return jsonify({'excelDetails':excel_values.tolist(),'excelCols':excel_cols.tolist()})
@@ -94,9 +94,11 @@ def goKmeans():
 def goK2():
     #data_set = 'server/data/titanic.csv'
     #categories = np.genfromtxt(data_set, delimiter=',', max_rows=1, dtype=str)
+    categories = json.loads(request.form['datasetcols'])
     #data = server.K2.genfromtxt(data_set, dtype='int64', delimiter=',', skip_header=True)
     dataset = json.loads(request.form['dataset'])
-    data = np.array(dataset)
+    data = list(list(int(a) for a in b if a.isdigit()) for b in dataset)
+    data = np.array(data)
 
     # initialize "the blob" and map its variable names to indicies
     g = server.K2.data_blob(data)
@@ -119,7 +121,7 @@ def goK2():
                 server.K2.best_score = score
                 best_dag = dag
 
-    filename = 'server/graph_out/titanic.gph'
+    filename = 'server/graph_out/graph.gph'
     server.K2.graph_out(dag, filename, mapping)
     print(score)
     print(dag)
