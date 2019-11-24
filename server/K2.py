@@ -1,9 +1,4 @@
 import numpy as np
-from numpy import genfromtxt
-import collections
-import csv
-import matplotlib.pyplot as plt
-import time
 
 # Outputs graph edges to .gph file
 def graph_out(dag, filename, mapping):
