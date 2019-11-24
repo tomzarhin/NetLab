@@ -2,7 +2,7 @@
     var datasetValue = [];
     var kmeansLabels = JSON.parse(window.localStorage.getItem("kmeansLabels"));
     var numberOfClusters = Math.max.apply(Math, kmeansLabels)+1;
-    var data = JSON.parse(window.localStorage.getItem("dataset"));
+    var data = JSON.parse(window.localStorage.getItem("dataset_clustering"));
     console.log(kmeansLabels);
 function getRandomColor() {
     var letters = '0123456789ABCDEF'.split('');

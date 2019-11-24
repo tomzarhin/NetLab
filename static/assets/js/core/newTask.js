@@ -1,5 +1,13 @@
 var cols=[];
 
+function getDataFromjexcel(){
+    var form_data = new FormData();
+    form_data.append('dataset',JSON.stringify($('#spreadsheet1').jexcel('getData', false)));
+    form_data.append('datasetcols',JSON.stringify(cols));
+    form_data.append('clusteringNum', document.getElementById("clusteringNum").value);
+    return(form_data);
+}
+
 $(function() {
     $('#fileElem').change(function() {
         var form_data = new FormData($('#upload-file')[0]);
@@ -28,10 +36,7 @@ $(function() {
 });
 
 $('#goKmeans').click(function() {
-    var form_data = new FormData();
-    form_data.append('dataset',JSON.stringify($('#spreadsheet1').jexcel('getData', false)));
-    form_data.append('datasetcols',JSON.stringify(cols));
-    form_data.append('clusteringNum', document.getElementById("clusteringNum").value);
+    var form_data = getDataFromjexcel();
     $.ajax({
     type: 'POST',
     url: '/goKmeans',
@@ -47,7 +52,28 @@ $('#goKmeans').click(function() {
         if (data.error) {
             confirm(data.error);
         }
-    window.localStorage.setItem("dataset", JSON.stringify(data.inputArray));
+    window.localStorage.setItem("dataset_clustering", JSON.stringify(data.inputArray));
     window.localStorage.setItem("kmeansLabels", JSON.stringify(data.kmeansLabels));
     });
 });
+$('#goK2').click(function() {
+    var form_data = getDataFromjexcel();
+    $.ajax({
+    type: 'POST',
+    url: '/goK2',
+    data: form_data,
+    contentType: false,
+    cache: false,
+    processData: false,
+    success: function(data) {
+        console.log('Success!');
+    },
+})
+    .done(function (data) {
+        if (data.error) {
+            confirm(data.error);
+        }
+    window.localStorage.setItem("dataset_k2", JSON.stringify(data.inputArray));
+    });
+});
+

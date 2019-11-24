@@ -3,6 +3,7 @@ from sklearn.cluster import KMeans
 import numpy as np
 import pymongo
 import pandas
+import server.K2
 
 client = pymongo.MongoClient("mongodb+srv://admin:admin@netlab-keluq.azure.mongodb.net/netlabdb?retryWrites=true&w=majority")
 db = client.netlabdb
@@ -68,7 +69,6 @@ def getTasks():
         task.pop('_id')
         tasks_array.append(task)
     return jsonify({'tasks':tasks_array})
-    return json.dumps({'pstatus':'OK','tasks':tasks_array})
 
 @app.route('/uploadfile', methods=['GET', 'POST'])
 def uploadfile():
@@ -89,6 +89,41 @@ def goKmeans():
     #centers = np.array(kmeans.cluster_centers_)
     new_list = np.array(new_list)
     return jsonify({'inputArray': new_list.tolist(),'kmeansLabels':kmeans.labels_.tolist()})
+
+@app.route('/goK2', methods=['GET', 'POST'])
+def goK2():
+    data_set = 'data/titanic.csv'
+    categories = np.genfromtxt(data_set, delimiter=',', max_rows=1, dtype=str)
+    data = genfromtxt(data_set, dtype='int64', delimiter=',', skip_header=True)
+
+    # initialize "the blob" and map its variable names to indicies
+    g = data_blob(data)
+
+    mapping = map_categories(categories)
+    # set the maximum number of parents any node can have
+    iters = 1
+    p_lim_max = 5
+    # iterate from p_lim_floor to p_lim_max with random restart
+    p_lim_floor = 4
+    best_score = -10e10
+    best_dag = np.zeros((1, 1))
+    time.clock()
+    for i in range(iters):
+        for u in range(p_lim_floor, p_lim_max):
+            # generate random ordering
+            order = np.arange(g.var_number)
+            (dag, k2_score) = k2(g, order, u)
+            score = np.sum(k2_score)
+            if (score > best_score):
+                best_score = score
+                best_dag = dag
+
+    filename = 'graph_out/titanic.gph'
+    graph_out(dag, filename, mapping)
+    print(score)
+    print(dag)
+    print(time.clock())
+
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
