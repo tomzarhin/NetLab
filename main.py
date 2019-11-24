@@ -43,7 +43,9 @@ def createExperiment():
     name = request.form.get('name')
     description=request.form.get('description')
     userName=request.form.get('userName')
+    idExp = request.form.get('id')
     db.experiments.insert({
+        u'id': u'' + idExp + '',
         u'experimentName': u'' + name + '',
         u'experimentDescription': u'' + description + '',
         u'userName': u'' + userName + ''
@@ -59,6 +61,17 @@ def getExperiments():
         exp.pop('_id')
         experiment_array.append(exp)
     return jsonify({'experiments':experiment_array})
+
+@app.route('/getNextId', methods=['GET', 'POST'])
+def getNextId():
+    maxId=0
+    experiments=db.experiments.find()
+    for exp in experiments:
+        curr = int(exp.pop('id'))
+        if curr > maxId:
+            maxId = curr
+    nextId=str(maxId+1)
+    return jsonify({'nextId':nextId})
 
 @app.route('/getTasks', methods=['GET', 'POST'])
 def getTasks():

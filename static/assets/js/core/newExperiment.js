@@ -1,3 +1,21 @@
+    var currId;
+    $.ajax({
+        type: 'POST',
+        url: '/getNextId',
+        data: false,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (data) {
+            console.log('Success!');
+        },
+    })
+        .done(function (data) {
+            if (data.error) {
+                confirm(data.error);
+            }
+            nextId=data.nextId;
+        });
 var userNameDB = JSON.parse(window.localStorage.getItem("userNameDB"));
 var name = document.getElementById("name").value;
   var description = document.getElementById("description").value;
@@ -6,6 +24,7 @@ document.getElementById("createExp").addEventListener("click", function() {
   form_data.append('name', document.getElementById("name").value);
   form_data.append('description', document.getElementById("description").value);
   form_data.append('userName',userNameDB);//document.getElementById("userName").value);
+  form_data.append('id',nextId);
     $.ajax({
         type: 'POST',
         url: '/createExperiment',
