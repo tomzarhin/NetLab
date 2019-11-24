@@ -44,13 +44,13 @@ def createExperiment():
     description=request.form.get('description')
     userName=request.form.get('userName')
     idExp = request.form.get('id')
-    db.experiments.insert({
+    db.experiments.insert_one({
         u'id': u'' + idExp + '',
         u'experimentName': u'' + name + '',
         u'experimentDescription': u'' + description + '',
         u'userName': u'' + userName + ''
     })
-    return json.dumps({'pstatus':'OK'})
+    return jsonify({'pstatus':"OK"})
 
 @app.route('/getExperiments', methods=['GET', 'POST'])
 def getExperiments():
