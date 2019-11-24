@@ -94,7 +94,7 @@ def goKmeans():
 def goK2():
     data_set = 'data/titanic.csv'
     categories = np.genfromtxt(data_set, delimiter=',', max_rows=1, dtype=str)
-    data = genfromtxt(data_set, dtype='int64', delimiter=',', skip_header=True)
+    data = K2.genfromtxt(data_set, dtype='int64', delimiter=',', skip_header=True)
 
     # initialize "the blob" and map its variable names to indicies
     g = data_blob(data)
