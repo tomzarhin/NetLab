@@ -4,7 +4,6 @@ function getDataFromjexcel(){
     var form_data = new FormData();
     form_data.append('dataset',JSON.stringify($('#spreadsheet1').jexcel('getData', false)));
     form_data.append('datasetcols',JSON.stringify(cols));
-    form_data.append('clusteringNum', document.getElementById("clusteringNum").value);
     return(form_data);
 }
 
@@ -37,6 +36,7 @@ $(function() {
 
 $('#goKmeans').click(function() {
     var form_data = getDataFromjexcel();
+    form_data.append('clusteringNum', document.getElementById("clusteringNum").value);
     $.ajax({
     type: 'POST',
     url: '/goKmeans',
@@ -73,7 +73,7 @@ $('#goK2').click(function() {
         if (data.error) {
             confirm(data.error);
         }
-    window.localStorage.setItem("dataset_k2", JSON.stringify(data.inputArray));
+    //window.localStorage.setItem("dataset_k2", JSON.stringify(data.inputArray));
     });
 });
 
