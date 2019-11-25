@@ -138,7 +138,7 @@ def goK2():
     server.K2.graph_out(dag, filename, mapping)
     print(score)
     print(dag)
-    return jsonify({'status': 'done'})
+    return jsonify({'status': 'done','dataset_k2':dag.tolist()})
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)

@@ -73,7 +73,8 @@ $('#goK2').click(function() {
         if (data.error) {
             confirm(data.error);
         }
-    //window.localStorage.setItem("dataset_k2", JSON.stringify(data.inputArray));
+    alert(data.dataset_k2)
+    window.localStorage.setItem("dataset_k2", JSON.stringify(data.inputArray));
     });
 });
 
