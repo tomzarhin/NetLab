@@ -74,7 +74,9 @@ $('#goK2').click(function() {
             confirm(data.error);
         }
     alert(data.dataset_k2)
-    window.localStorage.setItem("dataset_k2", JSON.stringify(data.inputArray));
+    window.localStorage.setItem("dataset_k2", JSON.stringify(data.dataset_k2));
+    window.localStorage.setItem("categories", JSON.stringify(data.categories));
+
     });
 });
 

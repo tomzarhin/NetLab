@@ -1,12 +1,15 @@
 		function getGraph() {
+        var categories = JSON.parse(window.localStorage.getItem("categories"));
+        var dataset_k2 = JSON.parse(window.localStorage.getItem("dataset_k2"));
+
         var graph = jsbayes.newGraph();
         graph.saveSamples = true;
         
-        var n1 = graph.addNode('n1', ['true', 'false']);
-        var n2 = graph.addNode('n2', ['true', 'false']);
-        var n3 = graph.addNode('n3', ['true', 'false']);
-        var n4 = graph.addNode('n4', ['true', 'false']);
-        var n5 = graph.addNode('n5', ['yes', 'maybe', 'no']);
+        var n1 = graph.addNode(categories[0], ['true', 'false']);
+        var n2 = graph.addNode(categories[1], ['true', 'false']);
+        var n3 = graph.addNode(categories[2], ['true', 'false']);
+        var n4 = graph.addNode(categories[3], ['true', 'false']);
+        var n5 = graph.addNode(categories[4], ['yes', 'maybe', 'no']);
         
         n2.addParent(n1);
         n3.addParent(n2);
