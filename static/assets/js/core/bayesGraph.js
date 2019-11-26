@@ -4,34 +4,60 @@
 
         var graph = jsbayes.newGraph();
         graph.saveSamples = true;
-        
-        var n1 = graph.addNode(categories[0], ['true', 'false']);
-        var n2 = graph.addNode(categories[1], ['true', 'false']);
-        var n3 = graph.addNode(categories[2], ['true', 'false']);
-        var n4 = graph.addNode(categories[3], ['true', 'false']);
-        var n5 = graph.addNode(categories[4], ['yes', 'maybe', 'no']);
-        
-        n2.addParent(n1);
-        n3.addParent(n2);
-        n3.addParent(n4);
-        n5.addParent(n4);
-        
-        n1.setCpt([ 0.25, 0.75 ]);
-        n2.setCpt([
-          [ 0.8, 0.2 ],
-          [ 0.2, 0.8 ]
+        var nodes=[];
+        var countOfParents=[];
+         for(i=0; i<categories.length; i++)
+         {
+             nodes[i]=graph.addNode(categories[i], ['true', 'false']);
+             countOfParents[i]=0;
+         }
+
+        for(i=0; i<categories.length; i++)
+        {
+            for (j = 0; j < categories.length; j++)
+            {
+                if ((dataset_k2[i][j]) == 1)
+                {
+                    nodes[j].addParent(nodes[i]);
+                    countOfParents[j] = countOfParents[j] + 1;
+                }
+            }
+        }
+
+        for(i=0;i<countOfParents.length;i++)
+        {
+            if(countOfParents[i]==0)
+                nodes[i].setCpt([ 0.25, 0.75 ]);
+            if(countOfParents[i]==1)
+            {
+                        nodes[i].setCpt([
+                          [ 0.8, 0.2 ],
+                          [ 0.2, 0.8 ]
+                        ]);
+            }
+            if(countOfParents[i]==2)
+            {
+                        nodes[i].setCpt([
+                          [ 0.8, 0.2 ],
+                          [ 0.2, 0.8 ],
+                          [ 0.8, 0.2 ],
+                          [ 0.2, 0.8 ]
+                        ]);
+            }
+            if(countOfParents[i]==3)
+            {
+                nodes[i].setCpt([
+                  [ 0.8, 0.1,0.1 ],
+                  [ 0.8, 0.1,0.1 ],
+                  [ 0.8, 0.1,0.1 ],
+                  [ 0.8, 0.1,0.1 ],
+                  [ 0.8, 0.1,0.1 ],
+                  [ 0.8, 0.1,0.1 ],
+                  [ 0.8, 0.1,0.1 ],
+                  [ 0.8, 0.1,0.1 ]
         ]);
-        n3.setCpt([
-          [ 0.99, 0.01 ],
-          [ 0.6, 0.4 ],
-          [ 0.6, 0.4 ],
-          [ 0.01, 0.99 ]
-        ]);
-        n4.setCpt([ 0.6, 0.4 ]);
-        n5.setCpt([
-          [ 0.6, 0.3, 0.1 ],
-          [ 0.1, 0.3, 0.6 ]
-        ]);
+            }
+        }
         
         graph.sample(20000);
         
@@ -44,8 +70,8 @@
           var graph = getGraph();
           jsbayesviz.draw({
             id: '#bbn',
-            width: 800,
-            height: 400,
+            width: 1800,
+            height: 1400,
             graph: graph,
             samples: 15000
           });
