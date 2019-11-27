@@ -1,5 +1,5 @@
 
-      svg { border: 1px solid black; }
+      svg { border: 0px solid black; }
       svg g rect.node-shape { border-radius: 5px !important; fill:#ffecb3 !important; cursor: move; }
       svg g text.node-name { font-weight: 800 !important }
       svg g rect.node-bar { fill: green !important }

@@ -58,28 +58,28 @@
         ]);
             }
         }
-        
+
         graph.sample(20000);
-        
+
         var g = jsbayesviz.fromGraph(graph);
         return g;
       }
-      
+
       $(document).ready(function() {
-        (function(window) { 
+        (function(window) {
           var graph = getGraph();
           jsbayesviz.draw({
             id: '#bbn',
-            width: 1800,
-            height: 1400,
+            width: 800,
+            height: 650,
             graph: graph,
             samples: 15000
           });
-          
+
           $('#btnDownloadJson').click(function() {
             jsbayesviz.downloadSamples(graph, true);
           });
-          
+
           $('#btnDownloadCsv').click(function() {
             jsbayesviz.downloadSamples(graph, false, { rowDelimiter: '\n', fieldDelimiter: ',' });
           });
