@@ -1,4 +1,5 @@
 var cols=[];
+//var current_experiment = JSON.parse(window.localStorage.getItem("current_experiment"));
 
 function getDataFromjexcel(){
     var form_data = new FormData();

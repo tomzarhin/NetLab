@@ -1,7 +1,7 @@
-var userNameDB = JSON.parse(window.localStorage.getItem("userNameDB"));
-var idExp = JSON.parse(window.localStorage.getItem("idExp"));
 $( document ).ready(function() {
-    var form_data = new FormData();
+  var userNameDB = JSON.parse(window.localStorage.getItem("userNameDB"));
+  var idExp = JSON.parse(window.localStorage.getItem("idExp"));
+  var form_data = new FormData();
   form_data.append('userNameDB', userNameDB);
   form_data.append('idExp', idExp);
     $.ajax({
@@ -44,12 +44,12 @@ $( document ).ready(function() {
                           "            </div>\n" +
                           "          </div>");
                     }
-var buttons = document.getElementsByClassName('btn btn-warning');
-for (var i = 0; i < buttons.length; i++) {
-    buttons[i].onclick = function(){
-        var idExp= this.id;
-        window.localStorage.setItem("idExp", JSON.stringify(idExp));
-    };
-}
-            });
+            var buttons = document.getElementsByClassName('btn btn-warning');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].onclick = function(){
+                    var idExp= this.id;
+                    window.localStorage.setItem("idExp", JSON.stringify(idExp));
+                };
+            }
+        });
 });

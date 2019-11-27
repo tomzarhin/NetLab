@@ -19,10 +19,16 @@ def login():
     password = request.form.get('password')
     inputEmail=request.form.get('inputEmail')
     for user in db.users.find({"userName":inputEmail, "userPassword":password}):#, "status":"Disconnected"}):
-        myquery = {"userName": user['userName']}
-        newvalues = {"$set": {"status": "Connected"}}
-        db.users.update_one(myquery, newvalues)
-        return jsonify({'pstatus':"OK"})
+        experiment_array = []
+        #myquery = {"userName": user['userName']}
+        #newvalues = {"$set": {"status": "Connected"}}
+        #db.users.update_one(myquery, newvalues)
+        experiments = db.experiments.find({"userName": inputEmail})
+        for exp in experiments:
+            exp.pop('_id')
+            experiment_array.append(exp)
+        return jsonify({'experiments': experiment_array})
+        #return jsonify({'pstatus':"OK"})
     return jsonify({'pstatus':"NOT OK"})
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -40,17 +46,23 @@ def register():
 
 @app.route('/createExperiment', methods=['GET', 'POST'])
 def createExperiment():
+    maxId=0
+    experiments=db.experiments.find()
+    for exp in experiments:
+        curr = int(exp.pop('id'))
+        if curr > maxId:
+            maxId = curr
+    nextId=str(maxId+1)
     name = request.form.get('name')
     description=request.form.get('description')
     userName=request.form.get('userName')
-    idExp = request.form.get('id')
     db.experiments.insert_one({
-        u'id': u'' + idExp + '',
+        u'id': u'' + nextId + '',
         u'experimentName': u'' + name + '',
         u'experimentDescription': u'' + description + '',
         u'userName': u'' + userName + ''
     })
-    return jsonify({'pstatus':"OK"})
+    return jsonify({'nextId':nextId})
 
 @app.route('/getExperiments', methods=['GET', 'POST'])
 def getExperiments():
@@ -61,17 +73,6 @@ def getExperiments():
         exp.pop('_id')
         experiment_array.append(exp)
     return jsonify({'experiments':experiment_array})
-
-@app.route('/getNextId', methods=['GET', 'POST'])
-def getNextId():
-    maxId=0
-    experiments=db.experiments.find()
-    for exp in experiments:
-        curr = int(exp.pop('id'))
-        if curr > maxId:
-            maxId = curr
-    nextId=str(maxId+1)
-    return jsonify({'nextId':nextId})
 
 @app.route('/getTasks', methods=['GET', 'POST'])
 def getTasks():

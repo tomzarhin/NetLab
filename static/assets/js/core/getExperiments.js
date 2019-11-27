@@ -1,6 +1,7 @@
-var userNameDB = JSON.parse(window.localStorage.getItem("userNameDB"));
 $( document ).ready(function() {
-    var form_data = new FormData();
+  var userNameDB = JSON.parse(window.localStorage.getItem("userNameDB"));
+  var experiments = JSON.parse(window.localStorage.getItem("experiments"));
+  var form_data = new FormData();
   form_data.append('userNameDB', userNameDB);
     $.ajax({
         type: 'POST',
@@ -42,13 +43,13 @@ $( document ).ready(function() {
                           "            </div>\n" +
                           "          </div>");
                     }
-var buttons = document.getElementsByClassName('btn btn-warning');
-for (var i = 0; i < buttons.length; i++) {
-    buttons[i].onclick = function(){
-        var idExp= this.id;
-        window.localStorage.setItem("idExp", JSON.stringify(idExp));
-        location.href = "../examples/tasks.html";
-    };
-}
-            });
+            var buttons = document.getElementsByClassName('btn btn-warning');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].onclick = function(){
+                    var idExp= this.id;
+                    window.localStorage.setItem("idExp", JSON.stringify(idExp));
+                    location.href = "../examples/tasks.html";
+                };
+            }
+        });
 });

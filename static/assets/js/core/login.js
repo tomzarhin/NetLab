@@ -1,4 +1,3 @@
-
 document.getElementById("signin").addEventListener("click", function() {
   var form_data = new FormData();
   form_data.append('inputEmail', document.getElementById("your_name").value);
@@ -18,13 +17,13 @@ document.getElementById("signin").addEventListener("click", function() {
             if (data.error) {
                 confirm(data.error);
             }
-            if(data.pstatus=="OK")
+            if(data.experiments!=null)
             {
                 var userNameDB = document.getElementById("your_name").value;
                 window.localStorage.setItem("userNameDB", JSON.stringify(userNameDB));
+                window.localStorage.setItem("experiments", JSON.stringify(data.experiments));
                 window.location.pathname = 'static/examples/home.html'
             }
-
             else
                 alert("The details are incorrect, please try again.");
         });
