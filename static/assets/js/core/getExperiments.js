@@ -1,7 +1,7 @@
 $( document ).ready(function() {
   var userNameDB = JSON.parse(window.localStorage.getItem("userNameDB"));
   var experiments = JSON.parse(window.localStorage.getItem("experiments"));
-  var form_data = new FormData();
+  /*var form_data = new FormData();
   form_data.append('userNameDB', userNameDB);
     $.ajax({
         type: 'POST',
@@ -17,9 +17,9 @@ $( document ).ready(function() {
         .done(function (data) {
             if (data.error) {
                 confirm(data.error);
-            }
+            }*/
             var j=0;
-            for (exp of data.experiments) {
+            for (exp of experiments) {
                  j=j+1;
                     document.getElementById("p1").innerHTML = document.getElementById("p1").innerHTML +("<div class=\"col-lg-3 col-md-6 col-sm-6\">\n" +
                           "            <div class=\"card card-stats\">\n" +
@@ -51,5 +51,5 @@ $( document ).ready(function() {
                     location.href = "../examples/tasks.html";
                 };
             }
-        });
+        //});
 });

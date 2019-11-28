@@ -22,10 +22,10 @@ document.getElementById("signin").addEventListener("click", function() {
                 var userNameDB = document.getElementById("your_name").value;
                 window.localStorage.setItem("userNameDB", JSON.stringify(userNameDB));
                 var experiments=[];
-                for(exp in data.experiments){
-                    experiments.push(new Experiment(JSON.parse(exp))); //continue from here
+                for(exp of data.experiments){
+                    experiments.push(new Experiment(exp["id"],exp["experimentName"],exp["experimentDescription"],userNameDB)); //continue from here
                 }
-                window.localStorage.setItem("experiments", experiments);
+                window.localStorage.setItem("experiments",JSON.stringify(experiments));
                 window.location.pathname = 'static/examples/home.html'
             }
             else
