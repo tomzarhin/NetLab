@@ -21,7 +21,11 @@ document.getElementById("signin").addEventListener("click", function() {
             {
                 var userNameDB = document.getElementById("your_name").value;
                 window.localStorage.setItem("userNameDB", JSON.stringify(userNameDB));
-                window.localStorage.setItem("experiments", JSON.stringify(data.experiments));
+                var experiments=[];
+                for(exp in data.experiments){
+                    experiments.push(new Experiment(JSON.parse(exp))); //continue from here
+                }
+                window.localStorage.setItem("experiments", experiments);
                 window.location.pathname = 'static/examples/home.html'
             }
             else
