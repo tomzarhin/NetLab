@@ -22,9 +22,10 @@ document.getElementById("createExp").addEventListener("click", function() {
             if (data.error) {
                 confirm(data.error);
             }
-            alert("Experiment has been added successfully");
             var experiments = JSON.parse(window.localStorage.getItem("experiments"));
-            experiments.push(new experiment(data.nextId,name,description,userNameDB,null));
+            experiments.push(new Experiment(data.nextId,name,description,userNameDB,null));
+            window.localStorage.setItem("experiments",JSON.stringify(experiments));
+            alert("Experiment has been added successfully");
         });
 
 });

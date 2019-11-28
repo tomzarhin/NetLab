@@ -46,24 +46,24 @@ def register():
 
 @app.route('/createExperiment', methods=['GET', 'POST'])
 def createExperiment():
-    maxId=0
-    experiments=db.experiments.find()
-    for exp in experiments:
-        curr = int(exp.pop('id'))
-        if curr > maxId:
-            maxId = curr
-    nextId=str(maxId+1)
+    nextId = db.experiments.find_one(sort=[("id", pymongo.DESCENDING)])
+    if(nextId==None):
+        nextId=1
+    else:
+        nextId= int(nextId.pop('id'))+1
     name = request.form.get('name')
     description=request.form.get('description')
     userName=request.form.get('userName')
     db.experiments.insert_one({
-        u'id': u'' + nextId + '',
+        u'id': nextId,
         u'experimentName': u'' + name + '',
         u'experimentDescription': u'' + description + '',
-        u'userName': u'' + userName + ''
+        u'userName': u'' + userName + '',
+        u'tasks':[]
     })
     return jsonify({'nextId':nextId})
 
+#---------------Probably unnaceccery--------------
 @app.route('/getExperiments', methods=['GET', 'POST'])
 def getExperiments():
     userName=request.form.get('userNameDB')
@@ -73,6 +73,17 @@ def getExperiments():
         exp.pop('_id')
         experiment_array.append(exp)
     return jsonify({'experiments':experiment_array})
+#-------------------------------------------------
+
+@app.route('/createTask', methods=['GET', 'POST'])
+def createTask():
+    name=request.form.get('taskname')
+    description=request.form.get('taskDescription')
+    current_experiment_id=int(request.form.get('current_experiment'))
+    myquery = {"id":current_experiment_id }
+    newvalues = {"$push": {"tasks": {"taskName": name,"taskDescription":description}}}
+    db.experiments.update_one(myquery,newvalues)
+    return jsonify({'status':"OK"})
 
 @app.route('/getTasks', methods=['GET', 'POST'])
 def getTasks():

@@ -23,7 +23,8 @@ document.getElementById("signin").addEventListener("click", function() {
                 window.localStorage.setItem("userNameDB", JSON.stringify(userNameDB));
                 var experiments=[];
                 for(exp of data.experiments){
-                    experiments.push(new Experiment(exp["id"],exp["experimentName"],exp["experimentDescription"],userNameDB)); //continue from here
+                //transform exp["tasks"] to Task objects
+                    experiments.push(new Experiment(exp["id"],exp["experimentName"],exp["experimentDescription"],userNameDB,exp["tasks"])); //continue from here
                 }
                 window.localStorage.setItem("experiments",JSON.stringify(experiments));
                 window.location.pathname = 'static/examples/home.html'
