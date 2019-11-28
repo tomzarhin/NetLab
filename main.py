@@ -10,6 +10,18 @@ db = client.netlabdb
 
 app = Flask(__name__, static_url_path='/static')
 
+#---------------Probably unnaceccery--------------
+@app.route('/getExperiments', methods=['GET', 'POST'])
+def getExperiments():
+    userName=request.form.get('userNameDB')
+    experiment_array=[]
+    experiments=db.experiments.find({"userName": userName})
+    for exp in experiments:
+        exp.pop('_id')
+        experiment_array.append(exp)
+    return jsonify({'experiments':experiment_array})
+#-------------------------------------------------
+
 @app.route("/")
 def hello():
     return render_template('login.html')
@@ -62,18 +74,6 @@ def createExperiment():
         u'tasks':[]
     })
     return jsonify({'nextId':nextId})
-
-#---------------Probably unnaceccery--------------
-@app.route('/getExperiments', methods=['GET', 'POST'])
-def getExperiments():
-    userName=request.form.get('userNameDB')
-    experiment_array=[]
-    experiments=db.experiments.find({"userName": userName})
-    for exp in experiments:
-        exp.pop('_id')
-        experiment_array.append(exp)
-    return jsonify({'experiments':experiment_array})
-#-------------------------------------------------
 
 @app.route('/createTask', methods=['GET', 'POST'])
 def createTask():
