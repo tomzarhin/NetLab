@@ -1,9 +1,7 @@
-class task {
-  constructor(id,name,desc,dataset) {
-    this.id=id;
-    this.ename = name;
-    this.desc = desc;
+class Task {
+  constructor(name,desc,dataset) {
+    this.taskName = name;
+    this.taskDescription = desc;
     this.dataset=dataset;
-    task.push(this);
   }
 }
