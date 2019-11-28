@@ -6,4 +6,3 @@ class Experiment {
     this.username=username;
   }
 }
-
