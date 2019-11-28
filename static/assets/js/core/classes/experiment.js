@@ -1,10 +1,21 @@
-class experiment {
-  constructor(id,name,desc,username,tasks) {
+class Experiment {
+  //constructor(id,name,desc,username,tasks) {
+  //  this.id=id;
+    //this.ename = name;
+    //this.desc = desc;
+    //this.username=username;
+    //this.tasks=tasks;
+  //}
+
+    constructor(id,name,desc,username) {
     this.id=id;
-    this.ename = name;
-    this.desc = desc;
+    this.experimentName = name;
+    this.experimentDescription = desc;
     this.username=username;
-    this.tasks=tasks;
-    experiments.push(this);
+  }
+
+  getName(){
+    alert(this.name);
   }
 }
+
