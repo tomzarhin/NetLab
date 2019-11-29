@@ -27,7 +27,7 @@ document.getElementById("signin").addEventListener("click", function() {
                     experiments.push(new Experiment(exp["id"],exp["experimentName"],exp["experimentDescription"],userNameDB,exp["tasks"])); //continue from here
                 }
                 window.localStorage.setItem("experiments",JSON.stringify(experiments));
-                window.location.pathname = 'static/examples/home.html'
+                window.location.pathname = 'static/pages/home.html'
             }
             else
                 alert("The details are incorrect, please try again.");

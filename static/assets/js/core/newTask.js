@@ -55,6 +55,7 @@ $('#goKmeans').click(function() {
         }
     window.localStorage.setItem("dataset_clustering", JSON.stringify(data.inputArray));
     window.localStorage.setItem("kmeansLabels", JSON.stringify(data.kmeansLabels));
+    window.localStorage.setItem("dataset_clustering_cols",JSON.stringify(cols));
     });
 });
 $('#goK2').click(function() {

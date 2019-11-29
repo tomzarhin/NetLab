@@ -48,7 +48,7 @@ $( document ).ready(function() {
                 buttons[i].onclick = function(){
                     var idExp= this.id;
                     window.localStorage.setItem("idExp", JSON.stringify(idExp));
-                    location.href = "../examples/tasks.html";
+                    location.href = "../pages/tasks.html";
                 };
             }
         //});
