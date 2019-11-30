@@ -45,11 +45,10 @@
 
     var cord = "";
     var value=0;
-    for (var label of dataset_clustering_cols) {
-        if(label!=','){
-            cord += "<option value=\""+value+"\">" + label + "</option>"
-            value++;
-        }
+    labels = dataset_clustering_cols.split(',')
+    for (var label of labels) {
+        cord += "<option value=\""+value+"\">" + label + "</option>"
+        value++;
     }
     document.getElementById("xCord").innerHTML = cord;
     document.getElementById("yCord").innerHTML = cord;

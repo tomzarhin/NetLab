@@ -2,7 +2,6 @@ var idExp = JSON.parse(window.localStorage.getItem("idExp")); //id of the curren
 
 function getDataFromjexcel(){
     var form_data = new FormData();
-    alert(jexcelSpreadSheet.getData());
     form_data.append('dataset',JSON.stringify(jexcelSpreadSheet.getData()));
     form_data.append('datasetcols',JSON.stringify(jexcelSpreadSheet.getHeaders()));
     return(form_data);
@@ -93,9 +92,9 @@ $('#goK2').click(function() {
 });
 
 $('#createTask').click(function() {
+    var form_data = getDataFromjexcel();
     var taskname = document.getElementById("taskname").value;
     var taskDescription = document.getElementById("taskDescription").value;
-    var form_data = new FormData();
     form_data.append('taskname',taskname );
     form_data.append('taskDescription',taskDescription );
     form_data.append('current_experiment',idExp);
