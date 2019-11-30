@@ -25,10 +25,10 @@ $( document ).ready(function() {
                           "            <div class=\"card card-stats\">\n" +
                           "              <div class=\"card-body \">\n" +
                           "                <div class=\"row\">\n" +
-                          "                  <div class=\"col-7 col-md-8\">\n" +
+                          "                  <div class=\"col-7 col-md-9\">\n" +
                           "                    <div class=\"numbers\">\n" +
-                          "                      <p class=\"card-category text-left\">"+exp.experimentName+"</p>\n" +
-                          "                      <p class=\"card-title text-left\">"+exp.experimentDescription+"\n" +
+                          "                      <p class=\"card-title text-left\">"+exp.experimentName+"</p>\n" +
+                          "                      <p class=\"card-category text-left\">"+exp.experimentDescription+"\n" +
                           "                        <p>\n" +
                           "                    </div>\n" +
                           "                  </div>\n" +
@@ -37,7 +37,7 @@ $( document ).ready(function() {
                           "              <div class=\"card-footer \">\n" +
                           "                <hr>\n" +
                           "                <div class=\"stats\">\n" +
-                          "                   <button class=\"btn btn-warning \" id="+exp.id+" href=\"#\" role=\"button\">Enter now</button>" +
+                          "                   <button class=\"btn btn-warning \" name="+exp.experimentName+" id="+exp.id+" href=\"#\" role=\"button\">Enter now</button>" +
                           "                </div>\n" +
                           "              </div>\n" +
                           "            </div>\n" +
@@ -47,7 +47,9 @@ $( document ).ready(function() {
             for (var i = 0; i < buttons.length; i++) {
                 buttons[i].onclick = function(){
                     var idExp= this.id;
+                    var expName=this.name;
                     window.localStorage.setItem("idExp", JSON.stringify(idExp));
+                    window.localStorage.setItem("expName", JSON.stringify(expName));
                     location.href = "../pages/tasks.html";
                 };
             }

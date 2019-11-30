@@ -50,7 +50,7 @@
                         <p>Home</p>
                     </a>
                 </li>
-                <li class="active ">
+                <li>
                     <a href="./experiments.html">
                         <i class="nc-icon nc-diamond"></i>
                         <p>Experiments</p>
@@ -107,7 +107,8 @@
                             <span class="navbar-toggler-bar bar3"></span>
                         </button>
                     </div>
-                    <a class="navbar-brand" href="#pablo">Paper Dashboard 2</a>
+                    <a class="navbar-brand" href="#pablo"><script>
+                        document.write(JSON.parse(window.localStorage.getItem("expName")))</script></a>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
                         aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -164,36 +165,11 @@
 
         <div class="content">
             <center>
-                <h5>Experiments</h5>
+                <h5>Tasks</h5>
             </center>
             <div id="p10" class="row justify-content-center">
                 <script src="../assets/js/core/getTasks.js"></script>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="card card-stats">
-                        <div class="card-body ">
-                            <div class="row">
-                                <div class="col-5 col-md-4">
-                                    <div class="icon-big text-center icon-warning">
-                                        <i class="nc-icon nc-globe text-warning"></i>
-                                    </div>
-                                </div>
-                                <div class="col-7 col-md-8">
-                                    <div class="numbers">
-                                        <p class="card-category"></p>
-                                        <p class="card-title">New Task
-                                        <p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer ">
-                            <hr>
-                            <div class="stats">
-                                <a class="btn btn-warning" href="newTask.html" role="button">Click Here</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
         <!-- End Navbar -->

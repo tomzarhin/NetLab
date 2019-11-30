@@ -30,10 +30,10 @@ $( document ).ready(function() {
                               "            <div class=\"card card-stats\">\n" +
                               "              <div class=\"card-body \">\n" +
                               "                <div class=\"row\">\n" +
-                              "                  <div class=\"col-7 col-md-8\">\n" +
+                              "                  <div class=\"col-7 col-md-9\">\n" +
                               "                    <div class=\"numbers\">\n" +
-                              "                      <p class=\"card-category text-left\">"+task.taskName+"</p>\n" +
-                              "                      <p class=\"card-title text-left\">"+task.taskDescription+"\n" +
+                              "                      <p class=\"card-title text-left\">"+task.taskName+"</p>\n" +
+                              "                      <p class=\"card-category text-left\">"+task.taskDescription+"\n" +
                               "                        <p>\n" +
                               "                    </div>\n" +
                               "                  </div>\n" +
@@ -47,6 +47,37 @@ $( document ).ready(function() {
                               "              </div>\n" +
                               "            </div>\n" +
                               "          </div>");
+                        if(j==exp.task.length)
+                        {
+                                                    document.getElementById("p10").innerHTML = document.getElementById("p10").innerHTML +(" <div class=\"col-lg-3 col-md-6 col-sm-6\">\n" +
+                                                        "                    <div class=\"card card-stats\">\n" +
+                                                        "                        <div class=\"card-body \">\n" +
+                                                        "                            <div class=\"row\">\n" +
+                                                        "\n" +
+                                                        "                                <div class=\"col-7 col-md-8\">\n" +
+                                                        "                                    <div class=\"numbers text-left\">\n" +
+                                                        "                                        <p class=\"card-category\">New Task</p>\n" +
+                                                        "                                    </div>\n" +
+                                                        "                                </div>\n" +
+                                                        "                                <div class=\"col-3 col-md-4\">\n" +
+                                                        "                                    <div class=\"icon-big text-left icon-warning\">\n" +
+                                                        "                                        <i class=\"nc-icon nc-simple-add text-warning\"></i>\n" +
+                                                        "                                    </div>\n" +
+                                                        "                                </div>\n" +
+                                                        "                            </div>\n" +
+                                                        "                        </div>\n" +
+                                                        "                        <center>\n" +
+                                                        "                            <div class=\"card-footer \">\n" +
+                                                        "                                <hr>\n" +
+                                                        "                                <div class=\"stats \">\n" +
+                                                        "                                    <a class=\"btn btn-warning \" href=\"newTask.html\" role=\"button\">Create now</a>\n" +
+                                                        "                                </div>\n" +
+                                                        "                            </div>\n" +
+                                                        "                        </center>\n" +
+                                                        "                    </div>\n" +
+                                                        "\n" +
+                                                        "                </div>");
+                        }
                           }
                     }
             var buttons = document.getElementsByClassName('btn btn-warning');

@@ -1,7 +1,8 @@
-<html>
 <!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <meta charset="utf-8"/>
+  <meta charset="utf-8"/>
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <link rel="stylesheet" href="https://bossanova.uk/jsuites/v2/jsuites.css" type="text/css" />
@@ -33,9 +34,22 @@
         <!--
           Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
       -->
+        <div class="logo">
+            <a href="./home.html" class="simple-text logo-mini">
+                <div class="logo-image-small">
+                    <img src="../assets/img/logo.png">
+                </div>
+            </a>
+            <a href="http://www.creative-tim.com" class="text-capitalize simple-text logo-normal">
+                NetLab
+                <!-- <div class="logo-image-big">
+                  <img src="../assets/img/logo-big.png">
+                </div> -->
+            </a>
+        </div>
         <div class="sidebar-wrapper">
             <ul class="nav">
-                <li class="active ">
+                <li>
                     <a href="./home.html">
                         <i class="nc-icon nc-bank"></i>
                         <p>Home</p>
@@ -47,7 +61,7 @@
                         <p>Experiments</p>
                     </a>
                 </li>
-                <li>
+                <li class="active ">
                     <a href="newExperiment.html">
                         <i class="nc-icon nc-pin-3"></i>
                         <p>New experiments</p>
@@ -77,11 +91,16 @@
                         <p>Typography</p>
                     </a>
                 </li>
+                <li class="active-pro">
+                    <a href="upgrade.html">
+                        <i class="nc-icon nc-spaceship"></i>
+                        <p>Upgrade to PRO</p>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
     <div class="main-panel">
-
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
             <div class="container-fluid">
@@ -93,7 +112,7 @@
                             <span class="navbar-toggler-bar bar3"></span>
                         </button>
                     </div>
-                    <a class="navbar-brand" href="#pablo">Paper Dashboard 2</a>
+                  <a class="navbar-brand" href="#pablo">Paper Dashboard 2</a>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
                         aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -148,20 +167,51 @@
             </div>
         </nav>
         <div class="content">
-            <fieldset>
-                <button id="goKmeans">Clustering</button>
-                <button id="goK2">Bayesian Network</button>
-                <input type="text" id="clusteringNum" placeholder="Insert number of clusters">
-                <input type="text" id="taskname" placeholder="Task name">
-                <input type="text" id="taskDescription" placeholder="Task description">
-                <button id="createTask">Create New Task</button>
-                <form id="upload-file" method="post" enctype="multipart/form-data">
+
+  <div class="row justify-content-center">
+                <div class="col-md-5">
+                    <div class="card card-user">
+                        <div class="card-header">
+                            <h5 class="card-title">Create new task</h5>
+                        </div>
+                        <div class="card-body">
+                            <form><!-- action="/createExperiment" method="post" name='newExperiment'>!-->
+                                <div class="row">
+                                    <div class="col-md-9 pr-1">
+                                        <div class="form-group">
+                                            <label>Name</label>
+                                            <input type="text" class="form-control" id="taskname" name="name" placeholder="Task name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-11">
+                                        <div class="form-group">
+                                            <label>description</label>
+                                            <textarea class="form-control textarea" id="taskDescription" placeholder="Task description"
+                                                      name="description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <form id="upload-file" method="post" enctype="multipart/form-data">
                     <form class="my-form">
                         <input type="file" style="display: none;" name="file" id="fileElem">
                         <label class="button" for="fileElem">Select some files</label>
                     </form>
-                </form>
-            </fieldset>
+                                <div class="row">
+                                    <div class="update ml-auto mr-auto">
+                                        <button id="createTask" type="submit"
+                                                class="btn btn-primary btn-round">Create New Task
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </form>
+                       </form> </div>
+
+                    </div>
+                </div>
+            </div>
             <div class="square">
                     <div id="spreadsheet1"></div>
             </div>
@@ -181,7 +231,7 @@
     <script src="../assets/js/plugins/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
     <script src="../assets/js/core/classes/Task.js"></script>
     <script src="../assets/js/core/newTask.js"></script>
-
+</div>
 </body>
 
 </html>
