@@ -9,6 +9,11 @@ client = pymongo.MongoClient("mongodb+srv://admin:admin@netlab-keluq.azure.mongo
 db = client.netlabdb
 
 app = Flask(__name__, static_url_path='/static')
+users=[]
+usersFromDB = db.users.find()
+for user in usersFromDB:
+    user.pop('_id')
+    users.append(user)
 
 #---------------Probably unnaceccery--------------
 @app.route('/getExperiments', methods=['GET', 'POST'])
@@ -56,12 +61,13 @@ def register():
     password = request.form.get('password')
     inputEmail=request.form.get('inputEmail')
     userFullName=request.form.get('userFullName')
-    db.users.insert({
+    db.users.insert_one({
         u'userName': u'' + inputEmail + '',
         u'userPassword': u'' + password + '',
         u'userFullName': u'' + userFullName + '',
         u'status':u'Disconnected'
     })
+    users.append({'userName': inputEmail, 'userPassword': password, 'userFullName': userFullName,'status': 'Disconnected'})
     return("Registered!")
 
 @app.route('/createExperiment', methods=['GET', 'POST'])
