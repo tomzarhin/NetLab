@@ -46,8 +46,10 @@
     var cord = "";
     var value=0;
     for (var label of dataset_clustering_cols) {
-        cord += "<option value=\""+value+"\">" + label + "</option>"
-        value++;
+        if(label!=','){
+            cord += "<option value=\""+value+"\">" + label + "</option>"
+            value++;
+        }
     }
     document.getElementById("xCord").innerHTML = cord;
     document.getElementById("yCord").innerHTML = cord;

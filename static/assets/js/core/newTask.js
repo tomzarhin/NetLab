@@ -1,16 +1,16 @@
-var cols=[];
 var idExp = JSON.parse(window.localStorage.getItem("idExp")); //id of the current experiment
 
 function getDataFromjexcel(){
     var form_data = new FormData();
-    form_data.append('dataset',JSON.stringify($('#spreadsheet1').jexcel('getData', false)));
-    form_data.append('datasetcols',JSON.stringify(cols));
+    alert(jexcelSpreadSheet.getData());
+    form_data.append('dataset',JSON.stringify(jexcelSpreadSheet.getData()));
+    form_data.append('datasetcols',JSON.stringify(jexcelSpreadSheet.getHeaders()));
     return(form_data);
 }
 
 $(function() {
     $('#fileElem').change(function() {
-        var form_data = new FormData($('#upload-file')[0]);
+        /*var form_data = new FormData($('#upload-file')[0]);
         $.ajax({
             type: 'POST',
             url: '/uploadfile',
@@ -25,14 +25,24 @@ $(function() {
             .done(function (data) {
                 if (data.error) {
                     confirm(data.error);
-                }
-                cols=data.excelCols;
-                $('#spreadsheet1').jexcel({colHeaders: data.excelCols,data:data.excelDetails, colWidths: [ 300, 80, 100 ] });
+                }*/
+               // $('#spreadsheet1').jexcel({colHeaders: data.excelCols,data:data.excelDetails, colWidths: [ 300, 80, 100 ] });
+               var tmppath = URL.createObjectURL(event.target.files[0]);
+                jexcelSpreadSheet=jexcel(document.getElementById('spreadsheet1'), {
+                    //colHeaders: data.excelCols,
+                    //data:data.excelDetails,
+                    csv:tmppath,
+                    csvHeaders:true,
+                    tableOverflow:true,
+                    lazyLoading:true,
+                    loadingSpin:true,
+                    colWidths: [ 300, 80, 100 ],
+                });
                 //$('#spreadsheet1').jexcel('deleteRow', excel_matrix.length-1);
                 //console.log(excel_matrix.length-1);
                 //$('#spreadsheet1').jexcel.setColumnData(3,cols);
             });
-    });
+    //});
 });
 
 $('#goKmeans').click(function() {
@@ -55,7 +65,7 @@ $('#goKmeans').click(function() {
         }
     window.localStorage.setItem("dataset_clustering", JSON.stringify(data.inputArray));
     window.localStorage.setItem("kmeansLabels", JSON.stringify(data.kmeansLabels));
-    window.localStorage.setItem("dataset_clustering_cols",JSON.stringify(cols));
+    window.localStorage.setItem("dataset_clustering_cols",JSON.stringify(jexcelSpreadSheet.getHeaders()));
     });
 });
 $('#goK2').click(function() {

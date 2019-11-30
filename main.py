@@ -20,6 +20,14 @@ def getExperiments():
         exp.pop('_id')
         experiment_array.append(exp)
     return jsonify({'experiments':experiment_array})
+
+@app.route('/uploadfile', methods=['GET', 'POST'])
+def uploadfile():
+    file = request.files.getlist("file")
+    df = pandas.read_excel(file[0])
+    excel_values=np.array(df.values)
+    excel_cols=np.array(df.columns.values)
+    return jsonify({'excelDetails':excel_values.tolist(),'excelCols':excel_cols.tolist()})
 #-------------------------------------------------
 
 @app.route("/")
@@ -94,14 +102,6 @@ def getTasks():
         task.pop('_id')
         tasks_array.append(task)
     return jsonify({'tasks':tasks_array})
-
-@app.route('/uploadfile', methods=['GET', 'POST'])
-def uploadfile():
-    file = request.files.getlist("file")
-    df = pandas.read_excel(file[0])
-    excel_values=np.array(df.values)
-    excel_cols=np.array(df.columns.values)
-    return jsonify({'excelDetails':excel_values.tolist(),'excelCols':excel_cols.tolist()})
 
 @app.route('/goKmeans', methods=['GET', 'POST'])
 def goKmeans():
