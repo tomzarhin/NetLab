@@ -42,7 +42,7 @@ $( document ).ready(function() {
                               "              <div class=\"card-footer \">\n" +
                               "                <hr>\n" +
                               "                <div class=\"stats\">\n" +
-                              "                   <button class=\"btn btn-warning \" id=\"button="+task.id+"\" href=\"#\" role=\"button\">Enter now</button>" +
+                              "                   <button class=\"btn btn-warning \" name="+task.taskName+" id="+task.task_id+" href=\"#\" role=\"button\">Enter now</button>" +
                               "                </div>\n" +
                               "              </div>\n" +
                               "            </div>\n" +
@@ -84,7 +84,10 @@ $( document ).ready(function() {
             for (var i = 0; i < buttons.length; i++) {
                 buttons[i].onclick = function(){
                     var idTask= this.id;
-                    window.localStorage.setItem("idTask", JSON.stringify(idExp));
+                    var taskName=this.name;
+                    window.localStorage.setItem("idTask", JSON.stringify(idTask));
+                    window.localStorage.setItem("taskName", JSON.stringify(taskName));
+                    location.href = "../pages/dataset.html";
                 };
             }
         //});

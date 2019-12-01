@@ -1,10 +1,10 @@
 /**
  * (c) jExcel v3.4.4
- * 
+ *
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
  * Description: Create amazing web based spreadsheets.
- * 
+ *
  * This software is distribute under MIT License
  */
 :root {
@@ -17,6 +17,7 @@
     box-sizing: border-box;
     overscroll-behavior: contain;
     background: white;
+    height: 0;
 }
 
 .jexcel_container.fullscreen {
@@ -37,23 +38,24 @@
 
 .jexcel_container.fullscreen.with-toolbar {
     height: calc(100% - 46px);
+
 }
 
 .jexcel_content {
     display:inline-block;
     box-sizing: border-box;
-    padding-right:1000px;
     position:relative;
+    height: 0;
 }
 
 .jexcel {
     border-collapse:separate;
     table-layout:fixed;
     white-space: nowrap;
-    empty-cells:show;
-    border:0px;
+
+
     background-color:#fff;
-    width:0;
+
 
     border-top:1px solid transparent;
     border-left:1px solid transparent;
@@ -584,7 +586,7 @@
     display:none;
 }
 
-.jexcel_toolbar i.jexcel_toolbar_item 
+.jexcel_toolbar i.jexcel_toolbar_item
 {
     width:24px;
     height:24px;
@@ -593,12 +595,12 @@
     display:inline-block;
 }
 
-.jexcel_toolbar i.jexcel_toolbar_item:hover 
+.jexcel_toolbar i.jexcel_toolbar_item:hover
 {
     background-color:#ddd;
 }
 
-.jexcel_toolbar select.jexcel_toolbar_item 
+.jexcel_toolbar select.jexcel_toolbar_item
 {
     margin-left:2px;
     margin-right:2px;
