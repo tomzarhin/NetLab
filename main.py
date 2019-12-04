@@ -1,5 +1,6 @@
 from flask import request,json,jsonify,render_template,Flask
 from sklearn.cluster import KMeans
+#from pgmpy.models import BayesianModel
 import numpy as np
 import pymongo
 import pandas
@@ -160,6 +161,9 @@ def goK2():
 
     filename = 'server/graph_out/graph.gph'
     server.K2.graph_out(dag, filename, mapping)
+    #Finding the Conditional Probabilities Tables
+    #model = BayesianModel([('fruit', 'tasty'), ('size', 'tasty')])  # fruit -> tasty <- size
+
     print(score)
     print(dag)
     return jsonify({'status': 'done','dataset_k2':dag.tolist(),'categories':categories})
