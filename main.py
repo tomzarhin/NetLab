@@ -1,5 +1,6 @@
 from flask import request,json,jsonify,render_template,Flask
 from sklearn.cluster import KMeans
+from yellowbrick.cluster import KElbowVisualizer
 #from pgmpy.models import BayesianModel
 import numpy as np
 import pymongo
@@ -10,11 +11,6 @@ client = pymongo.MongoClient("mongodb+srv://admin:admin@netlab-keluq.azure.mongo
 db = client.netlabdb
 
 app = Flask(__name__, static_url_path='/static')
-users=[]
-usersFromDB = db.users.find()
-for user in usersFromDB:
-    user.pop('_id')
-    users.append(user)
 
 #---------------Probably unnaceccery--------------
 @app.route('/getExperiments', methods=['GET', 'POST'])
@@ -62,13 +58,12 @@ def register():
     password = request.form.get('password')
     inputEmail=request.form.get('inputEmail')
     userFullName=request.form.get('userFullName')
-    db.users.insert_one({
+    db.users.insert({
         u'userName': u'' + inputEmail + '',
         u'userPassword': u'' + password + '',
         u'userFullName': u'' + userFullName + '',
         u'status':u'Disconnected'
     })
-    users.append({'userName': inputEmail, 'userPassword': password, 'userFullName': userFullName,'status': 'Disconnected'})
     return("Registered!")
 
 @app.route('/createExperiment', methods=['GET', 'POST'])
@@ -126,6 +121,9 @@ def goKmeans():
     kmeans = KMeans(n_clusters=int(float(clusteringNum)), random_state=0).fit(new_list)
     #centers = np.array(kmeans.cluster_centers_)
     new_list = np.array(new_list)
+    model = KElbowVisualizer(KMeans(), k=(1,10))
+    model.fit(new_list)  # Fit the data to the visualizer
+    elbow = model.elbow_valua_
     return jsonify({'inputArray': new_list.tolist(),'kmeansLabels':kmeans.labels_.tolist()})
 
 @app.route('/goK2', methods=['GET', 'POST'])
