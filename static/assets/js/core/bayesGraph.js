@@ -3,6 +3,7 @@
         categories = categories.split(",");
         var dataset_k2 = JSON.parse(window.localStorage.getItem("dataset_k2"));
 
+
         var graph = jsbayes.newGraph();
         graph.saveSamples = true;
         var nodes=[];

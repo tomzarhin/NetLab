@@ -7,6 +7,8 @@ function getDataFromjexcel(){
     return(form_data);
 }
 
+
+
 $(function() {
     $('#fileElem').change(function() {
         /*var form_data = new FormData($('#upload-file')[0]);

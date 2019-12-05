@@ -85,6 +85,7 @@ $( document ).ready(function() {
                     window.localStorage.setItem("idTask", JSON.stringify(idTask));
                     window.localStorage.setItem("taskName", JSON.stringify(taskName));
                     location.href = "../pages/dataset.html";
+
                 };
             }
         //});

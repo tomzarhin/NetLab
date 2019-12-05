@@ -16,6 +16,7 @@ document.getElementById("createExp").addEventListener("click", function() {
         processData: false,
         success: function (data) {
             console.log('Success!');
+
         },
     })
         .done(function (data) {

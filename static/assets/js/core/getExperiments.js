@@ -51,6 +51,7 @@ $( document ).ready(function() {
                     window.localStorage.setItem("idExp", JSON.stringify(idExp));
                     window.localStorage.setItem("expName", JSON.stringify(expName));
                     location.href = "../pages/tasks.html";
+
                 };
             }
         //});
