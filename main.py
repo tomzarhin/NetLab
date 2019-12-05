@@ -2,6 +2,7 @@ from flask import request,json,jsonify,render_template,Flask
 from sklearn.cluster import KMeans
 from yellowbrick.cluster import KElbowVisualizer
 #from pgmpy.models import BayesianModel
+
 import numpy as np
 import pymongo
 import pandas
@@ -121,9 +122,10 @@ def goKmeans():
     kmeans = KMeans(n_clusters=int(float(clusteringNum)), random_state=0).fit(new_list)
     #centers = np.array(kmeans.cluster_centers_)
     new_list = np.array(new_list)
-    model = KElbowVisualizer(KMeans(), k=(1,10))
-    model.fit(new_list)  # Fit the data to the visualizer
-    elbow = model.elbow_valua_
+    if(len(new_list)!=2):
+        model = KElbowVisualizer(KMeans(), k=(2,2))
+        model.fit(new_list)  # Fit the data to the visualizer
+        elbow = model.elbow_value_
     return jsonify({'inputArray': new_list.tolist(),'kmeansLabels':kmeans.labels_.tolist()})
 
 @app.route('/goK2', methods=['GET', 'POST'])
@@ -161,7 +163,7 @@ def goK2():
     server.K2.graph_out(dag, filename, mapping)
     #Finding the Conditional Probabilities Tables
     #model = BayesianModel([('fruit', 'tasty'), ('size', 'tasty')])  # fruit -> tasty <- size
-
+    #server.K2.createCPT(data)
     print(score)
     print(dag)
     return jsonify({'status': 'done','dataset_k2':dag.tolist(),'categories':categories})

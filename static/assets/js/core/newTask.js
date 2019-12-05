@@ -44,53 +44,6 @@ $(function() {
     //});
 });
 
-$('#goKmeans').click(function() {
-    var form_data = getDataFromjexcel();
-    form_data.append('clusteringNum', document.getElementById("clusteringNum").value);
-    $.ajax({
-    type: 'POST',
-    url: '/goKmeans',
-    data: form_data,
-    contentType: false,
-    cache: false,
-    processData: false,
-    success: function(data) {
-        console.log('Success!');
-    },
-})
-    .done(function (data) {
-        if (data.error) {
-            confirm(data.error);
-        }
-    window.localStorage.setItem("dataset_clustering", JSON.stringify(data.inputArray));
-    window.localStorage.setItem("kmeansLabels", JSON.stringify(data.kmeansLabels));
-    window.localStorage.setItem("dataset_clustering_cols",JSON.stringify(jexcelSpreadSheet.getHeaders()));
-    });
-});
-$('#goK2').click(function() {
-    var form_data = getDataFromjexcel();
-    $.ajax({
-    type: 'POST',
-    url: '/goK2',
-    data: form_data,
-    contentType: false,
-    cache: false,
-    processData: false,
-    success: function(data) {
-        console.log('Success!');
-    },
-})
-    .done(function (data) {
-        if (data.error) {
-            confirm(data.error);
-        }
-    alert(data.dataset_k2)
-    window.localStorage.setItem("dataset_k2", JSON.stringify(data.dataset_k2));
-    window.localStorage.setItem("categories", JSON.stringify(data.categories));
-
-    });
-});
-
 $('#createTask').click(function() {
     var form_data = getDataFromjexcel();
     var taskname = document.getElementById("taskname").value;
