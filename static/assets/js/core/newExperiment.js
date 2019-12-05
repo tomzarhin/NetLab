@@ -26,6 +26,7 @@ document.getElementById("createExp").addEventListener("click", function() {
             experiments.push(new Experiment(data.nextId,name,description,userNameDB,null));
             window.localStorage.setItem("experiments",JSON.stringify(experiments));
             alert("Experiment has been added successfully");
+            location.reload();
         });
 
 });

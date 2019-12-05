@@ -67,7 +67,7 @@ $('#createTask').click(function() {
             confirm(data.error);
         }
         var experiments = JSON.parse(window.localStorage.getItem("experiments"));
-        var task=new Task(data.idTask,taskname,taskDescription,jexcelSpreadSheet.getData());
+        var task=new Task(data.idTask,taskname,taskDescription,jexcelSpreadSheet.getData(),jexcelSpreadSheet.getHeaders());
         var exp=experiments.filter(x => x.id === parseInt(idExp));
         exp[0].task.push(task);
         window.localStorage.setItem("experiments",JSON.stringify(experiments));

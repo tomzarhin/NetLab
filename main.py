@@ -124,7 +124,7 @@ def goKmeans():
     #centers = np.array(kmeans.cluster_centers_)
     new_list = np.array(new_list)
     if(len(new_list)!=2):
-        model = KElbowVisualizer(KMeans(), k=(2,2))
+        model = KElbowVisualizer(KMeans(), k=(2,10))
         model.fit(new_list)  # Fit the data to the visualizer
         elbow = model.elbow_value_
     return jsonify({'inputArray': new_list.tolist(),'kmeansLabels':kmeans.labels_.tolist()})
