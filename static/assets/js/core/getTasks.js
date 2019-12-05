@@ -47,9 +47,9 @@ $( document ).ready(function() {
                               "              </div>\n" +
                               "            </div>\n" +
                               "          </div>");
-                        if(j==exp.task.length)
-                        {
-                                                    document.getElementById("p10").innerHTML = document.getElementById("p10").innerHTML +(" <div class=\"col-lg-3 col-md-6 col-sm-6\">\n" +
+                          }
+                    }
+                                                                document.getElementById("p10").innerHTML = document.getElementById("p10").innerHTML +(" <div class=\"col-lg-3 col-md-6 col-sm-6\">\n" +
                                                         "                    <div class=\"card card-stats\">\n" +
                                                         "                        <div class=\"card-body \">\n" +
                                                         "                            <div class=\"row\">\n" +
@@ -77,9 +77,6 @@ $( document ).ready(function() {
                                                         "                    </div>\n" +
                                                         "\n" +
                                                         "                </div>");
-                        }
-                          }
-                    }
             var buttons = document.getElementsByClassName('btn btn-warning');
             for (var i = 0; i < buttons.length; i++) {
                 buttons[i].onclick = function(){
