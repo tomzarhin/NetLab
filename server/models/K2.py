@@ -1,5 +1,5 @@
 import numpy as np
-import pyAgrum as gum
+#import pyAgrum as gum
 
 
 # Outputs graph edges to .gph file
@@ -155,50 +155,56 @@ def k2(blob, order, constraint_u, data):
     return dag, k2_score
 
 
-def createCPT(data):
-    bn = gum.BayesNet("Surviving Titanic")
-    bn = gum.fastBN(
-        "Age{baby|toddler|kid|teen|adult|old}<-Survived{False|True}->Gender{Female|Male};Siblings{False|True}<-Survived->Parents{False|True}")
-    print(bn.variable("Survived"))
-    print(bn.variable("Age"))
-    print(bn.variable("Gender"))
-    print(bn.variable("Siblings"))
-    print(bn.variable("Parents"))
-    bn.cpt('Survived')[:] = [100, 1]
-    bn.cpt('Survived').normalizeAsCPT()
-    bn.cpt('Survived')
-    bn.cpt('Age')[0:] = [1, 1, 1, 10, 10, 1]
-    bn.cpt('Age')[1:] = [10, 10, 10, 1, 1, 10]
-    bn.cpt('Age').normalizeAsCPT()
-    bn.cpt('Age')
-    bn.cpt('Gender')[0:] = [1, 1]
-    bn.cpt('Gender')[1:] = [10, 1]
-    bn.cpt('Gender').normalizeAsCPT()
-    bn.cpt('Gender')
-    bn.cpt('Siblings')[0:] = [1, 10]
-    bn.cpt('Siblings')[1:] = [10, 1]
-    bn.cpt('Siblings').normalizeAsCPT()
-    bn.cpt('Siblings')
-    bn.cpt('Parents')[0:] = [1, 10]
-    bn.cpt('Parents')[1:] = [10, 1]
-    bn.cpt('Parents').normalizeAsCPT()
-    bn.cpt('Parents')
-    return (None)
+#def createCPT(data):
+    #    bn = gum.BayesNet("Surviving Titanic")
+    #bn = gum.fastBN(
+    #    "Age{baby|toddler|kid|teen|adult|old}<-Survived{False|True}->Gender{Female|Male};Siblings{False|True}<-Survived->Parents{False|True}")
+    #print(bn.variable("Survived"))
+    #print(bn.variable("Age"))
+    #print(bn.variable("Gender"))
+    #print(bn.variable("Siblings"))
+    #print(bn.variable("Parents"))
+    #bn.cpt('Survived')[:] = [100, 1]
+    #bn.cpt('Survived').normalizeAsCPT()
+    #bn.cpt('Survived')
+    #bn.cpt('Age')[0:] = [1, 1, 1, 10, 10, 1]
+    #bn.cpt('Age')[1:] = [10, 10, 10, 1, 1, 10]
+    #bn.cpt('Age').normalizeAsCPT()
+    #bn.cpt('Age')
+    #bn.cpt('Gender')[0:] = [1, 1]
+    #bn.cpt('Gender')[1:] = [10, 1]
+    #bn.cpt('Gender').normalizeAsCPT()
+    #bn.cpt('Gender')
+    #bn.cpt('Siblings')[0:] = [1, 10]
+    #bn.cpt('Siblings')[1:] = [10, 1]
+    #bn.cpt('Siblings').normalizeAsCPT()
+    #bn.cpt('Siblings')
+    #bn.cpt('Parents')[0:] = [1, 10]
+    #bn.cpt('Parents')[1:] = [10, 1]
+    #bn.cpt('Parents').normalizeAsCPT()
+    #bn.cpt('Parents')
+#return (None)
 
-def pretreat(df,userChoiceFunction):
+#def pretreat(df,userChoiceFunction):
+
     position=0
+
     #if 'Survived' in df.columns:
     #    df['Survived'] = df.apply(lambda row: userChoiceFunction[0](row, 'Survived'), axis=1).dropna()
-    for column in df.columns:
-        df[column]=df.apply(userChoiceFunction[position],axis=1).dropna()
-        position=position+1
+
+
+    #for column in df.columns:
+    #    df[column]=df.apply(userChoiceFunction[position],axis=1).dropna()
+    #    position=position+1
+
+
     #df['SibSp'] = df.apply(lambda row: forBoolean(row, 'SibSp'), axis=1).dropna()
     #df['Parch'] = df.apply(lambda row: forBoolean(row, 'Parch'), axis=1).dropna()
     #df['Sex'] = df.apply(forGender, axis=1).dropna()
     #droped_cols = [col for col in ['PassengerId', 'Name', 'Ticket', 'Fare', 'Cabin'] if col in df.columns]
     #df = df.drop(droped_cols, axis=1)
     #df = df.rename(index=str, columns={'Sex': 'Gender', 'SibSp': 'Siblings', 'Parch': 'Parents'})
-    return df
+    #return df
 
 
 #traindf = pandas.read_csv(os.path.join('res', 'titanic', 'train.csv'))
