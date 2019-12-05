@@ -23,6 +23,12 @@ $(document).ready(function () {
         colWidths: [300, 80, 100],
 
     });
+    /*jexcelSpreadSheet.insertRow(1,0,1);
+    var tempArrayForTerms=[];
+    for(var column=0;column<experiments[idExpArray].task[idTaskArray].dataset.length;column++){
+        tempArrayForTerms.push("tom");
+    }
+    jexcelSpreadSheet.setRowData(0,tempArrayForTerms);*/
     window.localStorage.setItem("dataset_clustering", JSON.stringify(experiments[idExpArray].task[idTaskArray].dataset));
     window.localStorage.setItem("dataset_clustering_cols", JSON.stringify(jexcelSpreadSheet.getHeaders()));
 });

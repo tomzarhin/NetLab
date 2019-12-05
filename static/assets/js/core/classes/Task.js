@@ -5,6 +5,5 @@ class Task {
     this.taskDescription = desc;
     this.dataset=dataset;
     this.datasetcols=datasetcols;
-
   }
 }
