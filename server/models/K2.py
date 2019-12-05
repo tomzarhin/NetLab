@@ -1,4 +1,6 @@
 import numpy as np
+import pyAgrum as gum
+
 
 # Outputs graph edges to .gph file
 def graph_out(dag, filename, mapping):
@@ -62,7 +64,7 @@ def get_dim_range(_data, vec):
     return dim, dim_length
 
 
-def score(blob, var, var_parents,data):
+def score(blob, var, var_parents, data):
     score = 0
     n = blob.n_samples
     dim_var = blob.var_range_length[0, var]
@@ -118,7 +120,7 @@ class data_blob:
 
 
 # k2 uses scoring function to iteratively find best dag given a topological ordering
-def k2(blob, order, constraint_u,data):
+def k2(blob, order, constraint_u, data):
     dim = blob.var_number
     dag = np.zeros((dim, dim), dtype='int64')
     k2_score = np.zeros((1, dim), dtype='float')
@@ -134,7 +136,7 @@ def k2(blob, order, constraint_u,data):
                 if (parent[order[j]] == 0):
                     parent[order[j]] = 1
                     # score this node
-                    local_score = score(blob, order[i], find(parent[:, 0], 1),data)
+                    local_score = score(blob, order[i], find(parent[:, 0], 1), data)
                     # determine local max
                     if (local_score > local_max):
                         local_max = local_score
@@ -151,3 +153,57 @@ def k2(blob, order, constraint_u,data):
         k2_score[0, order[i]] = p_old
         dag[:, order[i]] = parent.reshape(blob.var_number)
     return dag, k2_score
+
+
+def createCPT(data):
+    bn = gum.BayesNet("Surviving Titanic")
+    bn = gum.fastBN(
+        "Age{baby|toddler|kid|teen|adult|old}<-Survived{False|True}->Gender{Female|Male};Siblings{False|True}<-Survived->Parents{False|True}")
+    print(bn.variable("Survived"))
+    print(bn.variable("Age"))
+    print(bn.variable("Gender"))
+    print(bn.variable("Siblings"))
+    print(bn.variable("Parents"))
+    bn.cpt('Survived')[:] = [100, 1]
+    bn.cpt('Survived').normalizeAsCPT()
+    bn.cpt('Survived')
+    bn.cpt('Age')[0:] = [1, 1, 1, 10, 10, 1]
+    bn.cpt('Age')[1:] = [10, 10, 10, 1, 1, 10]
+    bn.cpt('Age').normalizeAsCPT()
+    bn.cpt('Age')
+    bn.cpt('Gender')[0:] = [1, 1]
+    bn.cpt('Gender')[1:] = [10, 1]
+    bn.cpt('Gender').normalizeAsCPT()
+    bn.cpt('Gender')
+    bn.cpt('Siblings')[0:] = [1, 10]
+    bn.cpt('Siblings')[1:] = [10, 1]
+    bn.cpt('Siblings').normalizeAsCPT()
+    bn.cpt('Siblings')
+    bn.cpt('Parents')[0:] = [1, 10]
+    bn.cpt('Parents')[1:] = [10, 1]
+    bn.cpt('Parents').normalizeAsCPT()
+    bn.cpt('Parents')
+    return (None)
+
+def pretreat(df,userChoiceFunction):
+    position=0
+    #if 'Survived' in df.columns:
+    #    df['Survived'] = df.apply(lambda row: userChoiceFunction[0](row, 'Survived'), axis=1).dropna()
+    for column in df.columns:
+        df[column]=df.apply(userChoiceFunction[position],axis=1).dropna()
+        position=position+1
+    #df['SibSp'] = df.apply(lambda row: forBoolean(row, 'SibSp'), axis=1).dropna()
+    #df['Parch'] = df.apply(lambda row: forBoolean(row, 'Parch'), axis=1).dropna()
+    #df['Sex'] = df.apply(forGender, axis=1).dropna()
+    #droped_cols = [col for col in ['PassengerId', 'Name', 'Ticket', 'Fare', 'Cabin'] if col in df.columns]
+    #df = df.drop(droped_cols, axis=1)
+    #df = df.rename(index=str, columns={'Sex': 'Gender', 'SibSp': 'Siblings', 'Parch': 'Parents'})
+    return df
+
+
+#traindf = pandas.read_csv(os.path.join('res', 'titanic', 'train.csv'))
+#testdf = pandas.merge(pandas.read_csv(os.path.join('res', 'titanic', 'test.csv')),
+#                      pandas.read_csv(os.path.join('res', 'titanic', 'gender_submission.csv')),
+#                      on="PassengerId")
+#traindf = pretreat(traindf)
+#testdf = pretreat(testdf)
