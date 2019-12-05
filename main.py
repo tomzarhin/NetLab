@@ -135,7 +135,7 @@ def goK2():
     dataset = json.loads(request.form['dataset'])
     data = list(list(int(a) for a in b if a.isdigit()) for b in dataset)
     data = np.array(data)
-    csvData=pandas.DataFrame(data)
+    #csvData=pandas.DataFrame(data) #TOM 12.5.2019
 
     # initialize "the blob" and map its variable names to indicies
     g = server.models.K2.data_blob(data)
@@ -161,7 +161,7 @@ def goK2():
     filename = 'server/graph_out/graph.gph'
     server.models.K2.graph_out(dag, filename, mapping)
     #Finding the Conditional Probabilities Tables
-    csvData=server.models.K2.pretreat(csvData,userChoiceFunction)
+    #csvData=server.models.K2.pretreat(csvData,csvData.head(1))
 
     print(score)
     print(dag)
