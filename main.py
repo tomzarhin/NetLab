@@ -2,14 +2,11 @@ from flask import request,json,jsonify,render_template,Flask
 from sklearn.cluster import KMeans
 from yellowbrick.cluster import KElbowVisualizer
 #from pgmpy.models import BayesianModel
-
+from server.models.mongoDB import *
 import numpy as np
-import pymongo
 import pandas
-import server.K2
+import server.models.K2
 
-client = pymongo.MongoClient("mongodb+srv://admin:admin@netlab-keluq.azure.mongodb.net/netlabdb?retryWrites=true&w=majority")
-db = client.netlabdb
 
 app = Flask(__name__, static_url_path='/static')
 
@@ -69,7 +66,7 @@ def register():
 
 @app.route('/createExperiment', methods=['GET', 'POST'])
 def createExperiment():
-    nextId = db.experiments.find_one(sort=[("id", pymongo.DESCENDING)])
+    nextId = db.experiments.find_one(sort=[("id", server.models.mongoDB.pymongo.DESCENDING)])
     if(nextId==None):
         nextId=1
     else:
@@ -137,11 +134,12 @@ def goK2():
     dataset = json.loads(request.form['dataset'])
     data = list(list(int(a) for a in b if a.isdigit()) for b in dataset)
     data = np.array(data)
+    csvData=pandas.DataFrame(data)
 
     # initialize "the blob" and map its variable names to indicies
-    g = server.K2.data_blob(data)
+    g = server.models.K2.data_blob(data)
 
-    mapping = server.K2.map_categories(categories)
+    mapping = server.models.K2.map_categories(categories)
     # set the maximum number of parents any node can have
     iters = 1
     p_lim_max = 5
@@ -153,17 +151,17 @@ def goK2():
         for u in range(p_lim_floor, p_lim_max):
             # generate random ordering
             order = np.arange(g.var_number)
-            (dag, k2_score) = server.K2.k2(g, order, u,data)
+            (dag, k2_score) = server.models.K2.k2(g, order, u, data)
             score = np.sum(k2_score)
             if (score > best_score):
-                server.K2.best_score = score
+                server.models.K2.best_score = score
                 best_dag = dag
 
     filename = 'server/graph_out/graph.gph'
-    server.K2.graph_out(dag, filename, mapping)
+    server.models.K2.graph_out(dag, filename, mapping)
     #Finding the Conditional Probabilities Tables
-    #model = BayesianModel([('fruit', 'tasty'), ('size', 'tasty')])  # fruit -> tasty <- size
-    #server.K2.createCPT(data)
+    csvData=server.models.K2.pretreat(csvData,userChoiceFunction)
+
     print(score)
     print(dag)
     return jsonify({'status': 'done','dataset_k2':dag.tolist(),'categories':categories})
