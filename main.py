@@ -86,6 +86,7 @@ def createExperiment():
 @app.route('/createTask', methods=['GET', 'POST'])
 def createTask():
     dataset = json.loads(request.form['dataset'])
+    datasetcols = json.loads(request.form['datasetcols'])
     name=request.form.get('taskname')
     description=request.form.get('taskDescription')
     current_experiment_id=int(request.form.get('current_experiment'))
@@ -95,9 +96,9 @@ def createTask():
     else:
         nextId= int(nextId["tasks"][-1].pop('task_id'))+1
     myquery = {"id":current_experiment_id }
-    newvalues = {"$push": {"tasks": {"task_id":nextId,"taskName": name,"taskDescription":description,"dataset":dataset}}}
+    newvalues = {"$push": {"tasks": {"task_id":nextId,"taskName": name,"taskDescription":description, "datasetcols":datasetcols, "dataset":dataset}}}
     db.experiments.update_one(myquery,newvalues)
-    return jsonify({'status':"OK"})
+    return jsonify({'idTask':nextId})
 
 @app.route('/getTasks', methods=['GET', 'POST'])
 def getTasks():
