@@ -7,8 +7,6 @@ function getDataFromjexcel(){
     return(form_data);
 }
 
-
-
 $(function() {
     $('#fileElem').change(function() {
         /*var form_data = new FormData($('#upload-file')[0]);
@@ -71,6 +69,9 @@ $('#createTask').click(function() {
         var experiments = JSON.parse(window.localStorage.getItem("experiments"));
         var task=new Task(data.idTask,taskname,taskDescription,jexcelSpreadSheet.getData(),jexcelSpreadSheet.getHeaders());
         var exp=experiments.filter(x => x.id === parseInt(idExp));
+        if(exp[0].task==null){
+            exp[0].task=[];
+        }
         exp[0].task.push(task);
         window.localStorage.setItem("experiments",JSON.stringify(experiments));
         alert("added succesfully");

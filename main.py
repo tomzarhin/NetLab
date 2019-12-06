@@ -113,17 +113,17 @@ def getTasks():
 @app.route('/goKmeans', methods=['GET', 'POST'])
 def goKmeans():
     clusteringNum = request.form['clusteringNum']
-    dataset = json.loads(request.form['dataset'])
+    dataset = json.loads(request.form.get('dataset'))
     if(clusteringNum=='' or int(float(clusteringNum))<2):
       clusteringNum=2
-    new_list = list(list(int(a) for a in b if a.isdigit()) for b in dataset)
+    dataset = np.array(dataset)
+    new_list = np.array(np.array(float(a) for a in b if is_number(a)) for b in dataset)
     kmeans = KMeans(n_clusters=int(float(clusteringNum)), random_state=0).fit(new_list)
     #centers = np.array(kmeans.cluster_centers_)
-    new_list = np.array(new_list)
-    if(len(new_list)!=2):
+    if(len(new_list)>2):
         model = KElbowVisualizer(KMeans(), k=(2,10))
-        model.fit(new_list)  # Fit the data to the visualizer
-        elbow = model.elbow_value_
+        #model.fit(new_list)  # Fit the data to the visualizer
+        #elbow = model.elbow_value_
     return jsonify({'inputArray': new_list.tolist(),'kmeansLabels':kmeans.labels_.tolist()})
 
 @app.route('/goK2', methods=['GET', 'POST'])
@@ -167,5 +167,13 @@ def goK2():
     print(dag)
     return jsonify({'status': 'done','dataset_k2':dag.tolist(),'categories':categories})
 
+#------------------functions-------------------
+def is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+#----------------------------------------------
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)

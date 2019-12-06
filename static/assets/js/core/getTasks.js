@@ -24,7 +24,8 @@ $( document ).ready(function() {
             var j=0;
 
             for (exp of experiments.filter(x => x.id === parseInt(idExp))) {
-                for(task of exp.task){
+            if(exp.task!=null){
+                            for(task of exp.task){
                      j=j+1;
                         document.getElementById("p10").innerHTML = document.getElementById("p10").innerHTML +("<div class=\"col-lg-3 col-md-6 col-sm-6\">\n" +
                               "            <div class=\"card card-stats\">\n" +
@@ -48,6 +49,8 @@ $( document ).ready(function() {
                               "            </div>\n" +
                               "          </div>");
                           }
+            }
+
                     }
                                                                 document.getElementById("p10").innerHTML = document.getElementById("p10").innerHTML +(" <div class=\"col-lg-3 col-md-6 col-sm-6\">\n" +
                                                         "                    <div class=\"card card-stats\">\n" +
