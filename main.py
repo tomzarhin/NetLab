@@ -117,14 +117,14 @@ def goKmeans():
     if(clusteringNum=='' or int(float(clusteringNum))<2):
       clusteringNum=2
     dataset = np.array(dataset)
-    new_list = np.array(np.array(float(a) for a in b if is_number(a)) for b in dataset)
+    new_list = list(list(float(a) for a in b if is_number(a)) for b in dataset)
     kmeans = KMeans(n_clusters=int(float(clusteringNum)), random_state=0).fit(new_list)
     #centers = np.array(kmeans.cluster_centers_)
     if(len(new_list)>2):
         model = KElbowVisualizer(KMeans(), k=(2,10))
-        #model.fit(new_list)  # Fit the data to the visualizer
-        #elbow = model.elbow_value_
-    return jsonify({'inputArray': new_list.tolist(),'kmeansLabels':kmeans.labels_.tolist()})
+        model.fit(new_list)  # Fit the data to the visualizer
+        elbow = model.elbow_value_
+    return jsonify({'inputArray': list(new_list),'kmeansLabels':kmeans.labels_.tolist()})
 
 @app.route('/goK2', methods=['GET', 'POST'])
 def goK2():
