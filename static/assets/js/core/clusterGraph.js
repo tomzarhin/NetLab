@@ -4,6 +4,9 @@
     var numberOfClusters = Math.max.apply(Math, kmeansLabels)+1;
     var data = JSON.parse(window.localStorage.getItem("dataset_clustering"));
     var dataset_clustering_cols = JSON.parse(window.localStorage.getItem("dataset_clustering_cols"));
+    var elbow_value = JSON.parse(window.localStorage.getItem("elbowValue"));
+    var silhouetteValue = JSON.parse(window.localStorage.getItem("silhouetteValue"));
+
     var ctx;
 
     console.log(kmeansLabels);
@@ -33,6 +36,8 @@
     };
 
     window.onload = function() {
+    document.getElementById("elbowValue").innerHTML = elbow_value;
+    document.getElementById("silhouetteValue").innerHTML = silhouetteValue;
 
     document.getElementById("xCord").addEventListener("change", function() {
         plotPoints();

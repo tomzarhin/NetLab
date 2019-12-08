@@ -1,6 +1,6 @@
 from flask import request,json,jsonify,render_template,Flask
 from sklearn.cluster import KMeans
-from yellowbrick.cluster import KElbowVisualizer
+from yellowbrick.cluster import KElbowVisualizer,SilhouetteVisualizer
 #from pgmpy.models import BayesianModel
 from server.models.mongoDB import *
 import numpy as np
@@ -121,10 +121,14 @@ def goKmeans():
     kmeans = KMeans(n_clusters=int(float(clusteringNum)), random_state=0).fit(new_list)
     #centers = np.array(kmeans.cluster_centers_)
     if(len(new_list)>2):
-        model = KElbowVisualizer(KMeans(), k=(2,10))
-        model.fit(new_list)  # Fit the data to the visualizer
-        elbow = model.elbow_value_
-    return jsonify({'inputArray': list(new_list),'kmeansLabels':kmeans.labels_.tolist()})
+        new_list_as_array=np.array(new_list)
+        SilhouetteVisualize = SilhouetteVisualizer(kmeans)
+        SilhouetteVisualize.fit(new_list_as_array)
+        KElbowVisualize = KElbowVisualizer(kmeans, k=(2,10))
+        KElbowVisualize.fit(new_list_as_array)  # Fit the data to the visualizer
+        silhouette = SilhouetteVisualize.silhouette_score_
+        elbow = KElbowVisualize.elbow_value_
+    return jsonify({'inputArray': list(new_list),'kmeansLabels':(kmeans.labels_.tolist()),'elbowValue':str(elbow),'silhouetteValue':('%.3f' % silhouette)})
 
 @app.route('/goK2', methods=['GET', 'POST'])
 def goK2():
