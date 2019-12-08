@@ -82,6 +82,7 @@ $('#goKmeans').click(function () {
             window.localStorage.setItem("dataset_clustering_cols", JSON.stringify(jexcelSpreadSheet.getHeaders()));
             window.localStorage.setItem("elbowValue", JSON.stringify(data.elbowValue));
             window.localStorage.setItem("silhouetteValue", JSON.stringify(data.silhouetteValue));
+
             location.href = "../pages/clusterGraph.html";
 
         });

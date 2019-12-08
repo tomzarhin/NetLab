@@ -120,14 +120,17 @@ def goKmeans():
     new_list = list(list(float(a) for a in b if is_number(a)) for b in dataset)
     kmeans = KMeans(n_clusters=int(float(clusteringNum)), random_state=0).fit(new_list)
     #centers = np.array(kmeans.cluster_centers_)
-    if(len(new_list)>2):
-        new_list_as_array=np.array(new_list)
-        SilhouetteVisualize = SilhouetteVisualizer(kmeans)
-        SilhouetteVisualize.fit(new_list_as_array)
-        KElbowVisualize = KElbowVisualizer(kmeans, k=(2,10))
-        KElbowVisualize.fit(new_list_as_array)  # Fit the data to the visualizer
-        silhouette = SilhouetteVisualize.silhouette_score_
-        elbow = KElbowVisualize.elbow_value_
+    new_list_as_array=np.array(new_list)
+    SilhouetteVisualize = SilhouetteVisualizer(kmeans)
+    SilhouetteVisualize.fit(new_list_as_array)
+    if(len(new_list)>10):
+        k_upper_bound=10
+    else:
+        k_upper_bound=len(new_list)
+    KElbowVisualize = KElbowVisualizer(KMeans(), k=k_upper_bound)
+    KElbowVisualize.fit(new_list_as_array)  # Fit the data to the visualizer
+    silhouette = SilhouetteVisualize.silhouette_score_
+    elbow = KElbowVisualize.elbow_value_
     return jsonify({'inputArray': list(new_list),'kmeansLabels':(kmeans.labels_.tolist()),'elbowValue':str(elbow),'silhouetteValue':('%.3f' % silhouette)})
 
 @app.route('/goK2', methods=['GET', 'POST'])
