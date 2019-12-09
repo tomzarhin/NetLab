@@ -168,7 +168,7 @@ def goK2():
     filename = 'server/graph_out/graph.gph'
     server.models.K2.graph_out(dag, filename, mapping)
     #Finding the Conditional Probabilities Tables
-    monty = ConditionalProbabilityTable(data, mapping)
+    #monty = ConditionalProbabilityTable(data, mapping)
 
     print(score)
     print(dag)
