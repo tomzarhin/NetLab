@@ -1,7 +1,7 @@
 from flask import request,json,jsonify,render_template,Flask
 from sklearn.cluster import KMeans
 from yellowbrick.cluster import KElbowVisualizer,SilhouetteVisualizer
-#from pgmpy.models import BayesianModel
+from pomegranate import *
 from server.models.mongoDB import *
 import numpy as np
 import pandas
@@ -168,7 +168,7 @@ def goK2():
     filename = 'server/graph_out/graph.gph'
     server.models.K2.graph_out(dag, filename, mapping)
     #Finding the Conditional Probabilities Tables
-    #csvData=server.models.K2.pretreat(csvData,csvData.head(1))
+    monty = ConditionalProbabilityTable(data, mapping)
 
     print(score)
     print(dag)
