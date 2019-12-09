@@ -33,6 +33,42 @@ $(document).ready(function () {
     window.localStorage.setItem("dataset_clustering_cols", JSON.stringify(jexcelSpreadSheet.getHeaders()));
 });
 
+
+ var s = document.getElementById('comboCols');
+ var colsArr = experiments[idExpArray].task[idTaskArray].datasetcols.split(",")
+
+var select = document.getElementById("comboCols");
+for(var i = 0; i < colsArr.length; i++) {
+    var opt = colsArr[i];
+    var el = document.createElement("option");
+    el.textContent = opt;
+    el.value = opt;
+    select.appendChild(el);
+}
+function myFunction() {
+  var title = document.getElementById("comboCols").value;
+  var index = colsArr.indexOf(title);
+  var colArrForMedian=[];
+  var arr=experiments[idExpArray].task[idTaskArray].dataset
+         for(var i=0; i<arr.length; i++){
+          colArrForMedian.push(arr[i][index]);
+       }
+   var median = calcMedian(colArrForMedian);
+   var average = calcAverage(colArrForMedian);
+  document.getElementById("median").innerHTML = "You median: " + median;
+}
+
+function calcMedian(ar1) {
+  var half = Math.floor(ar1.length / 2);
+  ar1.sort(function(a, b) { return a - b;});
+
+  if (ar1.length % 2) {
+    return ar1[half];
+  } else {
+    return (ar1[half] + ar1[half] + 1) / 2.0;
+  }
+}
+
 $('#goK2').click(function () {
     var form_data = new FormData();
     form_data.append('dataset', JSON.stringify(experiments[idExpArray].task[idTaskArray].dataset));
