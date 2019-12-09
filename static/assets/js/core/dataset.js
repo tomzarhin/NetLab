@@ -54,7 +54,7 @@ function myFunction() {
           colArrForMedian.push(arr[i][index]);
        }
    var median = calcMedian(colArrForMedian);
-   var average = calcAverage(colArrForMedian);
+
   document.getElementById("median").innerHTML = "You median: " + median;
 }
 
