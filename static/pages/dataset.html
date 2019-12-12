@@ -185,7 +185,7 @@
                 <div class="square">
                     <div id="spreadsheet1"></div>
                 </div>
-                
+
                 <button id="goKmeans">Clustering</button>
                 <button id="goK2">Bayesian Network</button>
                 <input type="text" id="clusteringNum" placeholder="Insert number of clusters">
@@ -193,8 +193,16 @@
                 </footer>
             </div>
 
-            <select id="comboCols" onchange="myFunction()">select var</select>
+            <select id="comboCols" onchange="reset()">
+                <option selected disabled>Choose var</option></select>
             <p id="median"></p>
+                        <select id="norOrMed" onchange="myFunction()">
+                <option selected disabled>Choose method</option>
+                        <option>normal</option>
+                        <option>median</option>
+                        </select>
+
+
         </div>
         <!--   Core JS Files   -->
         <script src="../assets/js/plugins/popper.min.js"></script>

@@ -10,6 +10,7 @@ var idTask = JSON.parse(window.localStorage.getItem("idTask"));
 var experiments = JSON.parse(window.localStorage.getItem("experiments"));
 var idExpArray = experiments.findIndex(x => x.id === parseInt(idExp));
 var idTaskArray = experiments[idExpArray].task.findIndex(x => x.task_id === parseInt(idTask))
+var datasetToBayes = experiments[idExpArray].task[idTaskArray].datasetToBayes;
 $(document).ready(function () {
     var headArray=experiments[idExpArray].task[idTaskArray].datasetcols.split(",")
     jexcelSpreadSheet = jexcel(document.getElementById('spreadsheet1'), {
@@ -46,16 +47,36 @@ for(var i = 0; i < colsArr.length; i++) {
     select.appendChild(el);
 }
 function myFunction() {
+const arrayColumn = (arr, n) => arr.map(x => x[n]);
   var title = document.getElementById("comboCols").value;
+  var method = document.getElementById("norOrMed").value;
   var index = colsArr.indexOf(title);
-  var colArrForMedian=[];
-  var arr=experiments[idExpArray].task[idTaskArray].dataset
-         for(var i=0; i<arr.length; i++){
-          colArrForMedian.push(arr[i][index]);
-       }
-   var median = calcMedian(colArrForMedian);
+  var dataset=experiments[idExpArray].task[idTaskArray].dataset
+   var median = calcMedian(arrayColumn(dataset, index));
+   document.getElementById("median").innerHTML = "You median: " + median;
+   if(method=="median")
+        {
+           for(var i=0;i<datasetToBayes.length;i++)
+           {
+                    if(parseInt(datasetToBayes[i][index]) < median)
+                            datasetToBayes[i][index] = "0";
+                    else
+                            datasetToBayes[i][index] = "1";
+           }
+            jexcelSpreadSheet.setColumnData(index, arrayColumn(datasetToBayes, index));
+        }
+         else
+        {
+            for(var i=0;i<datasetToBayes.length;i++)
+            {
+                datasetToBayes[i][index] = dataset[i][index];
+            }
+            jexcelSpreadSheet.setColumnData(index, arrayColumn(datasetToBayes, index));
+        }
+}
 
-  document.getElementById("median").innerHTML = "You median: " + median;
+function reset(){
+        document.getElementById("norOrMed").selectedIndex = 0;
 }
 
 function calcMedian(ar1) {
@@ -71,7 +92,7 @@ function calcMedian(ar1) {
 
 $('#goK2').click(function () {
     var form_data = new FormData();
-    form_data.append('dataset', JSON.stringify(experiments[idExpArray].task[idTaskArray].dataset));
+    form_data.append('dataset', JSON.stringify(datasetToBayes));
     form_data.append('datasetcols', JSON.stringify(experiments[idExpArray].task[idTaskArray].datasetcols));
     $.ajax({
         type: 'POST',
