@@ -180,7 +180,7 @@ def goK2():
         cpds_array.append(cpds_list)
     print(score)
     print(dag)
-    return jsonify({'status': 'done','dataset_k2':dag.tolist(),'categories':categories,'cpt_list':cpds_array})
+    return jsonify({'status': 'done','dataset_k2':dag.tolist(),'categories':categories})#,'cpt_list':cpds_array})
 
 #------------------functions-------------------
 def is_number(s):
