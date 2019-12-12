@@ -1,7 +1,8 @@
 from flask import request,json,jsonify,render_template,Flask
 from sklearn.cluster import KMeans
 from yellowbrick.cluster import KElbowVisualizer,SilhouetteVisualizer
-from pomegranate import *
+from pgmpy.models import BayesianModel
+from pgmpy.estimators import MaximumLikelihoodEstimator
 from server.models.mongoDB import *
 import numpy as np
 import pandas
@@ -40,15 +41,11 @@ def login():
     inputEmail=request.form.get('inputEmail')
     for user in db.users.find({"userName":inputEmail, "userPassword":password}):#, "status":"Disconnected"}):
         experiment_array = []
-        #myquery = {"userName": user['userName']}
-        #newvalues = {"$set": {"status": "Connected"}}
-        #db.users.update_one(myquery, newvalues)
         experiments = db.experiments.find({"userName": inputEmail})
         for exp in experiments:
             exp.pop('_id')
             experiment_array.append(exp)
         return jsonify({'experiments': experiment_array})
-        #return jsonify({'pstatus':"OK"})
     return jsonify({'pstatus':"NOT OK"})
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -119,7 +116,6 @@ def goKmeans():
     dataset = np.array(dataset)
     new_list = list(list(float(a) for a in b if is_number(a)) for b in dataset)
     kmeans = KMeans(n_clusters=int(float(clusteringNum)), random_state=0).fit(new_list)
-    #centers = np.array(kmeans.cluster_centers_)
     new_list_as_array=np.array(new_list)
     SilhouetteVisualize = SilhouetteVisualizer(kmeans)
     SilhouetteVisualize.fit(new_list_as_array)
@@ -135,14 +131,12 @@ def goKmeans():
 
 @app.route('/goK2', methods=['GET', 'POST'])
 def goK2():
-    #data_set = 'server/data/titanic.csv'
-    #categories = np.genfromtxt(data_set, delimiter=',', max_rows=1, dtype=str)
+    cpds_list={}
+    cpds_array=[]
     categories = json.loads(request.form['datasetcols'])
-    #data = server.K2.genfromtxt(data_set, dtype='int64', delimiter=',', skip_header=True)
     dataset = json.loads(request.form['dataset'])
     data = list(list(int(a) for a in b if a.isdigit()) for b in dataset)
     data = np.array(data)
-    #csvData=pandas.DataFrame(data) #TOM 12.5.2019
 
     # initialize "the blob" and map its variable names to indicies
     g = server.models.K2.data_blob(data)
@@ -165,14 +159,28 @@ def goK2():
                 server.models.K2.best_score = score
                 best_dag = dag
 
-    filename = 'server/graph_out/graph.gph'
-    server.models.K2.graph_out(dag, filename, mapping)
-    #Finding the Conditional Probabilities Tables
-    #monty = ConditionalProbabilityTable(data, mapping)
+    graph_list=server.models.K2.graph_out(dag, mapping)
 
+    #Finding the Conditional Probabilities Tables
+    model = BayesianModel()
+    model.add_nodes_from(list(mapping))
+    for value in graph_list:
+        temp_list=value.split(',')
+        model.add_edge(temp_list[0],temp_list[1])
+    data_dict = {mapping[i]: data[:,i] for i in range(0, len(mapping))}
+    data_dict_pd = pandas.DataFrame(data=data_dict)
+    model.fit(data_dict_pd)
+    cpds_tables=model.get_cpds()
+    for cpd in cpds_tables:
+        if(len(cpd.values.shape)!=1):
+            li = list(list(j) for j in cpd.values)
+            cpds_list[str(list(cpd.variables))]= li
+        else:
+            cpds_list[str(list(cpd.variables))]=list(cpd.values)
+        cpds_array.append(cpds_list)
     print(score)
     print(dag)
-    return jsonify({'status': 'done','dataset_k2':dag.tolist(),'categories':categories})
+    return jsonify({'status': 'done','dataset_k2':dag.tolist(),'categories':categories,'cpt_list':cpds_array})
 
 #------------------functions-------------------
 def is_number(s):

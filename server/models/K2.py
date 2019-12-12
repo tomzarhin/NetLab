@@ -3,14 +3,14 @@ import numpy as np
 
 
 # Outputs graph edges to .gph file
-def graph_out(dag, filename, mapping):
-    with open(filename, 'w') as f:
-        for i in range(np.size(dag[0])):
-            for j in range(np.size(dag[0])):
-                if (dag[i][j] == 1):
-                    out_string = mapping[i] + ', ' + mapping[j] + '\n'
-                    f.write(out_string)
-
+def graph_out(dag, mapping):
+    out_string=[]
+    #b = {a[i]: a[i + 1] for i in range(0, len(a), 2)}
+    for i in range(np.size(dag[0])):
+        for j in range(np.size(dag[0])):
+            if (dag[i][j] == 1):
+                out_string.append(mapping[i]+','+mapping[j])
+    return(out_string)
 
 # Creates a dictionary of node index to category strings
 def map_categories(categories):
