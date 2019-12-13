@@ -10,7 +10,7 @@ var idTask = JSON.parse(window.localStorage.getItem("idTask"));
 var experiments = JSON.parse(window.localStorage.getItem("experiments"));
 var idExpArray = experiments.findIndex(x => x.id === parseInt(idExp));
 var idTaskArray = experiments[idExpArray].task.findIndex(x => x.task_id === parseInt(idTask))
-var datasetToBayes = experiments[idExpArray].task[idTaskArray].datasetToBayes;
+var datasetToBayes = experiments[idExpArray].task[idTaskArray].dataset;
 $(document).ready(function () {
     var headArray=experiments[idExpArray].task[idTaskArray].datasetcols.split(",")
     jexcelSpreadSheet = jexcel(document.getElementById('spreadsheet1'), {
