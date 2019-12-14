@@ -19,7 +19,8 @@ $(document).ready(function () {
         data: experiments[idExpArray].task[idTaskArray].dataset,
         csvHeaders: false,
         tableOverflow: true,
-
+        lazyLoading:true,
+        loadingSpin:true,
         loadingSpin: true,
         colWidths: [300, 80, 100],
 
@@ -112,6 +113,7 @@ $('#goK2').click(function () {
             //alert(data.dataset_k2)
             window.localStorage.setItem("dataset_k2", JSON.stringify(data.dataset_k2));
             window.localStorage.setItem("categories", JSON.stringify(data.categories));
+            window.localStorage.setItem("cpt_list",JSON.stringify(data.cpt_list))
             location.href = "../pages/bayesGraph.html";
         });
 });

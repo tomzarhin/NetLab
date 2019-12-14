@@ -131,7 +131,6 @@ def goKmeans():
 
 @app.route('/goK2', methods=['GET', 'POST'])
 def goK2():
-    cpds_list={}
     cpds_array=[]
     categories = json.loads(request.form['datasetcols'])
     dataset = json.loads(request.form['dataset'])
@@ -144,9 +143,9 @@ def goK2():
     mapping = server.models.K2.map_categories(categories)
     # set the maximum number of parents any node can have
     iters = 1
-    p_lim_max = 5
+    p_lim_max = 2
     # iterate from p_lim_floor to p_lim_max with random restart
-    p_lim_floor = 4
+    p_lim_floor = 1
     best_score = -10e10
     best_dag = np.zeros((1, 1))
     for i in range(iters):
@@ -172,7 +171,15 @@ def goK2():
     model.fit(data_dict_pd)
     cpds_tables=model.get_cpds()
     for cpd in cpds_tables:
-        if(len(cpd.values.shape)!=1):
+        cpds_list={}
+        if(len(cpd.values.shape)==3):
+            li=[]
+            for sublist in cpd.values:
+                for subsublist in sublist:
+                    li.append(list(subsublist))
+            #li = list(list(subsublist) for subsublist in sublist for sublist in cpd.values)
+            cpds_list[str(list(cpd.variables))]= li
+        elif(len(cpd.values.shape)==2):
             li = list(list(j) for j in cpd.values)
             cpds_list[str(list(cpd.variables))]= li
         else:
@@ -180,7 +187,12 @@ def goK2():
         cpds_array.append(cpds_list)
     print(score)
     print(dag)
-    return jsonify({'status': 'done','dataset_k2':dag.tolist(),'categories':categories})#,'cpt_list':cpds_array})
+
+    for cpt in cpds_tables:
+        print("kaki")
+        print(cpt.values)
+
+    return jsonify({'status': 'done','dataset_k2':dag.tolist(),'categories':categories,'cpt_list':cpds_array})
 
 #------------------functions-------------------
 def is_number(s):
