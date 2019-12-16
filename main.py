@@ -39,12 +39,13 @@ def bayesValidation(data,mapping,graph_list):
     #values = pandas.DataFrame(np.random.randint(low=0, high=2, size=(1000, 5)),
     #columns = ['A', 'B', 'C', 'D', 'E'])
     random.shuffle(data)
-    train_data = data[:800]
-    predict_data = data[800:]
+    train_pct_index = int(0.8 * len(data))
+    train_data = data[:train_pct_index]
+    predict_data = data[train_pct_index:]
     bayes_model=createBayesGraph(graph_list,mapping,train_data)
     bayes_model.fit(data)
     predict_data = predict_data.copy()
-    predict_data.drop('E', axis=1, inplace=True)
+    predict_data.drop('E', axis=1, inplace=True)#fix it
     y_pred = bayes_model.predict(predict_data)
     return y_pred
 
