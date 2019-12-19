@@ -214,11 +214,8 @@ def goK2():
                 temp_array.append(float(a.strip()))
                 digits_numbers+=1
             elif ("-+" in a and digits_numbers != 0):
-                if(digits_numbers==1):
-                    cpd_matrix_values.append([temp_array[0]])
-                else:
-                    cpd_matrix_values.append(temp_array)
-                    temp_array = []
+                cpd_matrix_values.append(temp_array)
+                temp_array = []
                 digits_numbers = 0
 
         cpds_list[str(list(cpd.variables))]=cpd_matrix_values
