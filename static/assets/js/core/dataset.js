@@ -113,7 +113,8 @@ $('#goK2').click(function () {
             //alert(data.dataset_k2)
             window.localStorage.setItem("dataset_k2", JSON.stringify(data.dataset_k2));
             window.localStorage.setItem("categories", JSON.stringify(data.categories));
-            window.localStorage.setItem("cpt_list",JSON.stringify(data.cpt_list))
+            window.localStorage.setItem("cpt_list",JSON.stringify(data.cpt_list));
+            window.localStorage.setItem("element_categories",JSON.stringify(data.element_categories))
             location.href = "../pages/bayesGraph.html";
         });
 });

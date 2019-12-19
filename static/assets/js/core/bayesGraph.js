@@ -7,6 +7,7 @@
         categories = categories.split(",");
         var dataset_k2 = JSON.parse(window.localStorage.getItem("dataset_k2"));
         var cpt_list = JSON.parse(window.localStorage.getItem("cpt_list"));
+        var element_categories = JSON.parse(window.localStorage.getItem("element_categories"));
         var graph = jsbayes.newGraph();
         graph.saveSamples = true;
         var nodes=[];
@@ -21,12 +22,10 @@
                     break;
             }
             var cpts = Object.values(cpt_list[k]);
-            if (cpts[0].length == 3)
-                values=['true', 'false','maybe'];
-            else
-                values=['true', 'false'];
+            //var getKey = Object.keys(element_categories).find(key => (Object.keys(element_categories))[key] === categories[i]);
+                //values=Object.values(element_categories[Object.keys(cpt_list[k])]);
             cptsForBayes=transpose(cpts[0]);
-            vertices.push(new Vertex(categories[i],values,cptsForBayes));
+            vertices.push(new Vertex(categories[i],element_categories[categories[i]],cptsForBayes));
         }
 
          for(i=0; i<vertices.length; i++)
