@@ -200,20 +200,28 @@ def goK2():
     #Finding the Conditional Probabilities Tables
     bayes_model=createBayesGraph(graph_list,mapping,data)
     cpds_tables=bayes_model.get_cpds()
+
     for cpd in cpds_tables:
         cpds_list={}
-        if(len(cpd.values.shape)==3):
-            li=[]
-            for sublist in cpd.values:
-                for subsublist in sublist:
-                    li.append(list(subsublist))
-            #li = list(list(subsublist) for subsublist in sublist for sublist in cpd.values)
-            cpds_list[str(list(cpd.variables))]= li
-        elif(len(cpd.values.shape)==2):
-            li = list(list(j) for j in cpd.values)
-            cpds_list[str(list(cpd.variables))]= li
-        else:
-            cpds_list[str(list(cpd.variables))]=list(cpd.values)
+
+        cpd_string = str(cpd).split('|')
+        temp_array = []
+        cpd_matrix_values = []
+        digits_numbers = 0
+
+        for a in cpd_string:
+            if (is_number(a)):
+                temp_array.append(float(a.strip()))
+                digits_numbers+=1
+            elif ("-+" in a and digits_numbers != 0):
+                if(digits_numbers==1):
+                    cpd_matrix_values.append(temp_array[0])
+                else:
+                    cpd_matrix_values.append(temp_array)
+                    temp_array = []
+                digits_numbers = 0
+
+        cpds_list[str(list(cpd.variables))]=cpd_matrix_values
         cpds_array.append(cpds_list)
     print(score)
     print(dag)
