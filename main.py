@@ -8,6 +8,7 @@ __maintainer__ = "Tom Zarhin"
 __email__ = "Tom Zarhin@s.braude.ac.il"
 __status__ = "Production"
 """
+from numpy import genfromtxt
 
 from flask import request,json,jsonify,render_template,Flask
 from sklearn.cluster import KMeans
@@ -137,7 +138,7 @@ def createTask():
     name=request.form.get('taskname')
     description=request.form.get('taskDescription')
     current_experiment_id=int(request.form.get('current_experiment'))
-    nextId=mongo.createExperiment(dataset,datasetcols,name,description,current_experiment_id)
+    nextId=mongo.createTask(dataset,datasetcols,name,description,current_experiment_id)
     return jsonify({'idTask':nextId})
 
 @app.route('/goKmeans', methods=['GET', 'POST'])
@@ -168,22 +169,26 @@ def goKmeans():
 #Running K2 algorithm for Bayesian Network Correlation
 #Author: Tom Zarhin
 def goK2():
+    print("Starting K2")
     cpds_array=[]
     categories_each_element={} #Returning an array with the values of each element
     categories = json.loads(request.form['datasetcols'])
     dataset = json.loads(request.form['dataset'])
     data = list(list(int(a) for a in b if a.isdigit()) for b in dataset)
     data = np.array(data)
+    categories=categories.split(',')
+    categories=np.array(categories)
 
     # initialize "the blob" and map its variable names to indicies
     g = K2.data_blob(data)
 
-    mapping = K2.map_categories(categories)
+    #mapping = K2.map_categories(categories)
+
     # set the maximum number of parents any node can have
     iters = 1
-    p_lim_max = 3
+    p_lim_max = 5
     # iterate from p_lim_floor to p_lim_max with random restart
-    p_lim_floor = 1
+    p_lim_floor = 4
     best_score = -10e10
     best_dag = np.zeros((1, 1))
     for i in range(iters):
@@ -196,17 +201,17 @@ def goK2():
                 K2.best_score = score
                 best_dag = dag
 
-    graph_list=K2.graph_out(dag, mapping)
+    graph_list=K2.graph_out(dag, categories)
 
     #Finding the Conditional Probabilities Tables
-    bayes_model=createBayesGraph(graph_list,mapping,data)
+    bayes_model=createBayesGraph(graph_list,categories,data)
     cpds_tables=bayes_model.get_cpds()
 
     #Creating the array which returs to the client
     for cpd in cpds_tables:
         cpds_list={}
         for cat in cpd.state_names:
-            categories_each_element[cat]=cpd.state_names[cat];
+            categories_each_element[cat]=cpd.state_names[cat]
         cpd_string = str(cpd).split('|')
         temp_array = []
         cpd_matrix_values = []
@@ -220,12 +225,11 @@ def goK2():
                 cpd_matrix_values.append(temp_array)
                 temp_array = []
                 digits_numbers = False
-
         cpds_list[str(list(cpd.variables))]=cpd_matrix_values
         cpds_array.append(cpds_list)
+    print("Finising K2")
 
-
-    return jsonify({'status': 'done','dataset_k2':dag.tolist(),'categories':categories,'cpt_list':cpds_array,'element_categories':categories_each_element})
+    return jsonify({'status': 'done','dataset_k2':dag.tolist(),'categories':list(categories),'cpt_list':cpds_array,'element_categories':categories_each_element})
 
 
 if __name__ == '__main__':
