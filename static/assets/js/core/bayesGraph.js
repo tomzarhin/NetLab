@@ -25,14 +25,8 @@
                 values=['true', 'false','maybe'];
             else
                 values=['true', 'false'];
-            cpt0=cpts[0];
-            if (cpt0[0].length != null)
-            {
-                cptsForBayes=transpose(cpts[0]);
-                vertices.push(new Vertex(categories[i],values,cptsForBayes));
-            }
-             else
-                vertices.push(new Vertex(categories[i],values,cpts[0]));
+            cptsForBayes=transpose(cpts[0]);
+            vertices.push(new Vertex(categories[i],values,cptsForBayes));
         }
 
          for(i=0; i<vertices.length; i++)
@@ -44,7 +38,12 @@
                         nodes[j].addParent(nodes[i]);
 
         for(var i=0;i<vertices.length;i++)
-            nodes[i].setCpt(vertices[i].cpts);
+        {
+            if((vertices[i].cpts).length==1)
+                nodes[i].setCpt(vertices[i].cpts[0]);
+            else
+                nodes[i].setCpt(vertices[i].cpts);
+        }
         graph.sample(20000);
         var g = jsbayesviz.fromGraph(graph);
         return g;

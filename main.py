@@ -180,7 +180,7 @@ def goK2():
     mapping = K2.map_categories(categories)
     # set the maximum number of parents any node can have
     iters = 1
-    p_lim_max = 2
+    p_lim_max = 3
     # iterate from p_lim_floor to p_lim_max with random restart
     p_lim_floor = 1
     best_score = -10e10
