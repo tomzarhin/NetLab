@@ -224,7 +224,6 @@ def goK2():
         cpds_list[str(list(cpd.variables))]=cpd_matrix_values
         cpds_array.append(cpds_list)
 
-    categories_each_element=dict.fromkeys(categories_each_element)
 
     return jsonify({'status': 'done','dataset_k2':dag.tolist(),'categories':categories,'cpt_list':cpds_array,'element_categories':categories_each_element})
 
