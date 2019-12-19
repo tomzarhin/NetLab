@@ -138,7 +138,7 @@ def createTask():
     name=request.form.get('taskname')
     description=request.form.get('taskDescription')
     current_experiment_id=int(request.form.get('current_experiment'))
-    nextId=mongo.createExperiment(dataset,datasetcols,name,description,current_experiment_id)
+    nextId=mongo.createTask(dataset,datasetcols,name,description,current_experiment_id)
     return jsonify({'idTask':nextId})
 
 @app.route('/goKmeans', methods=['GET', 'POST'])
@@ -169,6 +169,7 @@ def goKmeans():
 #Running K2 algorithm for Bayesian Network Correlation
 #Author: Tom Zarhin
 def goK2():
+    print("Starting K2")
     cpds_array=[]
     categories_each_element={} #Returning an array with the values of each element
     categories = json.loads(request.form['datasetcols'])
@@ -226,6 +227,7 @@ def goK2():
                 digits_numbers = False
         cpds_list[str(list(cpd.variables))]=cpd_matrix_values
         cpds_array.append(cpds_list)
+    print("Finising K2")
 
     return jsonify({'status': 'done','dataset_k2':dag.tolist(),'categories':list(categories),'cpt_list':cpds_array,'element_categories':categories_each_element})
 
