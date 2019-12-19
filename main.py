@@ -169,6 +169,7 @@ def goKmeans():
 #Author: Tom Zarhin
 def goK2():
     cpds_array=[]
+    categories_each_element={} #Returning an array with the values of each element
     categories = json.loads(request.form['datasetcols'])
     dataset = json.loads(request.form['dataset'])
     data = list(list(int(a) for a in b if a.isdigit()) for b in dataset)
@@ -201,33 +202,31 @@ def goK2():
     bayes_model=createBayesGraph(graph_list,mapping,data)
     cpds_tables=bayes_model.get_cpds()
 
+    #Creating the array which returs to the client
     for cpd in cpds_tables:
         cpds_list={}
-
+        for cat in cpd.state_names:
+            categories_each_element[cat]=cpd.state_names[cat];
         cpd_string = str(cpd).split('|')
         temp_array = []
         cpd_matrix_values = []
-        digits_numbers = 0
+        digits_numbers = False
 
         for a in cpd_string:
             if (is_number(a)):
                 temp_array.append(float(a.strip()))
-                digits_numbers+=1
-            elif ("-+" in a and digits_numbers != 0):
+                digits_numbers=True
+            elif ("-+" in a and digits_numbers == True):
                 cpd_matrix_values.append(temp_array)
                 temp_array = []
-                digits_numbers = 0
+                digits_numbers = False
 
         cpds_list[str(list(cpd.variables))]=cpd_matrix_values
         cpds_array.append(cpds_list)
-    print(score)
-    print(dag)
 
-    for cpt in cpds_tables:
-        print("kaki")
-        print(cpt.values)
+    categories_each_element=dict.fromkeys(categories_each_element)
 
-    return jsonify({'status': 'done','dataset_k2':dag.tolist(),'categories':categories,'cpt_list':cpds_array})
+    return jsonify({'status': 'done','dataset_k2':dag.tolist(),'categories':categories,'cpt_list':cpds_array,'element_categories':categories_each_element})
 
 
 if __name__ == '__main__':
