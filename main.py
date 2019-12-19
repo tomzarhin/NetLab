@@ -215,7 +215,7 @@ def goK2():
                 digits_numbers+=1
             elif ("-+" in a and digits_numbers != 0):
                 if(digits_numbers==1):
-                    cpd_matrix_values.append(temp_array[0])
+                    cpd_matrix_values.append([temp_array[0]])
                 else:
                     cpd_matrix_values.append(temp_array)
                     temp_array = []
