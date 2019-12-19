@@ -14,12 +14,10 @@ def graph_out(dag, mapping):
 
 # Creates a dictionary of node index to category strings
 def map_categories(categories):
-    #mapping = {}
-    #length_of_array=len(categories.split(','))
-    categories_array=categories.split(',')
-    #for i in range(length_of_array):
-    #    mapping[i] = categories_array[i][1:len(categories_array[i]) - 1]
-    return categories_array
+        mapping = {}
+        for i in range(len(categories)):
+            mapping[i] = categories[i][1:len(categories[i])-1]
+        return mapping
 
 
 # Given a target, find every instance index in array
