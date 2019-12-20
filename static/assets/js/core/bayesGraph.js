@@ -15,7 +15,6 @@
         {
             for(var k=0;k<cpt_list.length;k++)
             {
-                var index=0;
                 var name=(JSON.stringify(Object.keys(cpt_list[k]))).split("'");
                 if(name[1]==categories[i])
                     break;

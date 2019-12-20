@@ -1,3 +1,6 @@
+            function compare() {
+              document.getElementById("demo").style.color = "red";
+            }
 $( document ).ready(function() {
   var userNameDB = JSON.parse(window.localStorage.getItem("userNameDB"));
   var idExp = JSON.parse(window.localStorage.getItem("idExp"));
@@ -43,7 +46,7 @@ $( document ).ready(function() {
                               "              <div class=\"card-footer \">\n" +
                               "                <hr>\n" +
                               "                <div class=\"stats\">\n" +
-                              "                   <button class=\"btn btn-warning \" name="+task.taskName+" id="+task.task_id+" href=\"#\" role=\"button\">Enter now</button>" +
+                              "                   <button class=\"btn btn-warning \" name=\"taskButton\" id="+task.task_id+" href=\"#\" role=\"button\">Enter now</button>" +
                               "                </div>\n" +
                               "              </div>\n" +
                               "            </div>\n" +
@@ -80,13 +83,15 @@ $( document ).ready(function() {
                                                         "                    </div>\n" +
                                                         "\n" +
                                                         "                </div>");
-            var buttons = document.getElementsByClassName('btn btn-warning');
+
+            var buttons = document.getElementsByName('taskButton');
             for (var i = 0; i < buttons.length; i++) {
                 buttons[i].onclick = function(){
                     var idTask= this.id;
-                    var taskName=this.name;
+                    var idExpArray = experiments.findIndex(x => x.id === parseInt(idExp));
+                    var idTaskArray = experiments[idExpArray].task.findIndex(x => x.task_id === parseInt(idTask))
                     window.localStorage.setItem("idTask", JSON.stringify(idTask));
-                    window.localStorage.setItem("taskName", JSON.stringify(taskName));
+                    window.localStorage.setItem("taskName", JSON.stringify(experiments[idExpArray].task[idTaskArray].taskName));
                     location.href = "../pages/dataset.html";
 
                 };

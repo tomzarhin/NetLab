@@ -179,31 +179,36 @@
                 </div>
             </div>
         </nav>
-        <div class="content">
-
+        <div class="content ">
+<center>
             <div class="row justify-content-center">
-                <div class="square">
-                    <div id="spreadsheet1"></div>
-                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12">
 
+                    <div id="spreadsheet1"></div>
+                    </div>
+                <div id="xx" ustify-content-center>
                 <button id="goKmeans">Clustering</button>
                 <button id="goK2">Bayesian Network</button>
                 <input type="text" id="clusteringNum" placeholder="Insert number of clusters">
                 <footer class="footer footer-black  footer-white ">
+
                 </footer>
+                    </div>
             </div>
+
 
             <select id="comboCols" onchange="reset()">
                 <option selected disabled>Choose var</option></select>
             <p id="median"></p>
-                        <select id="norOrMed" onchange="myFunction()">
+                        <select id="norOrMed" onchange="setGroupByMedian()">
                 <option selected disabled>Choose method</option>
                         <option>normal</option>
                         <option>median</option>
                         </select>
 
-
+</center>
         </div>
+
         <!--   Core JS Files   -->
         <script src="../assets/js/plugins/popper.min.js"></script>
         <script src="../assets/js/plugins/bootstrap.min.js"></script>

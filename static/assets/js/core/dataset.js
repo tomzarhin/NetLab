@@ -10,7 +10,7 @@ var idTask = JSON.parse(window.localStorage.getItem("idTask"));
 var experiments = JSON.parse(window.localStorage.getItem("experiments"));
 var idExpArray = experiments.findIndex(x => x.id === parseInt(idExp));
 var idTaskArray = experiments[idExpArray].task.findIndex(x => x.task_id === parseInt(idTask))
-var datasetToBayes = experiments[idExpArray].task[idTaskArray].dataset;
+var datasetToBayes = JSON.parse(JSON.stringify(experiments[idExpArray].task[idTaskArray].dataset));
 $(document).ready(function () {
     var headArray=experiments[idExpArray].task[idTaskArray].datasetcols.split(",")
     jexcelSpreadSheet = jexcel(document.getElementById('spreadsheet1'), {
@@ -22,8 +22,6 @@ $(document).ready(function () {
         lazyLoading:true,
         loadingSpin:true,
         loadingSpin: true,
-        colWidths: [300, 80, 100],
-
     });
     /*jexcelSpreadSheet.insertRow(1,0,1);
     var tempArrayForTerms=[];
@@ -35,10 +33,7 @@ $(document).ready(function () {
     window.localStorage.setItem("dataset_clustering_cols", JSON.stringify(jexcelSpreadSheet.getHeaders()));
 });
 
-
- var s = document.getElementById('comboCols');
- var colsArr = experiments[idExpArray].task[idTaskArray].datasetcols.split(",")
-
+var colsArr = experiments[idExpArray].task[idTaskArray].datasetcols.split(",");
 var select = document.getElementById("comboCols");
 for(var i = 0; i < colsArr.length; i++) {
     var opt = colsArr[i];
@@ -47,19 +42,19 @@ for(var i = 0; i < colsArr.length; i++) {
     el.value = opt;
     select.appendChild(el);
 }
-function myFunction() {
+function setGroupByMedian() {
 const arrayColumn = (arr, n) => arr.map(x => x[n]);
   var title = document.getElementById("comboCols").value;
   var method = document.getElementById("norOrMed").value;
   var index = colsArr.indexOf(title);
-  var dataset=experiments[idExpArray].task[idTaskArray].dataset
+  var dataset=experiments[idExpArray].task[idTaskArray].dataset;
    var median = calcMedian(arrayColumn(dataset, index));
    document.getElementById("median").innerHTML = "You median: " + median;
    if(method=="median")
         {
            for(var i=0;i<datasetToBayes.length;i++)
            {
-                    if(parseInt(datasetToBayes[i][index]) < median)
+                    if(parseInt(datasetToBayes[i][index]) <= median)
                             datasetToBayes[i][index] = "0";
                     else
                             datasetToBayes[i][index] = "1";
@@ -93,8 +88,7 @@ function calcMedian(ar1) {
 
 $('#goK2').click(function () {
     var form_data = new FormData();
-    form_data.append('dataset', JSON.stringify(datasetToBayes));
-    form_data.append('datasetcols', JSON.stringify(experiments[idExpArray].task[idTaskArray].datasetcols));
+    form_data = getDataFromjexcel();
     $.ajax({
         type: 'POST',
         url: '/goK2',
@@ -120,7 +114,7 @@ $('#goK2').click(function () {
 });
 $('#goKmeans').click(function () {
     var form_data = new FormData();
-    form_data.append('dataset', JSON.stringify(experiments[idExpArray].task[idTaskArray].dataset));
+    form_data = getDataFromjexcel();
     form_data.append('clusteringNum', document.getElementById("clusteringNum").value);
     $.ajax({
         type: 'POST',
