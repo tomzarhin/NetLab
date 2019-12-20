@@ -6,7 +6,6 @@
     var dataset_clustering_cols = JSON.parse(window.localStorage.getItem("dataset_clustering_cols"));
     var elbow_value = JSON.parse(window.localStorage.getItem("elbowValue"));
     var silhouetteValue = JSON.parse(window.localStorage.getItem("silhouetteValue"));
-
     var ctx;
 
     console.log(kmeansLabels);
@@ -40,12 +39,30 @@
     document.getElementById("silhouetteValue").innerHTML = silhouetteValue;
 
     document.getElementById("xCord").addEventListener("change", function() {
+    if(document.getElementById("xCord").value == document.getElementById("yCord").value)
+    {
+        alert("Choose different values.");
+        document.getElementById("xCord").selectedIndex = JSON.parse(window.localStorage.getItem("lastX"));
+    }
+    else
+    {
         plotPoints();
         window.myScatter.update();
+        window.localStorage.setItem("lastX", JSON.stringify(document.getElementById("xCord").selectedIndex));
+    }
     });
     document.getElementById("yCord").addEventListener("change", function() {
+    if(document.getElementById("xCord").value == document.getElementById("yCord").value)
+    {
+        alert("Choose different values.");
+        document.getElementById("yCord").selectedIndex = JSON.parse(window.localStorage.getItem("lastY"));
+    }
+    else
+    {
         plotPoints();
         window.myScatter.update();
+        window.localStorage.setItem("lastY", JSON.stringify(document.getElementById("yCord").selectedIndex));
+    }
     });
 
     var cord = "";
@@ -57,7 +74,9 @@
     }
     document.getElementById("xCord").innerHTML = cord;
     document.getElementById("yCord").innerHTML = cord;
-
+    document.getElementById("yCord").selectedIndex = 1;
+    window.localStorage.setItem("lastX", JSON.stringify(document.getElementById("xCord").selectedIndex));
+    window.localStorage.setItem("lastY", JSON.stringify(document.getElementById("yCord").selectedIndex));
     ctx = document.getElementById('canvas').getContext('2d');
     plotPoints();
     };
