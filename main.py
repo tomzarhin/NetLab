@@ -238,7 +238,7 @@ def goCoClustering():
 
     clusteringNum = request.form['clusteringNum']
     dataset1 = json.loads(request.form.get('dataset1'))
-    dataset2 = json.loads(request.form.get('dataset1'))
+    dataset2 = json.loads(request.form.get('dataset2'))
     if(clusteringNum=='' or int(float(clusteringNum))<2):
       clusteringNum=2
     dataset1 = np.array(dataset1)
@@ -261,7 +261,7 @@ def goCoClustering():
     contingency_table = [[0 for x in range(int(float(clusteringNum)))] for y in range(int(float(clusteringNum)))]
 
     for id1 in dataset1_id:
-        index_id2=dataset2_id.index(id1)
+        index_id2=(dataset2_id.tolist()).index(id1)
         contingency_table[labels11[index_id1]-1][labels12[index_id2]-1]+=1
         index_id1+=1
 
