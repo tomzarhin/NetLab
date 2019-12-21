@@ -13,7 +13,7 @@ from numpy import genfromtxt
 from flask import request,json,jsonify,render_template,Flask
 from sklearn.cluster import KMeans
 from yellowbrick.cluster import KElbowVisualizer,SilhouetteVisualizer
-from pgmpy.models import BayesianModel
+#from pgmpy.models import BayesianModel
 from pgmpy.estimators import MaximumLikelihoodEstimator
 from server.models.mongoDB import Mongo
 import server.models.K2 as K2
@@ -49,7 +49,7 @@ def bayesValidation(data,mapping,graph_list):
     predict_data.drop('E', axis=1, inplace=True)#fix it
     y_pred = bayes_model.predict(predict_data)
     return y_pred
-
+""""
 def createBayesGraph(graph_list,mapping,data):
 # Creating bayesian network graph function
 # Author: Tom Zarhin
@@ -63,7 +63,7 @@ def createBayesGraph(graph_list,mapping,data):
     bayes_model.fit(data_dict_pd)
     return(bayes_model)
 #----------------------------------------------
-
+"""
 #---------------Probably unnaceccery--------------
 @app.route('/getExperiments', methods=['GET', 'POST'])
 #Getting the experiments of the user
@@ -164,7 +164,7 @@ def goKmeans():
     silhouette = SilhouetteVisualize.silhouette_score_
     elbow = KElbowVisualize.elbow_value_
     return jsonify({'inputArray': list(new_list),'kmeansLabels':(kmeans.labels_.tolist()),'elbowValue':str(elbow),'silhouetteValue':('%.3f' % silhouette)})
-
+""""
 @app.route('/goK2', methods=['GET', 'POST'])
 #Running K2 algorithm for Bayesian Network Correlation
 #Author: Tom Zarhin
@@ -230,7 +230,7 @@ def goK2():
     print("Finising K2")
 
     return jsonify({'status': 'done','dataset_k2':dag.tolist(),'categories':list(categories),'cpt_list':cpds_array,'element_categories':categories_each_element})
-
+"""
 @app.route('/goCoClustering', methods=['GET', 'POST'])
 #Contingency table for two different clusters by using kmeans function
 #Author: Tom Zarhin
