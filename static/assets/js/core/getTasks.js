@@ -1,5 +1,9 @@
+var span;
+var coModalButton;
 
 $( document ).ready(function() {
+  coModalButton = document.getElementById("coModalButton");
+  span = document.getElementsByClassName("close")[0];
   var userNameDB = JSON.parse(window.localStorage.getItem("userNameDB"));
   var idExp = JSON.parse(window.localStorage.getItem("idExp"));
   var experiments = JSON.parse(window.localStorage.getItem("experiments"));
@@ -71,5 +75,23 @@ $( document ).ready(function() {
 
 
         //});
+
+// When the user clicks the button, open the modal
+coModalButton.onclick = function() {
+  coModal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  coModal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == coModal) {
+    coModal.style.display = "none";
+  }
+}
+
 });
 

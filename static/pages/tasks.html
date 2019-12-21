@@ -15,8 +15,8 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet"/>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <!-- CSS Files -->
+    <link href="../assets/css/modalbox.css" rel="stylesheet"/>
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="../assets/css/stylePopup.css" rel="stylesheet"/>
     <link href="../assets/css/paper-dashboard.css?v=2.0.0" rel="stylesheet"/>
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="../assets/demo/demo.css" rel="stylesheet"/>
@@ -25,6 +25,31 @@
 </head>
 
 <body class="">
+<!-- modal for clustering features -->
+<!-- Trigger/Open The Modal -->
+
+<!-- The Modal -->
+<div id="coModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close">&times;</span>
+            <h2>Modal Header</h2>
+        </div>
+        <div class="modal-body">
+            <p>Some text in the Modal Body</p>
+            <p>Some other text...</p>
+            <input type="text" id="clusteringNum" placeholder="Insert number of clusters">
+            <button id="goKmeans">RUN Kmeans</button>
+
+        </div>
+        <div class="modal-footer">
+            <h3>Modal Footer</h3>
+        </div>
+    </div>
+
+</div>
 <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
         <!--
@@ -109,6 +134,7 @@
                     <a class="" href="tasks.html">
                         <script>
                         document.write(JSON.parse(window.localStorage.getItem("expName")))
+
                         </script>
                     </a>
                 </div>
@@ -192,10 +218,16 @@
                         <div class="card-footer">
                             <hr>
                             <div class="stats">
-                                <a class="btn btn-warning" href="newTask.html" role="button">Create now</a>
+                                <p>
+                                    <a class="btn btn-warning" href="newTask.html" role="button">Create now</a>
+                                </p>
+                                <p>
+                                    <a class="btn btn-warning" id="coModalButton" role="button">Compare Tasks</a>
+                                </p>
                             </div>
                         </div>
                     </center>
+
                 </div>
             </div>
         </div>
@@ -228,6 +260,7 @@
       // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
       //demo.initChartsPages();
     });
+
 
 
     </script>
