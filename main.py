@@ -32,7 +32,7 @@ def is_number(s):
         return True
     except ValueError:
         return False
-
+""""
 def bayesValidation(data,mapping,graph_list):
 # Performing prediction using a bayesian network model
 # Author: Tom Zarhin
@@ -49,7 +49,7 @@ def bayesValidation(data,mapping,graph_list):
     predict_data.drop('E', axis=1, inplace=True)#fix it
     y_pred = bayes_model.predict(predict_data)
     return y_pred
-""""
+    
 def createBayesGraph(graph_list,mapping,data):
 # Creating bayesian network graph function
 # Author: Tom Zarhin
