@@ -7,6 +7,7 @@
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <link rel="stylesheet" href="https://bossanova.uk/jsuites/v2/jsuites.css" type="text/css"/>
     <link rel="stylesheet" href="../assets/css/jexcel.css" type="text/css"/>
+    <link rel="stylesheet" href="../assets/css/modalbox.css" type="text/css"/>
     <link href="../assets/demo/demo.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/css/jquery.jexcel.min.css"
           type="text/css"/>
@@ -48,6 +49,57 @@
                 </div> -->
             </a>
         </div>
+        <!-- modal for clustering features -->
+        <!-- Trigger/Open The Modal -->
+
+        <!-- The Modal -->
+        <div id="clusteringModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>Modal Header</h2>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the Modal Body</p>
+                    <p>Some other text...</p>
+                    <input type="text" id="clusteringNum" placeholder="Insert number of clusters">
+                    <button id="goKmeans">RUN Kmeans</button>
+
+                </div>
+                <div class="modal-footer">
+                    <h3>Modal Footer</h3>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- modal for bayesian network features -->
+        <!-- Trigger/Open The Modal -->
+
+        <!-- The Modal -->
+        <div id="bayesianModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>Modal Header</h2>
+                </div>
+                <div class="modal-body">
+                    <p>Some text in the Modal Body</p>
+                    <p>Some other text...</p>
+                    <button id="goK2">RUN K2</button>
+
+                </div>
+                <div class="modal-footer">
+                    <h3>Modal Footer</h3>
+                </div>
+            </div>
+
+        </div>
+
         <div class="sidebar-wrapper">
             <ul class="nav">
                 <li>
@@ -116,12 +168,20 @@
                         document.write(JSON.parse(window.localStorage.getItem("expName")))
 
 
+
+
+
+
                         </script>
                     </a>
                     &nbsp;->&nbsp;
                     <a class="" href="dataset.html">
                         <script>
                         document.write(JSON.parse(window.localStorage.getItem("taskName")))
+
+
+
+
 
 
                         </script>
@@ -180,33 +240,33 @@
             </div>
         </nav>
         <div class="content ">
-<center>
-            <div class="row justify-content-center">
-                <div class="col-lg-12 col-md-12 col-sm-12">
+            <center>
+                <div class="row justify-content-center">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
 
-                    <div id="spreadsheet1"></div>
+                        <div id="spreadsheet1"></div>
                     </div>
-                <div id="xx" ustify-content-center>
-                <button id="goKmeans">Clustering</button>
-                <button id="goK2">Bayesian Network</button>
-                <input type="text" id="clusteringNum" placeholder="Insert number of clusters">
-                <footer class="footer footer-black  footer-white ">
+                    <div id="xx" ustify-content-center>
+                        <button id="bayesianModalButton">Bayesian Network</button>
+                        <button id="clusteringModalButton">Clustering</button>
+                        <footer class="footer footer-black  footer-white ">
 
-                </footer>
+                        </footer>
                     </div>
-            </div>
+                </div>
 
 
-            <select id="comboCols" onchange="reset()">
-                <option selected disabled>Choose var</option></select>
-            <p id="median"></p>
-                        <select id="norOrMed" onchange="setGroupByMedian()">
-                <option selected disabled>Choose method</option>
-                        <option>normal</option>
-                        <option>median</option>
-                        </select>
+                <select id="comboCols" onchange="reset()">
+                    <option selected disabled>Choose var</option>
+                </select>
+                <p id="median"></p>
+                <select id="norOrMed" onchange="setGroupByMedian()">
+                    <option selected disabled>Choose method</option>
+                    <option>normal</option>
+                    <option>median</option>
+                </select>
 
-</center>
+            </center>
         </div>
 
         <!--   Core JS Files   -->

@@ -106,8 +106,11 @@
                     &nbsp;->&nbsp;
                     <a class="" href="experiments.html">Experiments</a>
                     &nbsp;->&nbsp;
-                    <a class="" href="tasks.html"><script>
-                        document.write(JSON.parse(window.localStorage.getItem("expName")))</script></a>
+                    <a class="" href="tasks.html">
+                        <script>
+                        document.write(JSON.parse(window.localStorage.getItem("expName")))
+                        </script>
+                    </a>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
                         aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
@@ -167,14 +170,35 @@
                 <h5>Tasks</h5>
             </center>
             <div id="p10" class="row justify-content-center">
-
                 <script src="../assets/js/core/getTasks.js"></script>
-
             </div>
-
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-7 col-md-8">
+                                <div class="numbers text-left">
+                                    <p class="card-category">New Task</p>
+                                </div>
+                            </div>
+                            <div class="col-3 col-md-4">
+                                <div class="icon-big text-left icon-warning">
+                                    <i class="nc-icon nc-simple-add text-warning"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <center>
+                        <div class="card-footer">
+                            <hr>
+                            <div class="stats">
+                                <a class="btn btn-warning" href="newTask.html" role="button">Create now</a>
+                            </div>
+                        </div>
+                    </center>
+                </div>
+            </div>
         </div>
-
-
 
 
         <!-- End Navbar -->
@@ -204,6 +228,7 @@
       // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
       //demo.initChartsPages();
     });
+
 
     </script>
 </div>

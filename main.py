@@ -231,6 +231,41 @@ def goK2():
 
     return jsonify({'status': 'done','dataset_k2':dag.tolist(),'categories':list(categories),'cpt_list':cpds_array,'element_categories':categories_each_element})
 
+@app.route('/goCoClustering', methods=['GET', 'POST'])
+#Contingency table for two different clusters by using kmeans function
+#Author: Tom Zarhin
+def goCoClustering():
+
+    clusteringNum = request.form['clusteringNum']
+    dataset1 = json.loads(request.form.get('dataset1'))
+    dataset2 = json.loads(request.form.get('dataset1'))
+    if(clusteringNum=='' or int(float(clusteringNum))<2):
+      clusteringNum=2
+    dataset1 = np.array(dataset1)
+    dataset2 = np.array(dataset2)
+
+    float_list_of_dataset1 = list(list(float(a) for a in b if is_number(a)) for b in dataset1)
+    float_list_of_dataset2 = list(list(float(a) for a in b if is_number(a)) for b in dataset2)
+
+    kmeans_dataset1 = KMeans(n_clusters=int(float(clusteringNum)), random_state=0).fit(float_list_of_dataset1)
+    kmeans_dataset2 = KMeans(n_clusters=int(float(clusteringNum)), random_state=0).fit(float_list_of_dataset2)
+
+    labels11=kmeans_dataset1.labels_
+    labels12=kmeans_dataset2.labels_
+
+    dataset1_id=dataset1[:,0]
+    dataset2_id=dataset2[:,0]
+
+    index_id1=0
+
+    contingency_table = [[0 for x in range(int(float(clusteringNum)))] for y in range(int(float(clusteringNum)))]
+
+    for id1 in dataset1_id:
+        index_id2=dataset2_id.index(id1)
+        contingency_table[labels11[index_id1]-1][labels12[index_id2]-1]+=1
+        index_id1+=1
+
+    return jsonify({'contingency_table':list(contingency_table)})
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)

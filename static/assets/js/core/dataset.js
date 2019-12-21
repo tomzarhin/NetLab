@@ -11,6 +11,18 @@ var experiments = JSON.parse(window.localStorage.getItem("experiments"));
 var idExpArray = experiments.findIndex(x => x.id === parseInt(idExp));
 var idTaskArray = experiments[idExpArray].task.findIndex(x => x.task_id === parseInt(idTask))
 var datasetToBayes = JSON.parse(JSON.stringify(experiments[idExpArray].task[idTaskArray].dataset));
+// Get the modals
+var bayesianModal = document.getElementById("bayesianModal");
+var clusteringModal = document.getElementById("clusteringModal");
+
+// Get the button that opens the modal
+var bayesianModalButton = document.getElementById("bayesianModalButton");
+var clusteringModalButton = document.getElementById("clusteringModalButton");
+
+// Get the <span> element that closes the modal
+var spanClustering = document.getElementsByClassName("close")[0];
+var spanBayes = document.getElementsByClassName("close")[1];
+
 $(document).ready(function () {
     var headArray=experiments[idExpArray].task[idTaskArray].datasetcols.split(",")
     jexcelSpreadSheet = jexcel(document.getElementById('spreadsheet1'), {
@@ -141,3 +153,29 @@ $('#goKmeans').click(function () {
 
         });
 });
+
+// When the user clicks the button, open the modal
+bayesianModalButton.onclick = function() {
+  bayesianModal.style.display = "block";
+}
+
+clusteringModalButton.onclick = function() {
+  clusteringModal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+spanClustering.onclick = function() {
+  clusteringModal.style.display = "none";
+}
+spanBayes.onclick = function() {
+  bayesianModal.style.display = "none";
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == bayesianModal) {
+    bayesianModal.style.display = "none";
+  }
+  if(event.target == clusteringModal){
+    clusteringModal.style.display = "none";
+  }
+}
