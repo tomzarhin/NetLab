@@ -11,6 +11,80 @@ var experiments = JSON.parse(window.localStorage.getItem("experiments"));
 var idExpArray = experiments.findIndex(x => x.id === parseInt(idExp));
 var idTaskArray = experiments[idExpArray].task.findIndex(x => x.task_id === parseInt(idTask))
 var datasetToBayes = JSON.parse(JSON.stringify(experiments[idExpArray].task[idTaskArray].dataset));
+
+var colsArr = experiments[idExpArray].task[idTaskArray].datasetcols.split(",");
+var datasetWithPrior=JSON.parse(JSON.stringify(experiments[idExpArray].task[idTaskArray].dataset));
+var checkboxes1=[];
+var checkboxes2=[];
+    function makeCheckboxes1(str) {
+        var a = document.getElementById("category1");
+        var arr = str;
+        var returnStr = "";
+        for (i = 0; i < arr.length; i++) {
+            returnStr += '<input type="checkbox" onchange="addToTable1(this)" name="theCheckbox" value="' + arr[i] + '" />' + arr[i] + "<br>";
+        }
+        a.innerHTML = returnStr;
+    }
+            function makeCheckboxes2(str) {
+        var a = document.getElementById("category2");
+        var arr = str;
+        var returnStr = "";
+        for (i = 0; i < arr.length; i++) {
+            returnStr += '<input type="checkbox" onchange="addToTable2(this)" name="theCheckbox" value="' + arr[i] + '" />' + arr[i] + "<br>";
+        }
+        a.innerHTML = returnStr;
+    }
+    window.onload = function () {
+        var arr=experiments[idExpArray].task[idTaskArray].datasetcols.split(",");
+        makeCheckboxes1(arr);
+        makeCheckboxes2(arr);
+    };
+
+function addToTable1(checkboxElem) {
+  if (checkboxElem.checked) {
+    if(checkboxes2.indexOf(checkboxElem.value) == -1)
+        checkboxes1.push(checkboxElem.value);
+    else
+    {
+        alert("U choose 2 values from 2 tables.")
+        checkboxElem.checked = false;
+    }
+  } else {
+    var index = checkboxes1.indexOf(checkboxElem.value);
+        checkboxes1.splice(index, 1);
+  }
+}
+
+function addToTable2(checkboxElem) {
+  if (checkboxElem.checked) {
+    if(checkboxes1.indexOf(checkboxElem.value) == -1)
+        checkboxes2.push(checkboxElem.value);
+    else
+    {
+    alert("U choose 2 values from 2 tables.")
+        checkboxElem.checked = false;
+    }
+
+  } else {
+    var index = checkboxes2.indexOf(checkboxElem.value);
+        checkboxes2.splice(index, 1);
+  }
+}
+sendWithPrior.onclick = function() {
+      var checkboxes = checkboxes1.concat(checkboxes2);
+      if(checkboxes.length == colsArr.length)
+      {
+          for(i=0;i<checkboxes.length;i++)
+          {
+                 for(j=0;j<datasetToBayes.length;j++)
+                    datasetWithPrior[j][i] = datasetToBayes[j][colsArr.indexOf(checkboxes[i])];
+          }
+      }
+      else
+      {
+           alert("U didnt choose all the variables")
+      }
+}
 // Get the modals
 var bayesianModal = document.getElementById("bayesianModal");
 var clusteringModal = document.getElementById("clusteringModal");
