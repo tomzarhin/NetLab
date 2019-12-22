@@ -256,3 +256,4 @@ window.onclick = function(event) {
     clusteringModal.style.display = "none";
   }
 }
+

@@ -8,7 +8,7 @@
 
     <!-- Font Icon -->
     <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
-
+    <link href="../assets/css/loadingbar.css" rel="stylesheet"/>
     <script src="../assets/js/plugins/jquery.min.js"></script>
     <script src="../assets/js/core/classes/Experiment.js"></script>
 
@@ -16,8 +16,8 @@
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
-
     <div class="main">
+<div class="lds-facebook" id="loadingbar" style="visibility:hidden;"><div></div><div></div><div></div></div>
 
         <!-- Sign up form -->
         <section class="signup">
@@ -65,6 +65,7 @@
                 <div class="signin-content">
                     <div class="signin-image">
                         <figure><img src="../assets/img/signin-image.jpg" alt="sing up image"></figure>
+
                       <!--  <a href="#" class="signup-image-link">Create an account</a>-->
                     </div>
                         <div class="signin-form">
