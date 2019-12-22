@@ -30,7 +30,6 @@ networkx==2.4
 numpy==1.17.4
 pandas==0.25.3
 patsy==0.5.1
-pgmpy==0.1.9
 Pillow==6.2.1
 protobuf==3.10.0
 pyasn1==0.4.7

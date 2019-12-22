@@ -8,13 +8,11 @@ __maintainer__ = "Tom Zarhin"
 __email__ = "Tom Zarhin@s.braude.ac.il"
 __status__ = "Production"
 """
-from numpy import genfromtxt
-
 from flask import request,json,jsonify,render_template,Flask
 from sklearn.cluster import KMeans
 from yellowbrick.cluster import KElbowVisualizer,SilhouetteVisualizer
 #from pgmpy.models import BayesianModel
-from pgmpy.estimators import MaximumLikelihoodEstimator
+#from pgmpy.estimators import MaximumLikelihoodEstimator
 from server.models.mongoDB import Mongo
 import server.models.K2 as K2
 import numpy as np
@@ -32,7 +30,7 @@ def is_number(s):
         return True
     except ValueError:
         return False
-
+""""
 def bayesValidation(data,mapping,graph_list):
 # Performing prediction using a bayesian network model
 # Author: Tom Zarhin
@@ -49,7 +47,7 @@ def bayesValidation(data,mapping,graph_list):
     predict_data.drop('E', axis=1, inplace=True)#fix it
     y_pred = bayes_model.predict(predict_data)
     return y_pred
-""""
+    
 def createBayesGraph(graph_list,mapping,data):
 # Creating bayesian network graph function
 # Author: Tom Zarhin
