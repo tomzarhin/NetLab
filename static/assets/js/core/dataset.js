@@ -77,8 +77,11 @@ sendWithPrior.onclick = function() {
           for(i=0;i<checkboxes.length;i++)
           {
                  for(j=0;j<datasetToBayes.length;j++)
-                    datasetWithPrior[j][i] = datasetToBayes[j][colsArr.indexOf(checkboxes[i])];
+                    datasetWithPrior[j][i] = jexcelSpreadSheet.getValueFromCoords((jexcelSpreadSheet.getHeaders().split(",")).indexOf(checkboxes[i]),i);
           }
+          jexcelSpreadSheet.setData(datasetWithPrior);
+          for(i=0;i<checkboxes.length;i++)
+            jexcelSpreadSheet.setHeader(i,checkboxes[i]);
       }
       else
       {
