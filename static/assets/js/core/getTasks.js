@@ -105,6 +105,7 @@ $( document ).ready(function() {
             if (data.error) {
                 confirm(data.error);
             }
+            window.localStorage.setItem("coclusteringtable", JSON.stringify(data.contingency_table));
             alert(data.contingency_table);
         });
 });

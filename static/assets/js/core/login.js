@@ -1,5 +1,5 @@
 document.getElementById("signin").addEventListener("click", function() {
-  document.getElementById("loadingbar").style.visibility = "block"; //fix it
+  document.getElementById("loadingbar").style.visibility = 'visible';
   var form_data = new FormData();
   form_data.append('inputEmail', document.getElementById("your_name").value);
   form_data.append('password', document.getElementById("your_pass").value);
@@ -33,6 +33,7 @@ document.getElementById("signin").addEventListener("click", function() {
             }
             else
                 alert("The details are incorrect, please try again.");
+                document.getElementById("loadingbar").style.visibility = 'hidden';
         });
 
 });

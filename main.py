@@ -148,6 +148,7 @@ def goKmeans():
     if(clusteringNum=='' or int(float(clusteringNum))<2):
       clusteringNum=2
     dataset = np.array(dataset)
+    #dataset = np.delete(dataset, 0, 1)
     new_list = list(list(float(a) for a in b if is_number(a)) for b in dataset)
     kmeans = KMeans(n_clusters=int(float(clusteringNum)), random_state=0).fit(new_list)
     new_list_as_array=np.array(new_list)
@@ -174,6 +175,7 @@ def goK2():
     dataset = json.loads(request.form['dataset'])
     data = list(list(int(a) for a in b if a.isdigit()) for b in dataset)
     data = np.array(data)
+    #dataset = np.delete(dataset, 0, 1)
     categories=categories.split(',')
     categories=np.array(categories)
 
@@ -251,16 +253,12 @@ def goCoClustering():
     labels11=kmeans_dataset1.labels_
     labels12=kmeans_dataset2.labels_
 
-    dataset1_id=dataset1[:,0]
-    dataset2_id=dataset2[:,0]
-
     index_id1=0
 
     contingency_table = [[0 for x in range(int(float(clusteringNum)))] for y in range(int(float(clusteringNum)))]
 
-    for id1 in dataset1_id:
-        index_id2=(dataset2_id.tolist()).index(id1)
-        contingency_table[labels11[index_id1]-1][labels12[index_id2]-1]+=1
+    for id in range(len(float_list_of_dataset1)):
+        contingency_table[labels11[id]-1][labels12[id]-1]+=1
         index_id1+=1
 
     return jsonify({'contingency_table':list(contingency_table)})

@@ -37,6 +37,15 @@ $(function() {
                     loadingSpin:true,
                     colWidths: [ 300, 80, 100 ],
                 });
+
+                /*var id_people=[];
+                for (var i=0;i<experiments[idExpArray].task[idTaskArray].dataset.length;i++){
+                    id_people.push(i+1);
+                }
+                jexcelSpreadSheet.insertColumn(1,0,true, null);
+                jexcelSpreadSheet.setHeader(0, "id");
+                jexcelSpreadSheet.setColumnData(0,id_people );*/
+
                 //$('#spreadsheet1').jexcel('deleteRow', excel_matrix.length-1);
                 //console.log(excel_matrix.length-1);
                 //$('#spreadsheet1').jexcel.setColumnData(3,cols);
