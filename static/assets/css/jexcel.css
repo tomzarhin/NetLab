@@ -1,5 +1,5 @@
 /**
- * (c) jExcel v3.4.4
+ * (c) jExcel v3.6.3
  *
  * Author: Paul Hodel <paul.hodel@gmail.com>
  * Website: https://bossanova.uk/jexcel/
@@ -16,8 +16,6 @@
     padding-right:2px;
     box-sizing: border-box;
     overscroll-behavior: contain;
-    background: white;
-    height: 0;
 }
 
 .jexcel_container.fullscreen {
@@ -38,24 +36,22 @@
 
 .jexcel_container.fullscreen.with-toolbar {
     height: calc(100% - 46px);
-
 }
 
 .jexcel_content {
     display:inline-block;
     box-sizing: border-box;
+    padding-right:2px;
     position:relative;
-    height: 0;
 }
 
 .jexcel {
     border-collapse:separate;
     table-layout:fixed;
     white-space: nowrap;
-
-
+    empty-cells:show;
+    border:0px;
     background-color:#fff;
-
 
     border-top:1px solid transparent;
     border-left:1px solid transparent;

@@ -104,13 +104,11 @@ $(document).ready(function () {
     var headArray=experiments[idExpArray].task[idTaskArray].datasetcols.split(",")
     jexcelSpreadSheet = jexcel(document.getElementById('spreadsheet1'), {
         colHeaders: headArray,
-        //data:data.excelDetails,
+        loadingSpin: true,
         data: experiments[idExpArray].task[idTaskArray].dataset,
         csvHeaders: false,
         tableOverflow: true,
         lazyLoading:true,
-        loadingSpin:true,
-        loadingSpin: true,
     });
 
     /*jexcelSpreadSheet.insertRow(1,0,1);
