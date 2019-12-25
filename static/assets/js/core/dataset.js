@@ -132,6 +132,11 @@ for(var i = 0; i < colsArr.length; i++) {
 }
 function setGroupByMedian() {
 const arrayColumn = (arr, n) => arr.map(x => x[n]);
+const calcMedian = arr => {
+  const mid = Math.floor(arr.length / 2),
+    nums = [...arr].sort((a, b) => a - b);
+  return arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
+};
   var title = document.getElementById("comboCols").value;
   var method = document.getElementById("norOrMed").value;
   var index = colsArr.indexOf(title);
@@ -161,17 +166,6 @@ const arrayColumn = (arr, n) => arr.map(x => x[n]);
 
 function reset(){
         document.getElementById("norOrMed").selectedIndex = 0;
-}
-
-function calcMedian(ar1) {
-  var half = Math.floor(ar1.length / 2);
-  ar1.sort(function(a, b) { return a - b;});
-
-  if (ar1.length % 2) {
-    return ar1[half];
-  } else {
-    return (ar1[half] + ar1[half] + 1) / 2.0;
-  }
 }
 
 $('#goK2').click(function () {
