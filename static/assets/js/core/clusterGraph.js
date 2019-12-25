@@ -17,6 +17,7 @@
         }
         return color;
     }
+
     function generateData(counter) {
         var dataset_coordinates=[];
         for (var i=0;i<data.length;i++) {
@@ -35,96 +36,78 @@
     };
 
     window.onload = function() {
-    document.getElementById("elbowValue").innerHTML = elbow_value;
-    document.getElementById("silhouetteValue").innerHTML = silhouetteValue;
 
-    document.getElementById("xCord").addEventListener("change", function() {
-    if(document.getElementById("xCord").value == document.getElementById("yCord").value)
-    {
-        alert("Choose different values.");
-        document.getElementById("xCord").selectedIndex = JSON.parse(window.localStorage.getItem("lastX"));
-    }
-    else
-    {
-        plotPoints();
-        window.myScatter.update();
+        document.getElementById("elbowValue").innerHTML = elbow_value;
+        document.getElementById("silhouetteValue").innerHTML = silhouetteValue;
+
+        document.getElementById("xCord").addEventListener("change", function() {
+            if(document.getElementById("xCord").value == document.getElementById("yCord").value)
+            {
+                alert("Choose different values.");
+                document.getElementById("xCord").selectedIndex = JSON.parse(window.localStorage.getItem("lastX"));
+            }
+            else
+            {
+                plotPoints();
+                window.myScatter.update();
+                window.localStorage.setItem("lastX", JSON.stringify(document.getElementById("xCord").selectedIndex));
+            }
+        });
+
+        document.getElementById("yCord").addEventListener("change", function() {
+            if(document.getElementById("xCord").value == document.getElementById("yCord").value)
+            {
+                alert("Choose different values.");
+                document.getElementById("yCord").selectedIndex = JSON.parse(window.localStorage.getItem("lastY"));
+            }
+            else
+            {
+                plotPoints();
+                window.myScatter.update();
+                window.localStorage.setItem("lastY", JSON.stringify(document.getElementById("yCord").selectedIndex));
+            }
+        });
+
+        var cord = "";
+        var value=0;
+        labels = dataset_clustering_cols.split(',')
+        for (var label of labels) {
+            cord += "<option value=\""+value+"\">" + label + "</option>"
+            value++;
+        }
+        document.getElementById("xCord").innerHTML = cord;
+        document.getElementById("yCord").innerHTML = cord;
+        document.getElementById("yCord").selectedIndex = 1;
         window.localStorage.setItem("lastX", JSON.stringify(document.getElementById("xCord").selectedIndex));
-    }
-    });
-    document.getElementById("yCord").addEventListener("change", function() {
-    if(document.getElementById("xCord").value == document.getElementById("yCord").value)
-    {
-        alert("Choose different values.");
-        document.getElementById("yCord").selectedIndex = JSON.parse(window.localStorage.getItem("lastY"));
-    }
-    else
-    {
-        plotPoints();
-        window.myScatter.update();
         window.localStorage.setItem("lastY", JSON.stringify(document.getElementById("yCord").selectedIndex));
-    }
-    });
-
-    var cord = "";
-    var value=0;
-    labels = dataset_clustering_cols.split(',')
-    for (var label of labels) {
-        cord += "<option value=\""+value+"\">" + label + "</option>"
-        value++;
-    }
-    document.getElementById("xCord").innerHTML = cord;
-    document.getElementById("yCord").innerHTML = cord;
-    document.getElementById("yCord").selectedIndex = 1;
-    window.localStorage.setItem("lastX", JSON.stringify(document.getElementById("xCord").selectedIndex));
-    window.localStorage.setItem("lastY", JSON.stringify(document.getElementById("yCord").selectedIndex));
-    ctx = document.getElementById('canvas').getContext('2d');
-    plotPoints();
+        ctx = document.getElementById('canvas').getContext('2d');
+        plotPoints();
     };
+
     function plotPoints(){
-             var mycolor=color(window.chartColors.blue).alpha(0.2).rgbString();//delete me
-            for (var counter=0; counter<numberOfClusters; counter++) {
+        for (var counter=0; counter<numberOfClusters; counter++) {
             datasetValue[counter] = {
                 label: 'dataset '+(counter+1),
-
                 borderColor: window.chartColors.black,
                 backgroundColor: getRandomColor(),
-
                 data: generateData(counter)
             }
-            mycolor=color(window.chartColors.red).alpha(0.2).rgbString();//delete me
         }
+
         window.myScatter = Chart.Scatter(ctx, {
             data: scatterChartData,
             options: {
-             tooltips: {
-             callbacks: {
- label: function(tooltipItem, data) {
-    return "ID:" + tooltipItem.index +': ' + tooltipItem.yLabel + "," + tooltipItem.xLabel;
- }
-}
-             },
+                 tooltips: {
+                     callbacks: {
+                         label: function(tooltipItem, data) {
+                            return "ID:" + tooltipItem.index +': ' + tooltipItem.yLabel + "," + tooltipItem.xLabel;
+                         }
+                     }
+                 },
                 title: {
                     display: true,
                     text: 'Clustering By Kmeans'
                 },
-
             }
-
         });
     }
-
-    document.getElementById('randomizeData').addEventListener('click', function() {
-        scatterChartData.datasets.forEach(function(dataset) {
-            dataset.data = dataset.data.map(function() {
-                return {
-                    x: randomScalingFactor(),
-                    y: randomScalingFactor()
-                };
-            });
-        });
-        window.myScatter.update();
-    });
-
-
-
-
