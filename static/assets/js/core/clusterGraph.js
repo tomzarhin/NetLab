@@ -80,14 +80,15 @@
     ctx = document.getElementById('canvas').getContext('2d');
     plotPoints();
     };
-
     function plotPoints(){
              var mycolor=color(window.chartColors.blue).alpha(0.2).rgbString();//delete me
             for (var counter=0; counter<numberOfClusters; counter++) {
             datasetValue[counter] = {
                 label: 'dataset '+(counter+1),
+
                 borderColor: window.chartColors.black,
                 backgroundColor: getRandomColor(),
+
                 data: generateData(counter)
             }
             mycolor=color(window.chartColors.red).alpha(0.2).rgbString();//delete me
@@ -95,11 +96,20 @@
         window.myScatter = Chart.Scatter(ctx, {
             data: scatterChartData,
             options: {
+             tooltips: {
+             callbacks: {
+ label: function(tooltipItem, data) {
+    return "ID:" + tooltipItem.index +': ' + tooltipItem.yLabel + "," + tooltipItem.xLabel;
+ }
+}
+             },
                 title: {
                     display: true,
                     text: 'Clustering By Kmeans'
                 },
+
             }
+
         });
     }
 
