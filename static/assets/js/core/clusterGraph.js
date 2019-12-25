@@ -36,7 +36,9 @@
     };
 
     window.onload = function() {
-
+        var cord = "";
+        var value=0;
+        labels = dataset_clustering_cols.split(',');
         document.getElementById("elbowValue").innerHTML = elbow_value;
         document.getElementById("silhouetteValue").innerHTML = silhouetteValue;
 
@@ -68,13 +70,11 @@
             }
         });
 
-        var cord = "";
-        var value=0;
-        labels = dataset_clustering_cols.split(',')
         for (var label of labels) {
             cord += "<option value=\""+value+"\">" + label + "</option>"
             value++;
         }
+
         document.getElementById("xCord").innerHTML = cord;
         document.getElementById("yCord").innerHTML = cord;
         document.getElementById("yCord").selectedIndex = 1;
