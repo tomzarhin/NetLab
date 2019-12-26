@@ -11,7 +11,7 @@ var experiments = JSON.parse(window.localStorage.getItem("experiments"));
 var idExpArray = experiments.findIndex(x => x.id === parseInt(idExp));
 var idTaskArray = experiments[idExpArray].task.findIndex(x => x.task_id === parseInt(idTask))
 var datasetToBayes = JSON.parse(JSON.stringify(experiments[idExpArray].task[idTaskArray].dataset));
-
+var checkboxes;
 var colsArr = experiments[idExpArray].task[idTaskArray].datasetcols.split(",");
 var datasetWithPrior=JSON.parse(JSON.stringify(experiments[idExpArray].task[idTaskArray].dataset));
 var checkboxes1=[];
@@ -70,14 +70,13 @@ function addToTable2(checkboxElem) {
         checkboxes2.splice(index, 1);
   }
 }
-sendWithPrior.onclick = function() {
-      var checkboxes = checkboxes1.concat(checkboxes2);
+function sendWithPrior(){
       if(checkboxes.length == colsArr.length)
       {
           for(i=0;i<checkboxes.length;i++)
           {
                  for(j=0;j<datasetToBayes.length;j++)
-                    datasetWithPrior[j][i] = jexcelSpreadSheet.getValueFromCoords((jexcelSpreadSheet.getHeaders().split(",")).indexOf(checkboxes[i]),i);
+                    datasetWithPrior[j][i] = jexcelSpreadSheet.getValueFromCoords((jexcelSpreadSheet.getHeaders().split(",")).indexOf(checkboxes[i]),j);
           }
           jexcelSpreadSheet.setData(datasetWithPrior);
           for(i=0;i<checkboxes.length;i++)
@@ -169,30 +168,37 @@ function reset(){
 }
 
 $('#goK2').click(function () {
-    var form_data = new FormData();
-    form_data = getDataFromjexcel();
-    $.ajax({
-        type: 'POST',
-        url: '/goK2',
-        data: form_data,
-        contentType: false,
-        cache: false,
-        processData: false,
-        success: function (data) {
-            console.log('Success!');
-        },
-    })
-        .done(function (data) {
-            if (data.error) {
-                confirm(data.error);
-            }
-            //alert(data.dataset_k2)
-            window.localStorage.setItem("dataset_k2", JSON.stringify(data.dataset_k2));
-            window.localStorage.setItem("categories", JSON.stringify(data.categories));
-            window.localStorage.setItem("cpt_list",JSON.stringify(data.cpt_list));
-            window.localStorage.setItem("element_categories",JSON.stringify(data.element_categories))
-            location.href = "../pages/bayesGraph.html";
-        });
+    checkboxes = checkboxes1.concat(checkboxes2);
+    if(checkboxes.length==colsArr.length || checkboxes.length==0)
+        {
+            sendWithPrior();
+            var form_data = new FormData();
+            form_data = getDataFromjexcel();
+            $.ajax({
+                type: 'POST',
+                url: '/goK2',
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function (data) {
+                    console.log('Success!');
+                },
+            })
+                .done(function (data) {
+                    if (data.error) {
+                        confirm(data.error);
+                    }
+                    //alert(data.dataset_k2)
+                    window.localStorage.setItem("dataset_k2", JSON.stringify(data.dataset_k2));
+                    window.localStorage.setItem("categories", JSON.stringify(data.categories));
+                    window.localStorage.setItem("cpt_list",JSON.stringify(data.cpt_list));
+                    window.localStorage.setItem("element_categories",JSON.stringify(data.element_categories))
+                    location.href = "../pages/bayesGraph.html";
+                });
+        }
+        else
+            alert("x");
 });
 $('#goKmeans').click(function () {
     var form_data = new FormData();
