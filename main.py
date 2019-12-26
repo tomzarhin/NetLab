@@ -261,7 +261,7 @@ def goCoClustering():
         contingency_table[labels11[id]-1][labels12[id]-1]+=1
         index_id1+=1
 
-    return jsonify({'contingency_table':list(contingency_table)})
+    return jsonify({'contingency_table':list(contingency_table),'labels1':labels11.tolist(),'labels2':labels12.tolist()})
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)

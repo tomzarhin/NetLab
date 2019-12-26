@@ -24,11 +24,13 @@
     <link href="../assets/css/paper-dashboard.css?v=2.0.0" rel="stylesheet"/>
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <script src="../assets/js/plugins/jquery.min.js"></script>
+    <script src="../assets/js/plugins/Chart.min.js"></script>
+    <script src="../assets/js/plugins/utils.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/js/jquery.jexcel.min.js"></script>
     <script src="https://bossanova.uk/jexcel/v3/jexcel.js"></script>
     <script src="https://bossanova.uk/jsuites/v2/jsuites.js"></script>
-    <!--<script type="module" src="../assets/js/core/clusterGraph.js"></script>-->
+    <script src="../assets/js/core/classes/Clustering.js"></script>
 
 </head>
 
@@ -115,12 +117,16 @@
                     <a class="" href="tasks.html">
                         <script>
                         document.write(JSON.parse(window.localStorage.getItem("expName")))
+
+
                         </script>
                     </a>
                     &nbsp;->&nbsp;
                     <a class="" href="dataset.html">
                         <script>
                         document.write(JSON.parse(window.localStorage.getItem("taskName")))
+
+
                         </script>
                     </a></a>
                 </div>
@@ -186,6 +192,26 @@
                     </div>
                 </div>
             </center>
+
+            <div class="col-lg-9 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <canvas id="canvas1"></canvas>
+                </div>
+                <select id="xCord1">
+                </select>
+                <select id="yCord1">
+                </select>
+            </div>
+
+            <div class="col-lg-9 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <canvas id="canvas2"></canvas>
+                </div>
+                <select id="xCord2">
+                </select>
+                <select id="yCord2">
+                </select>
+            </div>
         </div>
 
         <!--   Core JS Files   -->

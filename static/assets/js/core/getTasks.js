@@ -86,6 +86,11 @@ $( document ).ready(function() {
 
     var task2=exp[0].task.filter(x => x.taskName === secoundDataset.value);
     var task2_dataset=task2[0].dataset;
+
+
+    window.localStorage.setItem("task1_dataset", JSON.stringify(task1_dataset));
+    window.localStorage.setItem("task2_dataset", JSON.stringify(task2_dataset));
+
     form_data.append('dataset1', JSON.stringify(task1_dataset));
     form_data.append('dataset2', JSON.stringify(task2_dataset));
     form_data.append('clusteringNum', document.getElementById("clusteringNum").value);
@@ -106,6 +111,9 @@ $( document ).ready(function() {
                 confirm(data.error);
             }
             window.localStorage.setItem("coclusteringtable", JSON.stringify(data.contingency_table));
+            window.localStorage.setItem("labels1", JSON.stringify(data.labels1));
+            window.localStorage.setItem("labels2", JSON.stringify(data.labels2));
+
             alert(data.contingency_table);
         });
 });
