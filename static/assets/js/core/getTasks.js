@@ -23,9 +23,9 @@ $( document ).ready(function() {
                  j=j+1;
                     document.getElementById("p10").innerHTML = document.getElementById("p10").innerHTML +("<div class=\"col-lg-3 col-md-6 col-sm-6\"><div class=\"card card-stats\"><div class=\"card-body \">\n" +
                           "                <div class=\"row\">\n" +
-                          "                  <div class=\"col-7 col-md-9\">\n" +
+                          "                  <div class=\"col-12 col-md-12\">\n" +
                           "                    <div class=\"numbers\">\n" +
-                          "                      <p class=\"card-title text-left\">"+task.taskName+"</p>\n" +
+                          "                      <p style=\"font-size:25px\" class=\"card-title text-left\">"+task.taskName+"</p>\n" +
                           "                      <p class=\"card-category text-left\">"+task.taskDescription+"\n" +
                           "                        <p>\n" +
                           "                    </div>\n" +
@@ -115,6 +115,30 @@ $( document ).ready(function() {
             window.localStorage.setItem("labels2", JSON.stringify(data.labels2));
 
             alert(data.contingency_table);
+        });
+});
+
+
+  $('#goExpBaysienNetwork').click(function () {
+
+    var form_data = new FormData();
+    var exp=experiments.filter(x => x.id === parseInt(idExp));
+    form_data.append('expDataset', JSON.stringify(exp.task));
+    $.ajax({
+        type: 'POST',
+        url: '/goExpBaysienNetwork',
+        data: form_data,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function (data) {
+            console.log('Success!');
+        },
+    })
+        .done(function (data) {
+            if (data.error) {
+                confirm(data.error);
+            }
         });
 });
 
