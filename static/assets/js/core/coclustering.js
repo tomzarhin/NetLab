@@ -5,9 +5,11 @@ $(document).ready(function () {
 
     var ctx1=document.getElementById('canvas1').getContext('2d');
     var ctx2=document.getElementById('canvas2').getContext('2d');
+
     var xCord1=document.getElementById("xCord1");
-    var yCord1=document.getElementById("yCord1");
     var xCord2=document.getElementById("xCord2");
+
+    var yCord1=document.getElementById("yCord1");
     var yCord2=document.getElementById("yCord2");
 
     var kmeansLabels1 = JSON.parse(window.localStorage.getItem("labels1"));
