@@ -12,8 +12,8 @@ class Clustering {
     this.labelsInsert();
   }
 
-    plotPoints(){
-        for (var counter=0; counter<this.numberOfClusters; counter++) {
+    plotPointsLoop(){
+            for (var counter=0; counter<this.numberOfClusters; counter++) {
             this.datasetValue[counter] = {
                 label: 'dataset '+(counter+1),
                 borderColor: window.chartColors.black,
@@ -21,7 +21,32 @@ class Clustering {
                 data: this.dataset_coordinates_func(counter)
             }
         }
+    }
 
+    plotPoints(){
+        this.plotPointsLoop();
+        window.myScatter = Chart.Scatter(this.ctx, {
+            data: {
+                datasets:this.datasetValue
+            },
+            options: {
+                 tooltips: {
+                     callbacks: {
+                         label: function(tooltipItem, data) {
+                            return "ID:" + tooltipItem.index +': ' + tooltipItem.yLabel + "," + tooltipItem.xLabel;
+                         }
+                     }
+                 },
+                title: {
+                    display: true,
+                    text: 'Clustering By Kmeans'
+                },
+            }
+        });
+    }
+
+    plotPoints(clustering2){
+        this.plotPointsLoop();
         window.myScatter = Chart.Scatter(this.ctx, {
             data: {
                 datasets:this.datasetValue

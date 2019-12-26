@@ -1,3 +1,4 @@
+localStorage.clear();
 document.getElementById("signin").addEventListener("click", function() {
     document.getElementById("loadingbar").style.visibility = 'visible';
     var form_data = new FormData();
