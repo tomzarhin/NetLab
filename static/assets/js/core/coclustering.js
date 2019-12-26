@@ -11,11 +11,11 @@ $(document).ready(function () {
     var yCord2=document.getElementById("yCord2");
 
     var kmeansLabels1 = JSON.parse(window.localStorage.getItem("labels1"));
-    var data1 = JSON.parse(window.localStorage.getItem("task1_dataset"));
+    var data1 = task1[0].dataset;
     var dataset_clustering_cols1 = task1[0].datasetcols;
 
     var kmeansLabels2 = JSON.parse(window.localStorage.getItem("labels2"));
-    var data2 = JSON.parse(window.localStorage.getItem("task2_dataset"));
+    var data2 = task2[0].dataset;
     var dataset_clustering_cols2 = task2[0].datasetcols;
 
     var clustering1=new Clustering(kmeansLabels1,data1,dataset_clustering_cols1,ctx1,xCord1,yCord1);
