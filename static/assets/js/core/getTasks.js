@@ -88,8 +88,8 @@ $( document ).ready(function() {
     var task2_dataset=task2[0].dataset;
 
 
-    window.localStorage.setItem("task1_dataset", JSON.stringify(task1_dataset));
-    window.localStorage.setItem("task2_dataset", JSON.stringify(task2_dataset));
+    window.localStorage.setItem("task1", JSON.stringify(task1));
+    window.localStorage.setItem("task2", JSON.stringify(task2));
 
     form_data.append('dataset1', JSON.stringify(task1_dataset));
     form_data.append('dataset2', JSON.stringify(task2_dataset));
