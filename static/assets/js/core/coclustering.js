@@ -1,3 +1,5 @@
+//import {getRandomColor} from './clusterGraph.js';
+
 $(document).ready(function () {
     var idExp = JSON.parse(window.localStorage.getItem("idExp"));
     var idTask = JSON.parse(window.localStorage.getItem("idTask"));
@@ -9,6 +11,9 @@ $(document).ready(function () {
     var colsArr = experiments[idExpArray].task[idTaskArray].datasetcols.split(",");
     var datasetWithPrior=JSON.parse(JSON.stringify(experiments[idExpArray].task[idTaskArray].dataset));
     var headArray=experiments[idExpArray].task[idTaskArray].datasetcols.split(",")
+
+    //var color = getRandomColor();
+
     jexcelSpreadSheet = jexcel(document.getElementById('spreadsheet1'), {
         //colHeaders: headArray,
         //data:data.excelDetails,

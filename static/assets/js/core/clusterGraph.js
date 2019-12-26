@@ -111,3 +111,5 @@
             }
         });
     }
+
+    //export{getRandomColor};
