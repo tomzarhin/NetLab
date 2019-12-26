@@ -169,8 +169,9 @@ function reset(){
 
 $('#goK2').click(function () {
     checkboxes = checkboxes1.concat(checkboxes2);
-    if(checkboxes.length==colsArr.length || checkboxes.length==0)
+    if(checkboxes.length==0 || checkboxes.length==colsArr.length)
         {
+        if(checkboxes.length==colsArr.length)
             sendWithPrior();
             var form_data = new FormData();
             form_data = getDataFromjexcel();
