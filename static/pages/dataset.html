@@ -119,12 +119,20 @@
                         document.write(JSON.parse(window.localStorage.getItem("expName")))
 
 
+
+
+
+
                         </script>
                     </a>
                     &nbsp;->&nbsp;
                     <a class="" href="dataset.html">
                         <script>
                         document.write(JSON.parse(window.localStorage.getItem("taskName")))
+
+
+
+
 
 
                         </script>
@@ -241,34 +249,36 @@
         </div>
         <div class="content ">
             <center>
-                <div class="row justify-content-center">
-                    <div class="col-lg-12 col-md-12 col-sm-12">
-
-                        <div id="spreadsheet1"></div>
-                    </div>
-                    <div id="xx" ustify-content-center>
-                        <button id="bayesianModalButton">Bayesian Network</button>
-                        <button id="clusteringModalButton">Clustering</button>
-                        <footer class="footer footer-black  footer-white ">
-
-                        </footer>
-                    </div>
-                </div>
-
-
-                <select id="comboCols" onchange="reset()">
-                    <option selected disabled>Choose var</option>
-                </select>
-                <p id="median"></p>
-                <select id="norOrMed" onchange="setGroupByMedian()">
-                    <option selected disabled>Choose method</option>
-                    <option>normal</option>
-                    <option>median</option>
-                </select>
-
+                <h5>Dataset</h5>
             </center>
-        </div>
+            <div class="card card-stats col-lg-12 col-md-12 col-sm-12">
+                <center>
+                    <br>
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
 
+                            <div id="spreadsheet1"></div>
+                        </div>
+                        <div id="xx" ustify-content-center>
+                            <button class="btn btn-warning" id="bayesianModalButton">Bayesian Network</button>
+                            <button class="btn btn-warning" id="clusteringModalButton">Clustering</button>
+                            <footer class="footer footer-black  footer-white ">
+                            </footer>
+                        </div>
+                    </div>
+                    <select id="comboCols" onchange="reset()">
+                        <option selected disabled>Choose var</option>
+                    </select>
+                    <p id="median"></p>
+                    <select id="norOrMed" onchange="setGroupByMedian()">
+                        <option selected disabled>Choose method</option>
+                        <option>normal</option>
+                        <option>median</option>
+                    </select>
+
+                </center>
+            </div>
+        </div>
         <!--   Core JS Files   -->
         <script src="../assets/js/plugins/popper.min.js"></script>
         <script src="../assets/js/plugins/bootstrap.min.js"></script>
