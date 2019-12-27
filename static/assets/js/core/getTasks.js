@@ -5,6 +5,7 @@ $( document ).ready(function() {
     var idExp = JSON.parse(window.localStorage.getItem("idExp"));
     var experiments = JSON.parse(window.localStorage.getItem("experiments"));
     var buttons = document.getElementsByName('taskButton');
+    var xButton=document.getElementsByName('xButton');
     var j=0;
 
     var firstDataset = document.getElementById("firstDataset");
@@ -25,7 +26,7 @@ $( document ).ready(function() {
                           "                <div class=\"row\">\n" +
                           "                  <div class=\"col-12 col-md-12\">\n" +
                           "                    <div class=\"numbers\">\n" +
-                          "                      <span style='font-size:11px;position: fixed;'>&#10006;</span>\n"+
+                          "                      <span style='font-size:11px;position: fixed;'name=\"xButton\" id="+task.task_id+">&#10006;</span>\n"+
                           "                      <p style=\"font-size:25px\" class=\"card-title text-left\">"+task.taskName+"</p>\n" +
                           "                      <p class=\"card-category text-left\">"+task.taskDescription+"\n" +
                           "                        <p>\n" +
@@ -55,6 +56,53 @@ $( document ).ready(function() {
             location.href = "../pages/dataset.html";
 
         };
+        xButton[i].onclick = function(){
+            var idTask= this.id;
+            var idExpArray = experiments.findIndex(x => x.id === parseInt(idExp));
+
+            // alerty.confirm(content, opts, onOk, onCancel)
+            alerty.confirm(
+              'Are you sure?',
+              {title: 'Notes', cancelLabel: 'Cancel', okLabel: 'Confirm'},
+              function(){
+                    var form_data = new FormData();
+                    form_data.append('idTask', JSON.stringify(idTask));
+                    form_data.append('idExp', JSON.stringify(idExp));
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/deleteTask',
+                        data: form_data,
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        success: function (data) {
+                            console.log('Success!');
+                        },
+                    })
+                        .done(function (data) {
+                            if (data.error) {
+                                confirm(data.error);
+                            }
+                            // alerty.toasts(content, opts, callback)
+                            var idTaskArray = experiments[idExpArray].task.findIndex(x => x.task_id === parseInt(idTask))
+                            if (idTaskArray > -1) {
+                              experiments[idExpArray].task.splice(idTaskArray, 1);
+                            }
+                            window.localStorage.setItem("experiments", JSON.stringify(experiments));
+                            alerty.toasts('Task deleted successfully', {
+                              bgColor: '#ccc',
+                              fontColor: '#000',
+                              place: 'top',
+                            })
+                            setTimeout(function(){ location.reload(); }, 2500);
+                        });
+              },
+              function() {
+                    alerty.toasts('Action cancelled')
+              }
+            )
+        }
     }
 
     // When the user clicks the button, open the modal
@@ -116,6 +164,7 @@ $( document ).ready(function() {
             window.localStorage.setItem("labels2", JSON.stringify(data.labels2));
 
             alert(data.contingency_table);
+            location.href = "../pages/coclustering.html";
         });
 });
 

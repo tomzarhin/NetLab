@@ -263,5 +263,17 @@ def goCoClustering():
 
     return jsonify({'contingency_table':list(contingency_table),'labels1':labels11.tolist(),'labels2':labels12.tolist()})
 
+
+@app.route('/deleteTask', methods=['GET', 'POST'])
+#Deleting task from experiment
+#Author: Tom Zarhin
+def deleteTask():
+    idTask = request.form['idTask']
+    idExp = request.form['idExp']
+    idTask=int(list(idTask)[1])
+    idExp=int(list(idExp)[1])
+    mongo.deleteTask(idTask,idExp)
+    return jsonify({'status':'deleted'})
+
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)

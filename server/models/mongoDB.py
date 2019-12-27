@@ -68,3 +68,10 @@ class Mongo:
             return("OK")
         except:
             return("except")
+
+    def deleteTask(self, idTask, idExp):
+        myquery = {"id": idExp}
+        newvalues = {"$pull": {"tasks": {"task_id":idTask}}}
+        #self.db.experiments.update({},{ $pull: {tasks: { $ in: ["apples", "oranges"]}}},{multi: true})
+        value=self.db.experiments.update(myquery, newvalues)
+        print(value)
