@@ -277,5 +277,19 @@ def deleteTask():
     mongo.deleteTask(idTask,idExp)
     return jsonify({'status':'deleted'})
 
+@app.route('/goExpBaysienNetwork', methods=['GET', 'POST'])
+#Bayesian network for entire experiment
+#Author: Tom Zarhin
+def goExpBaysienNetwork():
+    expDataset = json.loads(request.form.get('expDataset'))
+    data_full=expDataset[0]['dataset']
+    data_cols=expDataset[0]['datasetcols'].split(',')
+    expDataset.pop(0)
+    for task in expDataset:
+        data_cols=np.append(data_cols, task['datasetcols'].split(','), axis=1)
+        data_full=np.append(data_full, task['dataset'], axis=1)
+        #data_cols[:,:-1]=task['datasetcolumn']
+    return jsonify({'status':'deleted'})
+
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)

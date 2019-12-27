@@ -170,10 +170,9 @@ $( document ).ready(function() {
 
 
   $('#goExpBaysienNetwork').click(function () {
-
     var form_data = new FormData();
     var exp=experiments.filter(x => x.id === parseInt(idExp));
-    form_data.append('expDataset', JSON.stringify(exp.task));
+    form_data.append('expDataset', JSON.stringify(exp[0].task));
     $.ajax({
         type: 'POST',
         url: '/goExpBaysienNetwork',
@@ -190,7 +189,7 @@ $( document ).ready(function() {
                 confirm(data.error);
             }
         });
-});
+   });
 
 });
 
