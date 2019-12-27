@@ -26,7 +26,7 @@ $( document ).ready(function() {
                           "                <div class=\"row\">\n" +
                           "                  <div class=\"col-12 col-md-12\">\n" +
                           "                    <div class=\"numbers\">\n" +
-                          "                      <span style='font-size:11px;position: fixed;'name=\"xButton\" id="+task.task_id+">&#10006;</span>\n"+
+                          "                      <div style='font-size:11px;cursor: pointer;'name=\"xButton\" id="+task.task_id+">&#10006;</div>\n"+
                           "                      <p style=\"font-size:25px\" class=\"card-title text-left\">"+task.taskName+"</p>\n" +
                           "                      <p class=\"card-category text-left\">"+task.taskDescription+"\n" +
                           "                        <p>\n" +
