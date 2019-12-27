@@ -11,6 +11,7 @@ var experiments = JSON.parse(window.localStorage.getItem("experiments"));
 var idExpArray = experiments.findIndex(x => x.id === parseInt(idExp));
 var idTaskArray = experiments[idExpArray].task.findIndex(x => x.task_id === parseInt(idTask))
 var datasetToBayes = JSON.parse(JSON.stringify(experiments[idExpArray].task[idTaskArray].dataset));
+var dataset=experiments[idExpArray].task[idTaskArray].dataset;
 var checkboxes;
 var colsArr = experiments[idExpArray].task[idTaskArray].datasetcols.split(",");
 var datasetWithPrior=JSON.parse(JSON.stringify(experiments[idExpArray].task[idTaskArray].dataset));
@@ -136,33 +137,53 @@ const calcMedian = arr => {
     nums = [...arr].sort((a, b) => a - b);
   return arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
 };
+  let average = (array) => array.reduce((a, b) => a + b) / array.length;
   var title = document.getElementById("comboCols").value;
   var method = document.getElementById("norOrMed").value;
   var index = colsArr.indexOf(title);
-  var dataset=experiments[idExpArray].task[idTaskArray].dataset;
-   var median = calcMedian(arrayColumn(dataset, index));
-   document.getElementById("median").innerHTML = "You median: " + median;
-   if(method=="median")
+   var medianOrAverageOrCustom;
+   if(method=="median" || method=="average" || method=="custom value")
         {
-           for(var i=0;i<datasetToBayes.length;i++)
+            if(method=="median")
+            {
+                medianOrAverageOrCustom = calcMedian((arrayColumn(dataset, index)).map(Number));
+                CheckIfHighOrLowFromValue(index,medianOrAverageOrCustom);
+            }
+            else if(method=="average")
+            {
+                medianOrAverageOrCustom = average((arrayColumn(dataset, index)).map(Number));
+                CheckIfHighOrLowFromValue(index,medianOrAverageOrCustom);
+            }
+            else
+            {
+                alerty.prompt('Set your custom value',
+                  {inputType: 'text', inputPlaceholder: 'fill the blank', inputValue: '', cancelLabel: 'Cancel', okLabel: 'Confirm'},
+                  function(value){
+                    CheckIfHighOrLowFromValue(index,value);
+                }, function(){})
+            }
+
+        }
+         else
+        {
+            for(var i=0;i<datasetToBayes.length;i++)
+                datasetToBayes[i][index] = dataset[i][index];
+            jexcelSpreadSheet.setColumnData(index, arrayColumn(datasetToBayes, index));
+        }
+}
+
+function CheckIfHighOrLowFromValue(index,medianOrAverageOrCustom)
+{
+            const arrayColumn = (arr, n) => arr.map(x => x[n]);
+           for(var i=0;i<dataset.length;i++)
            {
-                    if(parseInt(datasetToBayes[i][index]) <= median)
+                    if(parseInt(dataset[i][index]) <= medianOrAverageOrCustom)
                             datasetToBayes[i][index] = "0";
                     else
                             datasetToBayes[i][index] = "1";
            }
             jexcelSpreadSheet.setColumnData(index, arrayColumn(datasetToBayes, index));
-        }
-         else
-        {
-            for(var i=0;i<datasetToBayes.length;i++)
-            {
-                datasetToBayes[i][index] = dataset[i][index];
-            }
-            jexcelSpreadSheet.setColumnData(index, arrayColumn(datasetToBayes, index));
-        }
 }
-
 function reset(){
         document.getElementById("norOrMed").selectedIndex = 0;
 }
