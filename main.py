@@ -11,8 +11,8 @@ __status__ = "Production"
 from flask import request,json,jsonify,render_template,Flask
 from sklearn.cluster import KMeans
 from yellowbrick.cluster import KElbowVisualizer,SilhouetteVisualizer
-#from pgmpy.models import BayesianModel
-#from pgmpy.estimators import MaximumLikelihoodEstimator
+from pgmpy.models import BayesianModel
+from pgmpy.estimators import MaximumLikelihoodEstimator
 from server.models.mongoDB import Mongo
 import server.models.K2 as K2
 import numpy as np
@@ -31,7 +31,68 @@ def is_number(s):
     except ValueError:
         return False
 
-"""
+def bayesianNetworkK2AndTables(dataset,categories):
+    cpds_array=[]
+    categories_each_element={} #Returning an array with the values of each element
+    data = list(list(int(a) for a in b if a.isdigit()) for b in dataset)
+    data = np.array(data)
+    # dataset = np.delete(dataset, 0, 1)
+    categories = np.array(categories)
+
+    # initialize "the blob" and map its variable names to indicies
+    g = K2.data_blob(data)
+
+    # mapping = K2.map_categories(categories)
+
+    # set the maximum number of parents any node can have
+    iters = 1
+    p_lim_max = 5
+    # iterate from p_lim_floor to p_lim_max with random restart
+    p_lim_floor = 4
+    best_score = -10e10
+    best_dag = np.zeros((1, 1))
+    for i in range(iters):
+        for u in range(p_lim_floor, p_lim_max):
+            # generate random ordering
+            order = np.arange(g.var_number)
+            (dag, k2_score) = K2.k2(g, order, u, data)
+            score = np.sum(k2_score)
+            if (score > best_score):
+                K2.best_score = score
+                best_dag = dag
+
+    graph_list = K2.graph_out(dag, categories)
+
+    # Finding the Conditional Probabilities Tables
+    bayes_model = createBayesGraph(graph_list, categories, data)
+    cpds_tables = bayes_model.get_cpds()
+
+    # Creating the array which returs to the client
+    for cpd in cpds_tables:
+        cpds_list = {}
+        for cat in cpd.state_names:
+            categories_each_element[cat] = cpd.state_names[cat]
+        cpd_string = str(cpd).split('|')
+        temp_array = []
+        cpd_matrix_values = []
+        digits_numbers = False
+
+        for a in cpd_string:
+            if (is_number(a)):
+                temp_array.append(float(a.strip()))
+                digits_numbers = True
+            elif ("-+" in a and digits_numbers == True):
+                cpd_matrix_values.append(temp_array)
+                temp_array = []
+                digits_numbers = False
+        cpds_list[str(list(cpd.variables))] = cpd_matrix_values
+        cpds_array.append(cpds_list)
+    print("Finising K2")
+
+    return jsonify(
+        {'status': 'done', 'dataset_k2': dag.tolist(), 'categories': list(categories), 'cpt_list': cpds_array,
+         'element_categories': categories_each_element})
+
 def bayesValidation(data,mapping,graph_list):
 # Performing prediction using a bayesian network model
 # Author: Tom Zarhin
@@ -62,7 +123,7 @@ def createBayesGraph(graph_list,mapping,data):
     bayes_model.fit(data_dict_pd)
     return(bayes_model)
 #----------------------------------------------
-"""
+
 
 #---------------Probably unnaceccery--------------
 @app.route('/getExperiments', methods=['GET', 'POST'])
@@ -165,74 +226,16 @@ def goKmeans():
     silhouette = SilhouetteVisualize.silhouette_score_
     elbow = KElbowVisualize.elbow_value_
     return jsonify({'inputArray': list(new_list),'kmeansLabels':(kmeans.labels_.tolist()),'elbowValue':str(elbow),'silhouetteValue':('%.3f' % silhouette)})
-"""
+
 @app.route('/goK2', methods=['GET', 'POST'])
 #Running K2 algorithm for Bayesian Network Correlation
 #Author: Tom Zarhin
 def goK2():
     print("Starting K2")
-    cpds_array=[]
-    categories_each_element={} #Returning an array with the values of each element
     categories = json.loads(request.form['datasetcols'])
     dataset = json.loads(request.form['dataset'])
-    data = list(list(int(a) for a in b if a.isdigit()) for b in dataset)
-    data = np.array(data)
-    #dataset = np.delete(dataset, 0, 1)
-    categories=categories.split(',')
-    categories=np.array(categories)
+    return bayesianNetworkK2AndTables(dataset,categories.split(','))
 
-    # initialize "the blob" and map its variable names to indicies
-    g = K2.data_blob(data)
-
-    #mapping = K2.map_categories(categories)
-
-    # set the maximum number of parents any node can have
-    iters = 1
-    p_lim_max = 5
-    # iterate from p_lim_floor to p_lim_max with random restart
-    p_lim_floor = 4
-    best_score = -10e10
-    best_dag = np.zeros((1, 1))
-    for i in range(iters):
-        for u in range(p_lim_floor, p_lim_max):
-            # generate random ordering
-            order = np.arange(g.var_number)
-            (dag, k2_score) = K2.k2(g, order, u, data)
-            score = np.sum(k2_score)
-            if (score > best_score):
-                K2.best_score = score
-                best_dag = dag
-
-    graph_list=K2.graph_out(dag, categories)
-
-    #Finding the Conditional Probabilities Tables
-    bayes_model=createBayesGraph(graph_list,categories,data)
-    cpds_tables=bayes_model.get_cpds()
-
-    #Creating the array which returs to the client
-    for cpd in cpds_tables:
-        cpds_list={}
-        for cat in cpd.state_names:
-            categories_each_element[cat]=cpd.state_names[cat]
-        cpd_string = str(cpd).split('|')
-        temp_array = []
-        cpd_matrix_values = []
-        digits_numbers = False
-
-        for a in cpd_string:
-            if (is_number(a)):
-                temp_array.append(float(a.strip()))
-                digits_numbers=True
-            elif ("-+" in a and digits_numbers == True):
-                cpd_matrix_values.append(temp_array)
-                temp_array = []
-                digits_numbers = False
-        cpds_list[str(list(cpd.variables))]=cpd_matrix_values
-        cpds_array.append(cpds_list)
-    print("Finising K2")
-
-    return jsonify({'status': 'done','dataset_k2':dag.tolist(),'categories':list(categories),'cpt_list':cpds_array,'element_categories':categories_each_element})
-"""
 @app.route('/goCoClustering', methods=['GET', 'POST'])
 #Contingency table for two different clusters by using kmeans function
 #Author: Tom Zarhin
@@ -286,10 +289,10 @@ def goExpBaysienNetwork():
     data_cols=expDataset[0]['datasetcols'].split(',')
     expDataset.pop(0)
     for task in expDataset:
-        data_cols=np.append(data_cols, task['datasetcols'].split(','), axis=1)
+        data_cols=np.append(data_cols, task['datasetcols'].split(','))
         data_full=np.append(data_full, task['dataset'], axis=1)
         #data_cols[:,:-1]=task['datasetcolumn']
-    return jsonify({'status':'deleted'})
+    return(bayesianNetworkK2AndTables(data_full,data_cols))
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
