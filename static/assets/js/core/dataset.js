@@ -194,6 +194,7 @@ $('#goK2').click(function () {
             sendWithPrior();
             var form_data = new FormData();
             form_data = getDataFromjexcel();
+            form_data.append('numberOfParents', document.getElementById("numberOfParents").value);
             $.ajax({
                 type: 'POST',
                 url: '/goK2',
