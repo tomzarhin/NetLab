@@ -153,6 +153,7 @@ const calcMedian = arr => {
                 medianOrAverageOrCustom = average((arrayColumn(dataset, index)).map(Number));
                 CheckIfHighOrLowFromValue(index,medianOrAverageOrCustom);
             }
+            
             else if(method=="custom value")
             {
                 alerty.prompt('Set your custom value',
