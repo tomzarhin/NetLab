@@ -142,8 +142,7 @@ const calcMedian = arr => {
   var method = document.getElementById("norOrMed").value;
   var index = colsArr.indexOf(title);
    var medianOrAverageOrCustom;
-   if(method=="median" || method=="average" || method=="custom value")
-        {
+
             if(method=="median")
             {
                 medianOrAverageOrCustom = calcMedian((arrayColumn(dataset, index)).map(Number));
@@ -154,7 +153,7 @@ const calcMedian = arr => {
                 medianOrAverageOrCustom = average((arrayColumn(dataset, index)).map(Number));
                 CheckIfHighOrLowFromValue(index,medianOrAverageOrCustom);
             }
-            else
+            else if(method=="custom value")
             {
                 alerty.prompt('Set your custom value',
                   {inputType: 'text', inputPlaceholder: 'fill the blank', inputValue: '', cancelLabel: 'Cancel', okLabel: 'Confirm'},
@@ -162,14 +161,12 @@ const calcMedian = arr => {
                     CheckIfHighOrLowFromValue(index,value);
                 }, function(){})
             }
-
-        }
-         else
-        {
-            for(var i=0;i<datasetToBayes.length;i++)
-                datasetToBayes[i][index] = dataset[i][index];
-            jexcelSpreadSheet.setColumnData(index, arrayColumn(datasetToBayes, index));
-        }
+             else
+            {
+                for(var i=0;i<datasetToBayes.length;i++)
+                    datasetToBayes[i][index] = dataset[i][index];
+                jexcelSpreadSheet.setColumnData(index, arrayColumn(datasetToBayes, index));
+            }
 }
 
 function CheckIfHighOrLowFromValue(index,medianOrAverageOrCustom)
