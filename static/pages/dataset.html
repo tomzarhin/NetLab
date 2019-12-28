@@ -3,10 +3,7 @@
 
 <head>
     <meta charset="utf-8"/>
-    <link rel="stylesheet" href="../assets/css/alerty.css">
-    <script src="../assets/js/plugins/alerty.js"></script>
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <link rel="stylesheet" href="https://bossanova.uk/jsuites/v2/jsuites.css" type="text/css"/>
     <link rel="stylesheet" href="../assets/css/jexcel.css" type="text/css"/>
@@ -22,7 +19,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet"/>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <!-- CSS Files -->
-    <link rel="stylesheet" href="../assets/css/modalbox.css" type="text/css"/>
+
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="../assets/css/paper-dashboard.css?v=2.0.0" rel="stylesheet"/>
     <!-- CSS Just for demo purpose, don't include it in your project -->
@@ -193,63 +190,67 @@
                 </div>
             </div>
         </nav>
-        <!-- modal for clustering features -->
-        <!-- Trigger/Open The Modal -->
 
-        <!-- The Modal -->
-        <div id="clusteringModal" class="modal">
-
-            <!-- Modal content -->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span class="close">&times;</span>
-                    <h2>Modal Header</h2>
-                </div>
-                <div class="modal-body">
-                    <p>Some text in the Modal Body</p>
+        <div  id="clusteringModal"  class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <p>Some text in the Modal Body</p>
                     <p>Some other text...</p>
                     <input type="text" id="clusteringNum" placeholder="Insert number of clusters">
                     <button id="goKmeans">RUN Kmeans</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 
-                </div>
-                <div class="modal-footer">
-                    <h3>Modal Footer</h3>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- modal for bayesian network features -->
-        <!-- Trigger/Open The Modal -->
-
-        <!-- The Modal -->
-        <div id="bayesianModal" class="modal">
-
-            <!-- Modal content -->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span class="close">&times;</span>
-                    <h2>Modal Header</h2>
-                </div>
-                <div class="modal-body">
-                    <div class="row justify-content-center">
+                <div  id="bayesianModal"   class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="row justify-content-center">
                         <div class="col-lg-6 col-md-6 col-sm-6"><h1>Reasons</h1>
                             <div id="category1"></div>
                         </div>
 
                         <div class="col-lg-6 col-md-6 col-sm-6"><h1>Results</h1>
-                            <div id="category2" class="col-lg-6 col-md-6 col-sm-6"></div>
+                            <div id="category2"></div>
                         </div>
-                    </div>
-                    <button id="goK2">RUN K2</button>
 
-                </div>
-                <div class="modal-footer">
-                    <h3>Modal Footer</h3>
-                </div>
-            </div>
+                    </div>
+      </div>
+        <div class="modal-footer justify-content-center">
+
+
+        Insert number of maximum parent:
+                <input type="text" id="setParents" placeholder="Insert number">
 
         </div>
+      <div class="modal-footer justify-content-center">
+
+        <button id="goK2" type="button" class="btn btn-primary">Run k2</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
         <div class="content ">
             <center>
                 <h5>Dataset</h5>
@@ -277,8 +278,6 @@
                         <option selected disabled>Choose method</option>
                         <option>normal</option>
                         <option>median</option>
-                        <option>average</option>
-                        <option>custom value</option>
                     </select>
 
                 </center>
