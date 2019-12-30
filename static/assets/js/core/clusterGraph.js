@@ -1,3 +1,5 @@
+var lastX;
+var lastY;
 window.onload = function() {
     var kmeansLabels = JSON.parse(window.localStorage.getItem("kmeansLabels"));
     var data = JSON.parse(window.localStorage.getItem("dataset_clustering"));
@@ -13,17 +15,18 @@ window.onload = function() {
     clustering.setSilhouetteValue(silhouetteValue);
     clustering.plotPoints();
 
-    document.getElementById("xCord").addEventListener("change",function(){
+    xCord.addEventListener("change",function(){
             if(xCord.value == yCord.value)
         {
             alert("Choose different values.");
-            xCord.selectedIndex = JSON.parse(window.localStorage.getItem("lastX"));
+            xCord.selectedIndex = lastX;
         }
         else
         {
             clustering.plotPoints();
             window.myScatter.update();
-            window.localStorage.setItem("lastX", JSON.stringify(document.getElementById("xCord").selectedIndex));
+            lastX=xCord.selectedIndex;
+            //window.localStorage.setItem("lastX", JSON.stringify(xCord.selectedIndex));
         }
     } );
 
@@ -31,13 +34,14 @@ window.onload = function() {
         if(xCord.value == yCord.value)
         {
             alert("Choose different values.");
-            yCord.selectedIndex = JSON.parse(window.localStorage.getItem("lastY"));
+            yCord.selectedIndex = lastY;
         }
         else
         {
             clustering.plotPoints();
             window.myScatter.update();
-            window.localStorage.setItem("lastY", JSON.stringify(yCord.selectedIndex));
+            lastY=yCord.selectedIndex;
+            //window.localStorage.setItem("lastY", JSON.stringify(yCord.selectedIndex));
         }
     } );
 

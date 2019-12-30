@@ -1,3 +1,36 @@
+var lastX=[2];
+var lastY=[2];
+
+function addListenerToBar(xCord,yCord,index,clustering){
+    xCord.addEventListener("change",function(){
+            if(xCord.value == yCord.value)
+        {
+            alert("Choose different values.");
+            xCord.selectedIndex = lastX[index];
+        }
+        else
+        {
+            clustering.plotPoints();
+            window.myScatter.update();
+            lastX[index]=xCord.selectedIndex;
+        }
+    });
+
+    yCord.addEventListener("change",function(){
+        if(xCord.value == yCord.value)
+        {
+            alert("Choose different values.");
+            yCord.selectedIndex = lastY[index];
+        }
+        else
+        {
+            clustering.plotPoints();
+            window.myScatter.update();
+            lastY[index]=yCord.selectedIndex;
+        }
+    });
+}
+
 $(document).ready(function () {
     var task1 = JSON.parse(window.localStorage.getItem("task1"));
     var task2 = JSON.parse(window.localStorage.getItem("task2"));
@@ -26,6 +59,9 @@ $(document).ready(function () {
     clustering1.plotPoints();
 
     clustering2.plotPoints();
+
+    addListenerToBar(xCord1,yCord1,0,clustering1);
+    addListenerToBar(xCord2,yCord2,1,clustering2);
 
     jexcelSpreadSheet = jexcel(document.getElementById('spreadsheet1'), {
         data: coclusteringtable,

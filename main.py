@@ -292,7 +292,7 @@ def goExpBaysienNetwork():
         data_cols=np.append(data_cols, task['datasetcols'].split(','))
         data_full=np.append(data_full, task['dataset'], axis=1)
         #data_cols[:,:-1]=task['datasetcolumn']
-    return(bayesianNetworkK2AndTables(data_full,data_cols))
+    return(bayesianNetworkK2AndTables(list(data_full),data_cols))
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
