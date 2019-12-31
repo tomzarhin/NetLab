@@ -38,6 +38,7 @@ def Graph_to_M(D,parents,states):
 	parents[i] list of the parents of node[i]
 	returns dictionary (M, sum_M, alp, sum_alp)
 	'''
+	D=np.delete(D, 0, 0)
 	(rows,cols) = D.shape
 
 	M = collections.defaultdict(int)
