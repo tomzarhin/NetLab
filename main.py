@@ -15,6 +15,7 @@ from pgmpy.models import BayesianModel
 from pgmpy.estimators import MaximumLikelihoodEstimator
 from server.models.mongoDB import Mongo
 import server.models.K2 as K2
+import collections
 import numpy as np
 import pandas
 import random
@@ -31,7 +32,7 @@ def is_number(s):
     except ValueError:
         return False
 
-def bayesianNetworkK2AndTables(dataset,categories):
+def bayesianNetworkK2AndTables(dataset,categories,numberOfParents):
     cpds_array=[]
     categories_each_element={} #Returning an array with the values of each element
     data = list(list(int(a) for a in b if a.isdigit()) for b in dataset)
@@ -39,30 +40,59 @@ def bayesianNetworkK2AndTables(dataset,categories):
     # dataset = np.delete(dataset, 0, 1)
     categories = np.array(categories)
 
-    # initialize "the blob" and map its variable names to indicies
-    g = K2.data_blob(data)
+    (m, n) = data.shape
+    num_steps = 10
+    num_iter = 20
+    ##Generate a random topological order?? Need good initializations!!
+    score_arr = []
+    scor_cache = {}
+    states = collections.defaultdict(list)
 
-    # mapping = K2.map_categories(categories)
+    for i in range(n):
+        states[i] = list(np.unique(data[:, i]))
 
-    # set the maximum number of parents any node can have
-    iters = 1
-    p_lim_max = 5
-    # iterate from p_lim_floor to p_lim_max with random restart
-    p_lim_floor = 4
-    best_score = -10e10
-    best_dag = np.zeros((1, 1))
-    for i in range(iters):
-        for u in range(p_lim_floor, p_lim_max):
-            # generate random ordering
-            order = np.arange(g.var_number)
-            (dag, k2_score) = K2.k2(g, order, u, data)
-            score = np.sum(k2_score)
-            if (score > best_score):
-                K2.best_score = score
-                best_dag = dag
+    for iter in range(num_iter):
 
-    graph_list = K2.graph_out(dag, categories)
+        G = np.zeros([n, n])
+        topologicalOrder = list(np.random.choice(n, n, replace=False))
+        parents = collections.defaultdict(list)
 
+        ##Get the unique elements in the columns
+
+        count = 0
+        opt_score = -10e10
+        opt_parents = None
+        old_score = 1e10
+
+        while (count < num_steps):
+
+            (G, parents, score) = K2.GraphUpdate(G, data, topologicalOrder, parents, states)
+            (G, parents, score) = K2.PruneGraphUpdate(G, data, topologicalOrder, parents, states)
+
+            if opt_score < score:
+                opt_score = score
+                opt_parents = parents
+
+            if (abs((old_score - score) / score)) <= 0.000001:  ##weird stopping criteria but whatever!!
+
+                count += num_steps
+            old_score = score
+            count += 1
+        final_M_cache = K2.Graph_to_M(data, parents, states)
+        final_score = K2.score_function(final_M_cache)
+        score_arr += [final_score]
+        scor_cache[iter] = parents
+
+    best_score = np.argmax(score_arr)
+    parents = scor_cache[best_score]
+    graph_list=[]
+    dag = np.zeros((n, n), dtype='int64')
+    for (key, values) in parents.items():
+        for val in values:
+            graph_list.append(categories[val] + "," + categories[key])
+            dag[val,key]=1
+
+    graph_list=list(graph_list)
     # Finding the Conditional Probabilities Tables
     bayes_model = createBayesGraph(graph_list, categories, data)
     cpds_tables = bayes_model.get_cpds()
@@ -234,7 +264,10 @@ def goK2():
     print("Starting K2")
     categories = json.loads(request.form['datasetcols'])
     dataset = json.loads(request.form['dataset'])
-    return bayesianNetworkK2AndTables(dataset,categories.split(','))
+    numberOfParents = json.loads(request.form['numberOfParents'])
+    if(numberOfParents=='' or numberOfParents==None):
+        numberOfParents='2'
+    return bayesianNetworkK2AndTables(dataset,categories.split(','),int(numberOfParents))
 
 @app.route('/goCoClustering', methods=['GET', 'POST'])
 #Contingency table for two different clusters by using kmeans function
@@ -292,7 +325,7 @@ def goExpBaysienNetwork():
         data_cols=np.append(data_cols, task['datasetcols'].split(','))
         data_full=np.append(data_full, task['dataset'], axis=1)
         #data_cols[:,:-1]=task['datasetcolumn']
-    return(bayesianNetworkK2AndTables(list(data_full),data_cols))
+    return(bayesianNetworkK2AndTables(list(data_full),data_cols),2) #CHANGE IT
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)

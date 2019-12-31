@@ -1,5 +1,8 @@
+from numpy import genfromtxt
 import collections
 import numpy as np
+import csv
+import time
 
 def log_gamma(x):
 	'''
@@ -25,6 +28,8 @@ def score_function(M_cache):
 	for key in sum_alp.keys():
 		score +=  - log_gamma(sum_alp[key] + sum_M[key]) + log_gamma(sum_alp[key])
 	return score
+
+
 
 def Graph_to_M(D,parents,states):
 	'''
@@ -103,7 +108,7 @@ def GraphUpdate(G,D,topologicalOrder,parents,states):
 
 				else:
 					print("NOT adding the Edge ", (par,node))
-					G[par,node] = 0##Go back to the graph
+					G[par,node] = 0#Go back to the graph
 					parents[node].pop()##remove the node from the parents dictionary
 
 
@@ -140,3 +145,90 @@ def PruneGraphUpdate(G,D,topologicalOrder,parents,states):
 				parents[key] += [val]
 
 	return (G,parents,score)
+
+
+
+#	D = genfromtxt('../data/Chen_Sex_Stroke_Severity.csv', delimiter=',')
+if __name__ == '__main__':
+    D = genfromtxt('../data/titanic.csv', delimiter=',')
+    (m, n) = D.shape
+    num_steps = 10
+    num_iter = 20
+    ##Generate a random topological order?? Need good initializations!!
+    score_arr = []
+    scor_cache = {}
+    states = collections.defaultdict(list)
+
+    start_time = time.time()
+    for i in range(n):
+        states[i] = list(np.unique(D[:, i]))
+
+    for iter in range(num_iter):
+        print
+        "ITERATION NUMBER", iter
+        G = np.zeros([n, n])
+        topologicalOrder = list(np.random.choice(n, n, replace=False))
+        # The below is a trick specifically for whitewines dataset
+        #topologicalOrder.remove(8)
+        #topologicalOrder.remove(11)
+        #topologicalOrder += [8, 11]
+        #topologicalOrder = np.array(topologicalOrder)
+
+        parents = collections.defaultdict(list)
+        print
+        "topologicalOrder :", topologicalOrder, "\n"
+        ##Get the unique elements in the columns
+
+        count = 0
+        opt_score = -10e10
+        opt_parents = None
+        old_score = 1e10
+
+        while (count < num_steps):
+            print
+            "Counter is at:", count
+            (G, parents, score) = GraphUpdate(G, D, topologicalOrder, parents, states)
+            (G, parents, score) = PruneGraphUpdate(G, D, topologicalOrder, parents, states)
+
+            if opt_score < score:
+                opt_score = score
+                opt_parents = parents
+            print
+            "the current score is:", score
+            if (abs((old_score - score) / score)) <= 0.000001:  ##weird stopping criteria but whatever!!
+                print
+                "EARLY TERMINATION"
+                print
+                "old score was:", old_score, "new score is:", score
+                count += num_steps
+            old_score = score
+            count += 1
+        final_M_cache = Graph_to_M(D, parents, states)
+        final_score = score_function(final_M_cache)
+        score_arr += [final_score]
+        scor_cache[iter] = parents
+
+        print
+        "The FINAL SCORE is:", final_score
+    best_score = np.argmax(score_arr)
+    parents = scor_cache[best_score]
+    print
+    "all the scores are:", score_arr, "best score is:", score_arr[best_score]
+    print
+    "It took about:", (time.time() - start_time), "seconds"
+    f = open('../data/titanic.csv', 'r')
+    reader = csv.reader(f)
+    headers = next(reader)
+    print
+    "headers are", headers
+    text_file = open("whitewine.gph", "w")
+    print
+    "PARENTS is:", parents
+    for (key, values) in parents.items():
+        for val in values:
+            print
+            "added stuff"
+            string = headers[val] + "," + headers[key] + "\n"
+            text_file.write(string)
+
+    text_file.close()
