@@ -151,7 +151,7 @@ def PruneGraphUpdate(G,D,topologicalOrder,parents,states):
 
 #	D = genfromtxt('../data/Chen_Sex_Stroke_Severity.csv', delimiter=',')
 if __name__ == '__main__':
-    D = genfromtxt('../data/titanic.csv', delimiter=',')
+    D = genfromtxt('../data/titanic short.csv', delimiter=',')
     (m, n) = D.shape
     num_steps = 10
     num_iter = 20
@@ -217,7 +217,7 @@ if __name__ == '__main__':
     "all the scores are:", score_arr, "best score is:", score_arr[best_score]
     print
     "It took about:", (time.time() - start_time), "seconds"
-    f = open('../data/titanic.csv', 'r')
+    f = open('../data/titanic short.csv', 'r')
     reader = csv.reader(f)
     headers = next(reader)
     print
