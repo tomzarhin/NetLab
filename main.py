@@ -11,177 +11,13 @@ __status__ = "Production"
 from flask import request,json,jsonify,render_template,Flask
 from sklearn.cluster import KMeans
 from yellowbrick.cluster import KElbowVisualizer,SilhouetteVisualizer
-from pgmpy.models import BayesianModel
-from pgmpy.estimators import MaximumLikelihoodEstimator
+#from pgmpy.estimators import MaximumLikelihoodEstimator
 from server.models.mongoDB import Mongo
-import server.models.K2 as K2
-import collections
+import server.models.BayesianNetworkModel as BN
 import numpy as np
-import pandas
-import random
 
 app = Flask(__name__, static_url_path='/static')
 mongo=Mongo()
-#------------------functions-------------------
-def is_number(s):
-# Getting a character and returning if it is a number
-# Author: Tom Zarhin
-    try:
-        float(s)
-        return True
-    except ValueError:
-        return False
-
-def bayesianNetworkK2AndTables(dataset,categories,numberOfParents):
-    cpds_array=[]
-    categories_each_element={} #Returning an array with the values of each element
-    data = list(list(int(a) for a in b if a.isdigit()) for b in dataset)
-    data = np.array(data)
-    # dataset = np.delete(dataset, 0, 1)
-    categories = np.array(categories)
-
-    (m, n) = data.shape
-    num_steps = 10
-    num_iter = 20
-    ##Generate a random topological order?? Need good initializations!!
-    score_arr = []
-    scor_cache = {}
-    states = collections.defaultdict(list)
-
-    for i in range(n):
-        states[i] = list(np.unique(data[:, i]))
-
-    for iter in range(num_iter):
-
-        G = np.zeros([n, n])
-        topologicalOrder = list(np.random.choice(n, n, replace=False))
-        parents = collections.defaultdict(list)
-
-        ##Get the unique elements in the columns
-
-        count = 0
-        opt_score = -10e10
-        opt_parents = None
-        old_score = 1e10
-
-        while (count < num_steps):
-
-            (G, parents, score) = K2.GraphUpdate(G, data, topologicalOrder, parents, states)
-            (G, parents, score) = K2.PruneGraphUpdate(G, data, topologicalOrder, parents, states)
-
-            if opt_score < score:
-                opt_score = score
-                opt_parents = parents
-
-            if (abs((old_score - score) / score)) <= 0.000001:  ##weird stopping criteria but whatever!!
-
-                count += num_steps
-            old_score = score
-            count += 1
-        final_M_cache = K2.Graph_to_M(data, parents, states)
-        final_score = K2.score_function(final_M_cache)
-        score_arr += [final_score]
-        scor_cache[iter] = parents
-
-    best_score = np.argmax(score_arr)
-    parents = scor_cache[best_score]
-    graph_list=[]
-    dag = np.zeros((n, n), dtype='int64')
-    for (key, values) in parents.items():
-        for val in values:
-            graph_list.append(categories[val] + "," + categories[key])
-            dag[val,key]=1
-
-    graph_list=list(graph_list)
-    # Finding the Conditional Probabilities Tables
-    bayes_model = createBayesGraph(graph_list, categories, data)
-    cpds_tables = bayes_model.get_cpds()
-
-    # Creating the array which returs to the client
-    for cpd in cpds_tables:
-        cpds_list = {}
-        for cat in cpd.state_names:
-            categories_each_element[cat] = cpd.state_names[cat]
-        cpd_string = str(cpd).split('|')
-        temp_array = []
-        cpd_matrix_values = []
-        digits_numbers = False
-
-        for a in cpd_string:
-            if (is_number(a)):
-                temp_array.append(float(a.strip()))
-                digits_numbers = True
-            elif ("-+" in a and digits_numbers == True):
-                cpd_matrix_values.append(temp_array)
-                temp_array = []
-                digits_numbers = False
-        cpds_list[str(list(cpd.variables))] = cpd_matrix_values
-        cpds_array.append(cpds_list)
-    print("Finising K2")
-
-    return jsonify(
-        {'status': 'done', 'dataset_k2': dag.tolist(), 'categories': list(categories), 'cpt_list': cpds_array,
-         'element_categories': categories_each_element})
-
-def bayesValidation(data,mapping,graph_list):
-# Performing prediction using a bayesian network model
-# Author: Tom Zarhin
-
-    #values = pandas.DataFrame(np.random.randint(low=0, high=2, size=(1000, 5)),
-    #columns = ['A', 'B', 'C', 'D', 'E'])
-    random.shuffle(data)
-    train_pct_index = int(0.8 * len(data))
-    train_data = data[:train_pct_index]
-    predict_data = data[train_pct_index:]
-    bayes_model=createBayesGraph(graph_list,mapping,train_data)
-    bayes_model.fit(data)
-    predict_data = predict_data.copy()
-    predict_data.drop('E', axis=1, inplace=True)#fix it
-    y_pred = bayes_model.predict(predict_data)
-    return y_pred
-    
-def createBayesGraph(graph_list,mapping,data):
-# Creating bayesian network graph function
-# Author: Tom Zarhin
-    bayes_model = BayesianModel()
-    bayes_model.add_nodes_from(list(mapping))
-    for value in graph_list:
-        temp_list=value.split(',')
-        bayes_model.add_edge(temp_list[0],temp_list[1])
-    data_dict = {mapping[i]: data[:,i] for i in range(0, len(mapping))}
-    data_dict_pd = pandas.DataFrame(data=data_dict)
-    bayes_model.fit(data_dict_pd)
-    return(bayes_model)
-#----------------------------------------------
-
-
-#---------------Probably unnaceccery--------------
-@app.route('/getExperiments', methods=['GET', 'POST'])
-#Getting the experiments of the user
-#Author: Tom Zarhin
-def getExperiments():
-    userName=request.form.get('userNameDB')
-    experiment_array=mongo.getExperiments(userName)
-    return jsonify({'experiments':experiment_array})
-
-@app.route('/uploadfile', methods=['GET', 'POST'])
-#Getting file from the client and returning an array representing the file
-#Author: Tom Zarhin
-def uploadfile():
-    file = request.files.getlist("file")
-    df = pandas.read_excel(file[0])
-    excel_values=np.array(df.values)
-    excel_cols=np.array(df.columns.values)
-    return jsonify({'excelDetails':excel_values.tolist(),'excelCols':excel_cols.tolist()})
-
-@app.route('/getTasks', methods=['GET', 'POST'])
-#Get The tasks of the user
-#Author: Tom Zarhin
-def getTasks():
-    idExp=request.form.get('idExp')
-    tasks_array=mongo.getTask(idExp)
-    return jsonify({'tasks':tasks_array})
-#-------------------------------------------------
 
 @app.route("/")
 #Getting the experiments of the user
@@ -242,7 +78,7 @@ def goKmeans():
       clusteringNum=2
     dataset = np.array(dataset)
     #dataset = np.delete(dataset, 0, 1)
-    new_list = list(list(float(a) for a in b if is_number(a)) for b in dataset)
+    new_list = list(list(float(a) for a in b if BN.is_number(a)) for b in dataset)
     kmeans = KMeans(n_clusters=int(float(clusteringNum)), random_state=0).fit(new_list)
     new_list_as_array=np.array(new_list)
     SilhouetteVisualize = SilhouetteVisualizer(kmeans)
@@ -262,12 +98,24 @@ def goKmeans():
 #Author: Tom Zarhin
 def goK2():
     print("Starting K2")
+
     categories = json.loads(request.form['datasetcols'])
-    dataset = json.loads(request.form['dataset'])
-    numberOfParents = json.loads(request.form['numberOfParents'])
+    data = json.loads(request.form['dataset'])
+    numberOfParents = request.form['numberOfParents']
     if(numberOfParents=='' or numberOfParents==None):
         numberOfParents='2'
-    return bayesianNetworkK2AndTables(dataset,categories.split(','),int(numberOfParents))
+    categories=categories.split(',')
+
+    graph_list,dag,data=BN.bayesianNetworkK2AndTables(data,categories,int(numberOfParents))
+    # Finding the Conditional Probabilities Tables
+    bayes_model,cpds_array,categories_each_element = BN.createBayesGraph(graph_list, categories, data)
+
+    print("Finising K2")
+
+    return jsonify(
+        {'status': 'done', 'dataset_k2': dag.tolist(), 'categories': list(categories), 'cpt_list': cpds_array,
+         'element_categories': categories_each_element})
+    #return bayesianNetworkK2AndTables(dataset,categories.split(','),int(numberOfParents))
 
 @app.route('/goCoClustering', methods=['GET', 'POST'])
 #Contingency table for two different clusters by using kmeans function
@@ -282,8 +130,8 @@ def goCoClustering():
     dataset1 = np.array(dataset1)
     dataset2 = np.array(dataset2)
 
-    float_list_of_dataset1 = list(list(float(a) for a in b if is_number(a)) for b in dataset1)
-    float_list_of_dataset2 = list(list(float(a) for a in b if is_number(a)) for b in dataset2)
+    float_list_of_dataset1 = list(list(float(a) for a in b if BN.is_number(a)) for b in dataset1)
+    float_list_of_dataset2 = list(list(float(a) for a in b if BN.is_number(a)) for b in dataset2)
 
     kmeans_dataset1 = KMeans(n_clusters=int(float(clusteringNum)), random_state=0).fit(float_list_of_dataset1)
     kmeans_dataset2 = KMeans(n_clusters=int(float(clusteringNum)), random_state=0).fit(float_list_of_dataset2)
@@ -325,7 +173,14 @@ def goExpBaysienNetwork():
         data_cols=np.append(data_cols, task['datasetcols'].split(','))
         data_full=np.append(data_full, task['dataset'], axis=1)
         #data_cols[:,:-1]=task['datasetcolumn']
-    return(bayesianNetworkK2AndTables(list(data_full),data_cols),2) #CHANGE IT
+
+    graph_list,dag,data=BN.bayesianNetworkK2AndTables(list(data_full),data_cols,2)
+    # Finding the Conditional Probabilities Tables
+    bayes_model,cpds_array,categories_each_element = BN.createBayesGraph(graph_list, data_cols, data)
+
+    return jsonify(
+        {'status': 'done', 'dataset_k2': dag.tolist(), 'categories': list(data_cols), 'cpt_list': cpds_array,
+         'element_categories': categories_each_element})
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)

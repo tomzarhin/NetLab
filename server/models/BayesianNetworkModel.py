@@ -1,5 +1,7 @@
 import collections
 import numpy as np
+from pgmpy.models import BayesianModel
+import pandas
 
 def log_gamma(x):
 	'''
@@ -140,3 +142,112 @@ def PruneGraphUpdate(G,D,topologicalOrder,parents,states):
 				parents[key] += [val]
 
 	return (G,parents,score)
+
+def bayesianNetworkK2AndTables(dataset,categories,numberOfParents):
+    data = list(list(int(a) for a in b if a.isdigit()) for b in dataset)
+    data = np.array(data)
+    # dataset = np.delete(dataset, 0, 1)
+    categories = np.array(categories)
+
+    (m, n) = data.shape
+    num_steps = 10
+    num_iter = 20
+    ##Generate a random topological order?? Need good initializations!!
+    score_arr = []
+    scor_cache = {}
+    states = collections.defaultdict(list)
+
+    for i in range(n):
+        states[i] = list(np.unique(data[:, i]))
+
+    for iter in range(num_iter):
+
+        G = np.zeros([n, n])
+        topologicalOrder = list(np.random.choice(n, n, replace=False))
+        parents = collections.defaultdict(list)
+
+        ##Get the unique elements in the columns
+
+        count = 0
+        opt_score = -10e10
+        opt_parents = None
+        old_score = 1e10
+
+        while (count < num_steps):
+
+            (G, parents, score) = GraphUpdate(G, data, topologicalOrder, parents, states)
+            (G, parents, score) = PruneGraphUpdate(G, data, topologicalOrder, parents, states)
+
+            if opt_score < score:
+                opt_score = score
+                opt_parents = parents
+
+            if (abs((old_score - score) / score)) <= 0.000001:  ##weird stopping criteria but whatever!!
+
+                count += num_steps
+            old_score = score
+            count += 1
+        final_M_cache = Graph_to_M(data, parents, states)
+        final_score = score_function(final_M_cache)
+        score_arr += [final_score]
+        scor_cache[iter] = parents
+
+    best_score = np.argmax(score_arr)
+    parents = scor_cache[best_score]
+    graph_list=[]
+    dag = np.zeros((n, n), dtype='int64')
+    for (key, values) in parents.items():
+        for val in values:
+            graph_list.append(categories[val] + "," + categories[key])
+            dag[val,key]=1
+
+    graph_list=list(graph_list)
+    return(graph_list,dag,data)
+
+def createBayesGraph(graph_list,mapping,data):
+# Creating bayesian network graph function
+# Author: Tom Zarhin
+    cpds_array = []
+    categories_each_element = {}  # Returning an array with the values of each element
+    bayes_model = BayesianModel()
+    bayes_model.add_nodes_from(list(mapping))
+    for value in graph_list:
+        temp_list=value.split(',')
+        bayes_model.add_edge(temp_list[0],temp_list[1])
+    data_dict = {mapping[i]: data[:,i] for i in range(0, len(mapping))}
+    data_dict_pd = pandas.DataFrame(data=data_dict)
+    bayes_model.fit(data_dict_pd)
+
+    cpds_tables = bayes_model.get_cpds()
+
+    # Creating the array which returs to the client
+    for cpd in cpds_tables:
+        cpds_list = {}
+        for cat in cpd.state_names:
+            categories_each_element[cat] = cpd.state_names[cat]
+        cpd_string = str(cpd).split('|')
+        temp_array = []
+        cpd_matrix_values = []
+        digits_numbers = False
+
+        for a in cpd_string:
+            if (is_number(a)):
+                temp_array.append(float(a.strip()))
+                digits_numbers = True
+            elif ("-+" in a and digits_numbers == True):
+                cpd_matrix_values.append(temp_array)
+                temp_array = []
+                digits_numbers = False
+        cpds_list[str(list(cpd.variables))] = cpd_matrix_values
+        cpds_array.append(cpds_list)
+    return(bayes_model,cpds_array,categories_each_element)
+
+
+def is_number(s):
+    # Getting a character and returning if it is a number
+    # Author: Tom Zarhin
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
