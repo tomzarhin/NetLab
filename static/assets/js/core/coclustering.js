@@ -70,4 +70,53 @@ $(document).ready(function () {
         loadingSpin: true,
         editable: false,
     });
+    function TriggerAnotherValue(clustering,idx) {
+      var meta = (clustering.scatter).getDatasetMeta(0),
+        rect = (clustering.scatter).canvas.getBoundingClientRect(),
+        point = meta.data[idx].getCenterPoint(),
+        evt = new MouseEvent('mousemove', {
+          clientX: rect.left + point.x,
+          clientY: rect.top + point.y
+        }),
+        node = (clustering.scatter).canvas;
+      node.dispatchEvent(evt);
+    }
+            window.myScatter = Chart.Scatter(clustering1.ctx, {
+            data: {
+                datasets:clustering1.datasetValue
+            },
+            options: {
+                 tooltips: {
+                     callbacks: {
+                         label: function(tooltipItem, data) {
+                            TriggerAnotherValue(clustering2,tooltipItem.index);
+                            return "ID:" + tooltipItem.index +': ' + tooltipItem.yLabel + "," + tooltipItem.xLabel;
+                         }
+                     }
+                 },
+                title: {
+                    display: true,
+                    text: 'Clustering By Kmeans'
+                },
+            }
+        });
+                    window.myScatter = Chart.Scatter(clustering2.ctx, {
+            data: {
+                datasets:clustering2.datasetValue
+            },
+            options: {
+                 tooltips: {
+                     callbacks: {
+                         label: function(tooltipItem, data) {
+                            TriggerAnotherValue(clustering1,tooltipItem.index);
+                            return "ID:" + tooltipItem.index +': ' + tooltipItem.yLabel + "," + tooltipItem.xLabel;
+                         }
+                     }
+                 },
+                title: {
+                    display: true,
+                    text: 'Clustering By Kmeans'
+                },
+            }
+        });
 });

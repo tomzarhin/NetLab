@@ -10,6 +10,7 @@ class Clustering {
     this.xCord=xCord;
     this.yCord=yCord;
     this.labelsInsert();
+    this.scatter=window.myScatter;
   }
 
     plotPointsLoop(){
@@ -43,6 +44,7 @@ class Clustering {
                 },
             }
         });
+        this.scatter=window.myScatter;
     }
 
     plotPoints(clustering2){
@@ -65,6 +67,7 @@ class Clustering {
                 },
             }
         });
+        this.scatter=window.myScatter;
     }
 
 
