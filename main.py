@@ -105,8 +105,9 @@ def goK2():
     if(numberOfParents=='' or numberOfParents==None):
         numberOfParents='2'
     categories=categories.split(',')
+    dontKnowTheArrangement = request.form['dontKnowTheArrangement']
 
-    graph_list,dag,data=BN.bayesianNetworkK2AndTables(data,categories,int(numberOfParents))
+    graph_list,dag,data=BN.bayesianNetworkK2AndTables(data,categories,int(numberOfParents),dontKnowTheArrangement)
     # Finding the Conditional Probabilities Tables
     bayes_model,cpds_array,categories_each_element = BN.createBayesGraph(graph_list, categories, data)
 
@@ -173,8 +174,9 @@ def goExpBaysienNetwork():
         data_cols=np.append(data_cols, task['datasetcols'].split(','))
         data_full=np.append(data_full, task['dataset'], axis=1)
         #data_cols[:,:-1]=task['datasetcolumn']
+    dontKnowTheArrangement = request.form['dontKnowTheArrangement']
 
-    graph_list,dag,data=BN.bayesianNetworkK2AndTables(list(data_full),data_cols,2)
+    graph_list,dag,data=BN.bayesianNetworkK2AndTables(list(data_full),data_cols,2,dontKnowTheArrangement)
     # Finding the Conditional Probabilities Tables
     bayes_model,cpds_array,categories_each_element = BN.createBayesGraph(graph_list, data_cols, data)
 

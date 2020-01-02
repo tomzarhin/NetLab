@@ -143,7 +143,7 @@ def PruneGraphUpdate(G,D,topologicalOrder,parents,states):
 
 	return (G,parents,score)
 
-def bayesianNetworkK2AndTables(dataset,categories,numberOfParents):
+def bayesianNetworkK2AndTables(dataset,categories,numberOfParents,dontKnowTheArrangement):
     data = list(list(int(a) for a in b if a.isdigit()) for b in dataset)
     data = np.array(data)
     # dataset = np.delete(dataset, 0, 1)
@@ -163,7 +163,11 @@ def bayesianNetworkK2AndTables(dataset,categories,numberOfParents):
     for iter in range(num_iter):
 
         G = np.zeros([n, n])
-        topologicalOrder = list(np.random.choice(n, n, replace=False))
+        if(dontKnowTheArrangement=='block'):
+            topologicalOrder = list(np.random.choice(n, n, replace=False))
+        else:
+            topologicalOrder = list(np.arange(n))
+
         parents = collections.defaultdict(list)
 
         ##Get the unique elements in the columns
@@ -191,6 +195,8 @@ def bayesianNetworkK2AndTables(dataset,categories,numberOfParents):
         final_score = score_function(final_M_cache)
         score_arr += [final_score]
         scor_cache[iter] = parents
+        if(dontKnowTheArrangement!='block'):
+            break
 
     best_score = np.argmax(score_arr)
     parents = scor_cache[best_score]

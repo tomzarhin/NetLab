@@ -195,6 +195,7 @@ $('#goK2').click(function () {
             var form_data = new FormData();
             form_data = getDataFromjexcel();
             form_data.append('numberOfParents', document.getElementById("numberOfParents").value);
+            form_data.append('dontKnowTheArrangement', document.getElementById("dontKnowTheArrangement").value);
             $.ajax({
                 type: 'POST',
                 url: '/goK2',
@@ -277,3 +278,11 @@ window.onclick = function(event) {
   }
 }
 
+function changeFlagValue(){
+  var checkBox = document.getElementById("dontKnowTheArrangement");
+  if (checkBox.checked == true){
+    checkBox.value = "block";
+  } else {
+     checkBox.value = "none";
+  }
+}
