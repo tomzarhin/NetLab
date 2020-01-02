@@ -60,6 +60,7 @@ $(document).ready(function () {
 
     clustering2.plotPoints();
 
+
     addListenerToBar(xCord1,yCord1,0,clustering1);
     addListenerToBar(xCord2,yCord2,1,clustering2);
 
