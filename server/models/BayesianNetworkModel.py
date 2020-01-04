@@ -56,7 +56,7 @@ def Graph_to_M(D,parents,states):
 
 
 
-def GraphUpdate(G,D,topologicalOrder,parents,states):
+def GraphUpdate(G,D,topologicalOrder,parents,states,numberOfParents):
 	'''
 	G : Graph
 	D : Datasets
@@ -89,7 +89,7 @@ def GraphUpdate(G,D,topologicalOrder,parents,states):
 		for par_ele in range(0,ele):
 			par = topologicalOrder[par_ele]
 			print("\n considering the edge:", (par,node))
-			if (par not in parents[node] and parents_counter < max_edges):
+			if (par not in parents[node] and parents_counter < max_edges and len(parents[node])<numberOfParents):
 				G[par,node] = 1
 				parents[node] += [par]
 				#print "parents are:",parents
@@ -179,7 +179,7 @@ def bayesianNetworkK2AndTables(dataset,categories,numberOfParents,dontKnowTheArr
 
         while (count < num_steps):
 
-            (G, parents, score) = GraphUpdate(G, data, topologicalOrder, parents, states)
+            (G, parents, score) = GraphUpdate(G, data, topologicalOrder, parents, states,numberOfParents)
             (G, parents, score) = PruneGraphUpdate(G, data, topologicalOrder, parents, states)
 
             if opt_score < score:
