@@ -6,6 +6,9 @@ $( document ).ready(function() {
     var experiments = JSON.parse(window.localStorage.getItem("experiments"));
     var buttons = document.getElementsByName('taskButton');
     var xButton=document.getElementsByName('xButton');
+    var spanBayes = document.getElementsByClassName("close")[1];
+    var bayesianModalButton = document.getElementById("bayesianModalButton");
+
     var j=0;
 
     var firstDataset = document.getElementById("firstDataset");
@@ -173,6 +176,9 @@ $( document ).ready(function() {
     var form_data = new FormData();
     var exp=experiments.filter(x => x.id === parseInt(idExp));
     form_data.append('expDataset', JSON.stringify(exp[0].task));
+    form_data.append('numberOfParents', document.getElementById("numberOfParents").value);
+    form_data.append('dontKnowTheArrangement', document.getElementById("dontKnowTheArrangement").value);
+
     $.ajax({
         type: 'POST',
         url: '/goExpBaysienNetwork',
@@ -196,5 +202,27 @@ $( document ).ready(function() {
         });
    });
 
+// When the user clicks the button, open the modal
+bayesianModalButton.onclick = function() {
+  bayesianModal.style.display = "block";
+}
+spanBayes.onclick = function() {
+  bayesianModal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == bayesianModal) {
+    bayesianModal.style.display = "none";
+  }
+}
+
 });
 
+function changeFlagValue(){
+  var checkBox = document.getElementById("dontKnowTheArrangement");
+  if (checkBox.checked == true){
+    checkBox.value = "block";
+  } else {
+     checkBox.value = "none";
+  }
+}

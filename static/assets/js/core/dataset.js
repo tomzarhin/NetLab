@@ -190,6 +190,7 @@ $('#goK2').click(function () {
     checkboxes = checkboxes1.concat(checkboxes2);
     if(checkboxes.length==0 || checkboxes.length==colsArr.length)
         {
+        document.getElementById("loadingbar").style.visibility = 'visible';
         if(checkboxes.length==colsArr.length)
             sendWithPrior();
             var form_data = new FormData();
@@ -223,6 +224,7 @@ $('#goK2').click(function () {
             alert("x");
 });
 $('#goKmeans').click(function () {
+    document.getElementById("loadingbar").style.visibility = 'visible';
     var form_data = new FormData();
     form_data = getDataFromjexcel();
     form_data.append('clusteringNum', document.getElementById("clusteringNum").value);
