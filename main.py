@@ -103,7 +103,7 @@ def goK2():
     data = json.loads(request.form['dataset'])
     numberOfParents = request.form['numberOfParents']
     if(numberOfParents=='' or numberOfParents==None):
-        numberOfParents='100'
+        numberOfParents='1000'
     categories=categories.split(',')
     dontKnowTheArrangement = request.form['dontKnowTheArrangement']
 
