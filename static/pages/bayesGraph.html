@@ -29,7 +29,7 @@
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="../assets/css/paper-dashboard.css?v=2.0.0" rel="stylesheet"/>
     <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="../assets/demo/demo.css" rel="stylesheet"/>
+
 </head>
 
 <body class="">
@@ -137,7 +137,8 @@
                                         <div class="numbers">
                                             <p style="font-size:14px" class="card-category text-center">Number of
                                                 allowed parents</p>
-                                            <p class="card-title text-center">3
+                                            <p class="card-title text-center"><script>
+                        document.write(JSON.parse(window.localStorage.getItem("numberOfParents")))</script>
                                             <p>
                                         </div>
                                     </div>
@@ -160,7 +161,8 @@
                                         <div class="numbers">
                                             <p style="font-size:14px" class="card-category text-center">Number of
                                                 variables</p>
-                                            <p class="card-title text-center">5
+                                            <p class="card-title text-center"><script>
+                        document.write(JSON.parse(window.localStorage.getItem("numberOfVars")))</script>
                                             <p>
                                         </div>
                                     </div>
@@ -226,14 +228,7 @@
     <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="../assets/js/plugins/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
     <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-    <script src="../assets/demo/demo.js"></script>
-    <script>
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/assets-for-demo/js/demo.js
-      demo.initChartsPages();
-    });
-
-    </script>
+</div>
 </body>
 
 </html>

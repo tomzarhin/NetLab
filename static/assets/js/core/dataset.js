@@ -18,10 +18,9 @@ var datasetWithPrior=JSON.parse(JSON.stringify(experiments[idExpArray].task[idTa
 var checkboxes1=[];
 var checkboxes2=[];
 
+
     function makeCheckboxes1(str) {
         var checkbox = document.getElementById("category1");
-        category1.style.height = "10px";
-        alert(document.getElementById("category1").style.height);
         var arr = str;
         var returnStr = "";
         for (i = 0; i < arr.length; i++) {
@@ -183,6 +182,11 @@ function reset(){
 }
 
 $('#goK2').click(function () {
+    if((document.getElementById("numberOfParents").value) != null)
+        window.localStorage.setItem("numberOfParents", JSON.stringify(document.getElementById("numberOfParents").value));
+    else
+        window.localStorage.setItem("numberOfParents", JSON.stringify("opt"));
+    window.localStorage.setItem("numberOfVars", JSON.stringify(colsArr.length));
     checkboxes = checkboxes1.concat(checkboxes2);
     if(checkboxes.length==0 || checkboxes.length==colsArr.length)
         {
