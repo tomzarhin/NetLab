@@ -20,6 +20,8 @@ var checkboxes2=[];
 
     function makeCheckboxes1(str) {
         var checkbox = document.getElementById("category1");
+        category1.style.height = "10px";
+        alert(document.getElementById("category1").style.height);
         var arr = str;
         var returnStr = "";
         for (i = 0; i < arr.length; i++) {

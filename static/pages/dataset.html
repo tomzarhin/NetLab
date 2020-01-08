@@ -102,35 +102,19 @@
                     <a class="" href="tasks.html">
                         <script>
                         document.write(JSON.parse(window.localStorage.getItem("expName")))
-
-
-
-
-
-
-
-
                         </script>
                     </a>
                     &nbsp;->&nbsp;
                     <a class="" href="dataset.html">
                         <script>
                         document.write(JSON.parse(window.localStorage.getItem("taskName")))
-
-
-
-
-
-
-
-
                         </script>
                     </a></a>
+                        ->
+                        Dataset
                 </div>
-
             </div>
         </nav>
-
         <div id="clusteringModal" class="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -159,7 +143,7 @@
             </div>
         </div>
 
-        <div id="bayesianModal" class="modal" tabindex="-1" role="dialog">
+        <div id="bayesianModal"  class="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -168,7 +152,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
+                    <div class="modal-body ">
                         <div class="row justify-content-center">
                             <div class="col-lg-6 col-md-6 col-sm-6"><h1>Reasons</h1>
                                 <div id="category1"></div>
@@ -180,7 +164,8 @@
                             <br>
                             <br>
                             <br>
-                            <input type="checkbox" id="dontKnowTheArrangement" onclick="changeFlagValue()">Find the best network<br>
+                            <input type="checkbox" id="dontKnowTheArrangement" onclick="changeFlagValue()">Find the best
+                            network<br>
 
                         </div>
                     </div>
@@ -206,39 +191,39 @@
                 </div>
             </div>
         </div>
+        <div class="content">
 
-        <div class="content ">
             <center>
                 <h5>Dataset</h5>
             </center>
             <div class="card card-stats col-lg-12 col-md-12 col-sm-12">
+                <br>
+                <div class="card card-stats" id="spreadsheet1"></div>
                 <center>
-                    <br>
-                    <div class="row justify-content-center">
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-
-                            <div id="spreadsheet1"></div>
-                        </div>
-                        <div id="xx" ustify-content-center>
-                            <button class="btn btn-warning" id="bayesianModalButton">Bayesian Network</button>
-                            <button class="btn btn-warning" id="clusteringModalButton">Clustering</button>
-                            <footer class="footer footer-black  footer-white ">
-                            </footer>
-                        </div>
+                    <div id="optionsToAnalyze" ustify-content-center>
+                        <button class="btn btn-warning" id="bayesianModalButton">Bayesian Network</button>
+                        <button class="btn btn-warning" id="clusteringModalButton">Clustering</button>
+                        <footer class="footer footer-black  footer-white ">
+                        </footer>
                     </div>
-                    <select id="comboCols" onchange="reset()">
-                        <option selected disabled>Choose var</option>
-                    </select>
-                    <p id="median"></p>
-                    <select id="norOrMed" onchange="setGroupByMedian()">
-                        <option selected disabled>Choose method</option>
-                        <option>normal</option>
-                        <option>median</option>
-                        <option>average</option>
-                        <option>custom value</option>
-                    </select>
+                    <div>
 
+                        <select id="comboCols" onchange="reset()">
+                            <option selected disabled>Choose var</option>
+                        </select>
+                        <p id="median"></p>
+                        <select id="norOrMed" onchange="setGroupByMedian()">
+                            <option selected disabled>Choose method</option>
+                            <option>normal</option>
+                            <option>median</option>
+                            <option>average</option>
+                            <option>custom value</option>
+                        </select>
                 </center>
+                <br><br>
+                <div>
+                </div>
+
             </div>
         </div>
         <!--   Core JS Files   -->
@@ -255,7 +240,11 @@
         <script src="../assets/js/core/dataset.js"></script>
     </div>
 </div>
-<div class="lds-facebook" id="loadingbar" style="visibility:hidden;"><div></div><div></div><div></div></div>
+<div class="lds-facebook" id="loadingbar" style="visibility:hidden;">
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
 
 </body>
 
