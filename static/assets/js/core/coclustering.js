@@ -63,13 +63,26 @@ $(document).ready(function () {
 
     addListenerToBar(xCord1,yCord1,0,clustering1);
     addListenerToBar(xCord2,yCord2,1,clustering2);
+    var cell;
+    var subcluster;
+    var row;
+    var co_length=coclusteringtable.length;
+  var table = document.getElementById("myTable");
+  header = table.insertRow(0);
+  head_cell=header.insertCell(0);
+  for(var i=0;i<co_length;i++ ){
+    head_cell=header.insertCell(i+1);
+    head_cell.innerHTML='U'+i;
+    subcluster=coclusteringtable[i]
+    row = table.insertRow(-1);
+    cell = row.insertCell(0);
+    cell.innerHTML = "V"+i;
+        for(var j=0;j<subcluster.length;j++){
+              cell = row.insertCell(j+1);
+              cell.innerHTML = subcluster[j];
+        }
+  }
 
-    jexcelSpreadSheet = jexcel(document.getElementById('spreadsheet1'), {
-        data: coclusteringtable,
-        csvHeaders: false,
-        loadingSpin: true,
-        editable: false,
-    });
     function TriggerAnotherValue(clustering,idx) {
       var meta = (clustering.scatter).getDatasetMeta(0),
         rect = (clustering.scatter).canvas.getBoundingClientRect(),
