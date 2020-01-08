@@ -1,4 +1,4 @@
-function getDataFromjexcel() {
+function getDataFromjexcel() { //put dataset from excel in variables for sending to the server
     var form_data = new FormData();
     form_data.append('dataset', JSON.stringify(jexcelSpreadSheet.getData()));
     form_data.append('datasetcols', JSON.stringify(jexcelSpreadSheet.getHeaders()));
@@ -17,6 +17,7 @@ var colsArr = experiments[idExpArray].task[idTaskArray].datasetcols.split(",");
 var datasetWithPrior=JSON.parse(JSON.stringify(experiments[idExpArray].task[idTaskArray].dataset));
 var checkboxes1=[];
 var checkboxes2=[];
+
     function makeCheckboxes1(str) {
         var a = document.getElementById("category1");
         var arr = str;

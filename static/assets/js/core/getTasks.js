@@ -1,4 +1,4 @@
-$( document ).ready(function() {
+$( document ).ready(function() { //get all the tasks from the database
     var coModalButton = document.getElementById("coModalButton");
     var span = document.getElementsByClassName("close")[0];
     var userNameDB = JSON.parse(window.localStorage.getItem("userNameDB"));
@@ -15,7 +15,7 @@ $( document ).ready(function() {
     var secoundDataset = document.getElementById("secoundDataset");
     var option;
 
-    for (exp of experiments.filter(x => x.id === parseInt(idExp))) {
+    for (exp of experiments.filter(x => x.id === parseInt(idExp))) { //goes through all tasks in "id" experiment and prints them on screen
         if(exp.task!=null){
             for(task of exp.task){
                 option = document.createElement("option");
@@ -49,7 +49,7 @@ $( document ).ready(function() {
         }
     }
 
-    for (var i = 0; i < buttons.length; i++) {
+    for (var i = 0; i < buttons.length; i++) { //create events for every experiment to save id and name of the experiment
         buttons[i].onclick = function(){
             var idTask= this.id;
             var idExpArray = experiments.findIndex(x => x.id === parseInt(idExp));
@@ -59,7 +59,7 @@ $( document ).ready(function() {
             location.href = "../pages/dataset.html";
 
         };
-        xButton[i].onclick = function(){
+        xButton[i].onclick = function(){ //event of delete experiment
             var idTask= this.id;
             var idExpArray = experiments.findIndex(x => x.id === parseInt(idExp));
 
@@ -147,7 +147,8 @@ $( document ).ready(function() {
     form_data.append('dataset2', JSON.stringify(task2_dataset));
     form_data.append('clusteringNum', document.getElementById("clusteringNum").value);
 
-    $.ajax({
+
+    $.ajax({ //send request to server to create comparing between 2 tasks.
         type: 'POST',
         url: '/goCoClustering',
         data: form_data,
@@ -172,7 +173,7 @@ $( document ).ready(function() {
 });
 
 
-  $('#goExpBaysienNetwork').click(function () {
+  $('#goExpBaysienNetwork').click(function () { //send request to server to create bayesian network
     var form_data = new FormData();
     var exp=experiments.filter(x => x.id === parseInt(idExp));
     form_data.append('expDataset', JSON.stringify(exp[0].task));

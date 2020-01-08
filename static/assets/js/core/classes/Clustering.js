@@ -1,5 +1,4 @@
 class Clustering {
-
   constructor(kmeansLabels,dataset_clustering,dataset_clustering_cols,ctx,xCord,yCord) {
     this.datasetValue = [];
     this.kmeansLabels = kmeansLabels;

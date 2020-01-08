@@ -1,8 +1,8 @@
-$( document ).ready(function() {
+$( document ).ready(function() { //get all the experiments from the database
   var userNameDB = JSON.parse(window.localStorage.getItem("userNameDB"));
   var experiments = JSON.parse(window.localStorage.getItem("experiments"));
   var j=0;
-  for (exp of experiments) {
+  for (exp of experiments) { //goes through all experiments and prints them on screen
        j=j+1;
           document.getElementById("p1").innerHTML = document.getElementById("p1").innerHTML +("<div class=\"col-lg-3 col-md-6 col-sm-6\">\n" +
                 "            <div class=\"card card-stats\">\n" +
@@ -27,7 +27,7 @@ $( document ).ready(function() {
                 "          </div>");
           }
   var buttons = document.getElementsByClassName('btn btn-warning');
-  for (var i = 0; i < buttons.length; i++) {
+  for (var i = 0; i < buttons.length; i++) { //create events for every experiment to save id and name of the experiment
       buttons[i].onclick = function(){
          var idExp= this.id;
           var expName=this.name;

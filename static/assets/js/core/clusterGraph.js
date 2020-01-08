@@ -1,6 +1,6 @@
 var lastX;
 var lastY;
-window.onload = function() {
+window.onload = function() { //build the clustering model graph by using the database
     var kmeansLabels = JSON.parse(window.localStorage.getItem("kmeansLabels"));
     var data = JSON.parse(window.localStorage.getItem("dataset_clustering"));
     var dataset_clustering_cols = JSON.parse(window.localStorage.getItem("dataset_clustering_cols"));
@@ -15,7 +15,7 @@ window.onload = function() {
     clustering.setSilhouetteValue(silhouetteValue);
     clustering.plotPoints();
 
-    xCord.addEventListener("change",function(){
+    xCord.addEventListener("change",function(){ //change the parameter of x-axis for clustering analyze
             if(xCord.value == yCord.value)
         {
             alert("Choose different values.");
@@ -30,7 +30,7 @@ window.onload = function() {
         }
     } );
 
-    yCord.addEventListener("change",function(){
+    yCord.addEventListener("change",function(){ //change the parameter of y-axis for clustering analyze
         if(xCord.value == yCord.value)
         {
             alert("Choose different values.");

@@ -1,5 +1,5 @@
 localStorage.clear();
-    window.onload = function () {
+    window.onload = function () { //login function to the system
     document.getElementById("register").addEventListener("click", function() {
         document.getElementById("loadingbar").style.visibility = 'visible';
         var form_data = new FormData();
