@@ -1,4 +1,4 @@
-function getDataFromjexcel() { //put dataset from excel in variables for sending to the server
+function getDataFromjexcel() { //put dataset from excel in from_data variable for sending to the server
     var form_data = new FormData();
     form_data.append('dataset', JSON.stringify(jexcelSpreadSheet.getData()));
     form_data.append('datasetcols', JSON.stringify(jexcelSpreadSheet.getHeaders()));
@@ -19,22 +19,22 @@ var checkboxes1=[];
 var checkboxes2=[];
 
     function makeCheckboxes1(str) {
-        var a = document.getElementById("category1");
+        var checkbox = document.getElementById("category1");
         var arr = str;
         var returnStr = "";
         for (i = 0; i < arr.length; i++) {
             returnStr += '<input type="checkbox" onchange="addToTable1(this)" name="theCheckbox" value="' + arr[i] + '" />' + arr[i] + "<br>";
         }
-        a.innerHTML = returnStr;
+        checkbox.innerHTML = returnStr;
     }
             function makeCheckboxes2(str) {
-        var a = document.getElementById("category2");
+        var checkbox = document.getElementById("category2");
         var arr = str;
         var returnStr = "";
         for (i = 0; i < arr.length; i++) {
             returnStr += '<input type="checkbox" onchange="addToTable2(this)" name="theCheckbox" value="' + arr[i] + '" />' + arr[i] + "<br>";
         }
-        a.innerHTML = returnStr;
+        checkbox.innerHTML = returnStr;
     }
     window.onload = function () {
         var arr=experiments[idExpArray].task[idTaskArray].datasetcols.split(",");
@@ -111,13 +111,6 @@ $(document).ready(function () {
         tableOverflow: true,
         lazyLoading:true,
     });
-
-    /*jexcelSpreadSheet.insertRow(1,0,1);
-    var tempArrayForTerms=[];
-    for(var column=0;column<experiments[idExpArray].task[idTaskArray].dataset.length;column++){
-        tempArrayForTerms.push("tom");
-    }
-    jexcelSpreadSheet.setRowData(0,tempArrayForTerms);*/
     window.localStorage.setItem("dataset_clustering", JSON.stringify(experiments[idExpArray].task[idTaskArray].dataset));
     window.localStorage.setItem("dataset_clustering_cols", JSON.stringify(jexcelSpreadSheet.getHeaders()));
 });
@@ -125,11 +118,11 @@ $(document).ready(function () {
 var colsArr = experiments[idExpArray].task[idTaskArray].datasetcols.split(",");
 var select = document.getElementById("comboCols");
 for(var i = 0; i < colsArr.length; i++) {
-    var opt = colsArr[i];
-    var el = document.createElement("option");
-    el.textContent = opt;
-    el.value = opt;
-    select.appendChild(el);
+    var option = colsArr[i];
+    var element = document.createElement("option");
+    element.textContent = option;
+    element.value = option;
+    select.appendChild(element);
 }
 function setGroupByMedian() {
 const arrayColumn = (arr, n) => arr.map(x => x[n]);
@@ -213,7 +206,6 @@ $('#goK2').click(function () {
                     if (data.error) {
                         confirm(data.error);
                     }
-                    //alert(data.dataset_k2)
                     window.localStorage.setItem("dataset_k2", JSON.stringify(data.dataset_k2));
                     window.localStorage.setItem("categories", JSON.stringify(data.categories));
                     window.localStorage.setItem("cpt_list",JSON.stringify(data.cpt_list));

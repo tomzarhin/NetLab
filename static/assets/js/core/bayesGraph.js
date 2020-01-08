@@ -22,8 +22,6 @@
                     break;
             }
             var cpts = Object.values(cpt_list[k]); //temporarily holds all probabilities
-            //var getKey = Object.keys(element_categories).find(key => (Object.keys(element_categories))[key] === categories[i]);
-                //values=Object.values(element_categories[Object.keys(cpt_list[k])]);
             cptsForBayes=transpose(cpts[0]);
             vertices.push(new Vertex(categories[i],element_categories[categories[i]],cptsForBayes));
         }

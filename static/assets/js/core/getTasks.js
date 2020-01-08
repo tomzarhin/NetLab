@@ -62,7 +62,6 @@ $( document ).ready(function() { //get all the tasks from the database
         xButton[i].onclick = function(){ //event of delete experiment
             var idTask= this.id;
             var idExpArray = experiments.findIndex(x => x.id === parseInt(idExp));
-
             // alerty.confirm(content, opts, onOk, onCancel)
             alerty.confirm(
               'Are you sure?',

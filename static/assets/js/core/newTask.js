@@ -1,6 +1,6 @@
 var idExp = JSON.parse(window.localStorage.getItem("idExp")); //id of the current experiment
 
-function getDataFromjexcel(){
+function getDataFromjexcel(){ //put dataset from excel in from_data variable for sending to the server
     var form_data = new FormData();
     form_data.append('dataset',JSON.stringify(jexcelSpreadSheet.getData()));
     form_data.append('datasetcols',JSON.stringify(jexcelSpreadSheet.getHeaders()));
@@ -21,7 +21,7 @@ $(function() {
     });
 });
 
-$('#createTask').click(function() {
+$('#createTask').click(function() { //create new task and send it to database
     var form_data = getDataFromjexcel();
     var taskname = document.getElementById("taskname").value;
     var taskDescription = document.getElementById("taskDescription").value;

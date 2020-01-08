@@ -26,7 +26,6 @@ window.onload = function() { //build the clustering model graph by using the dat
             clustering.plotPoints();
             window.myScatter.update();
             lastX=xCord.selectedIndex;
-            //window.localStorage.setItem("lastX", JSON.stringify(xCord.selectedIndex));
         }
     } );
 
@@ -41,7 +40,6 @@ window.onload = function() { //build the clustering model graph by using the dat
             clustering.plotPoints();
             window.myScatter.update();
             lastY=yCord.selectedIndex;
-            //window.localStorage.setItem("lastY", JSON.stringify(yCord.selectedIndex));
         }
     } );
 
