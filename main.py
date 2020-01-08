@@ -103,7 +103,7 @@ def goK2():
     data = json.loads(request.form['dataset'])
     numberOfParents = request.form['numberOfParents']
     if(numberOfParents=='' or numberOfParents==None):
-        numberOfParents='2'
+        numberOfParents='1000'
     categories=categories.split(',')
     dontKnowTheArrangement = request.form['dontKnowTheArrangement']
 
@@ -176,7 +176,7 @@ def goExpBaysienNetwork():
         #data_cols[:,:-1]=task['datasetcolumn']
     numberOfParents = request.form['numberOfParents']
     if(numberOfParents=='' or numberOfParents==None):
-        numberOfParents='2'
+        numberOfParents='1000'
     dontKnowTheArrangement = request.form['dontKnowTheArrangement']
 
     graph_list,dag,data=BN.bayesianNetworkK2AndTables(list(data_full),data_cols,int(numberOfParents),dontKnowTheArrangement)
