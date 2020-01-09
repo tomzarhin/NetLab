@@ -53,6 +53,14 @@ $(document).ready(function () {
     var data2 = task2[0].dataset;
     var dataset_clustering_cols2 = task2[0].datasetcols;
 
+    var dataLength=data1[0].length;
+    for(i=0;i<data1.length;i++)
+        data1[i][dataLength] = i+1;
+
+    var dataLength=data2[0].length;
+    for(i=0;i<data2.length;i++)
+        data2[i][dataLength] = i+1;
+
     var clustering1=new Clustering(kmeansLabels1,data1,dataset_clustering_cols1,ctx1,xCord1,yCord1);
     var clustering2=new Clustering(kmeansLabels2,data2,dataset_clustering_cols2,ctx2,xCord2,yCord2);
 
@@ -102,8 +110,14 @@ $(document).ready(function () {
                  tooltips: {
                      callbacks: {
                          label: function(tooltipItem, data) {
-                            TriggerAnotherValue(clustering2,tooltipItem.index);
-                            return "ID:" + tooltipItem.index +': ' + tooltipItem.yLabel + "," + tooltipItem.xLabel;
+                            var index;
+                            for(i=0;i<clustering2.scatter.tooltip._data.datasets[tooltipItem.datasetIndex].data.length;i++)
+                            {
+                                if(parseInt(clustering2.scatter.tooltip._data.datasets[tooltipItem.datasetIndex].data[i].id) == this._data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].id)
+                                    index=i;
+                             }
+                            TriggerAnotherValue(clustering2,index);
+                            return "ID:" + this._data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].id +': ' + tooltipItem.yLabel + "," + tooltipItem.xLabel;
                          }
                      }
                  },
@@ -121,8 +135,8 @@ $(document).ready(function () {
                  tooltips: {
                      callbacks: {
                          label: function(tooltipItem, data) {
-                            TriggerAnotherValue(clustering1,tooltipItem.index);
-                            return "ID:" + tooltipItem.index +': ' + tooltipItem.yLabel + "," + tooltipItem.xLabel;
+                            TriggerAnotherValue(clustering1,0);
+                            return "ID:" + this._data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].id +': ' + tooltipItem.yLabel + "," + tooltipItem.xLabel;
                          }
                      }
                  },

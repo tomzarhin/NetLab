@@ -33,7 +33,7 @@ class Clustering {
                  tooltips: {
                      callbacks: {
                          label: function(tooltipItem, data) {
-                            return "ID:" + tooltipItem.index +': ' + tooltipItem.yLabel + "," + tooltipItem.xLabel;
+                            return "ID:" + this._data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].id +': ' + tooltipItem.yLabel + "," + tooltipItem.xLabel;
                          }
                      }
                  },
@@ -56,7 +56,7 @@ class Clustering {
                  tooltips: {
                      callbacks: {
                          label: function(tooltipItem, data) {
-                            return "ID:" + tooltipItem.index +': ' + tooltipItem.yLabel + "," + tooltipItem.xLabel;
+                            return "ID:" + this._data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].id +': ' + tooltipItem.yLabel + "," + tooltipItem.xLabel;
                          }
                      }
                  },
@@ -101,7 +101,8 @@ class Clustering {
         if(this.kmeansLabels[i]==counter){
             dataset_coordinates.push({
                 x: (this.data[i])[parseInt(this.xCord.value)],
-                y: (this.data[i])[(parseInt(this.yCord.value))]
+                y: (this.data[i])[(parseInt(this.yCord.value))],
+                id: (this.data[i])[8]
             });
         }
     }
