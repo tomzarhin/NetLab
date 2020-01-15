@@ -91,8 +91,8 @@ $(document).ready(function () {
         }
   }
 
-    function TriggerAnotherValue(clustering,idx) {
-      var meta = (clustering.scatter).getDatasetMeta(0),
+    function TriggerAnotherValue(clustering,idx,numOfGroup) {
+      var meta = (clustering.scatter).getDatasetMeta(numOfGroup),
         rect = (clustering.scatter).canvas.getBoundingClientRect(),
         point = meta.data[idx].getCenterPoint(),
         evt = new MouseEvent('mousemove', {
@@ -111,12 +111,24 @@ $(document).ready(function () {
                      callbacks: {
                          label: function(tooltipItem, data) {
                             var index;
-                            for(i=0;i<clustering2.scatter.tooltip._data.datasets[tooltipItem.datasetIndex].data.length;i++)
+                            var numOfGroup;
+                            for(i=0;i<clustering2.scatter.tooltip._data.datasets[0].data.length;i++)
                             {
-                                if(parseInt(clustering2.scatter.tooltip._data.datasets[tooltipItem.datasetIndex].data[i].id) == this._data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].id)
+                                if(parseInt(clustering2.scatter.tooltip._data.datasets[0].data[i].id) == this._data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].id)
+                                {
                                     index=i;
-                             }
-                            TriggerAnotherValue(clustering2,index);
+                                    numOfGroup=0;
+                                }
+                            }
+                            for(i=0;i<clustering2.scatter.tooltip._data.datasets[1].data.length;i++)
+                            {
+                                 if(parseInt(clustering2.scatter.tooltip._data.datasets[1].data[i].id) == this._data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].id)
+                                    {
+                                        index=i;
+                                        numOfGroup=1;
+                                    }
+                            }
+                            TriggerAnotherValue(clustering2,index,numOfGroup);
                             return "ID:" + this._data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].id +': ' + tooltipItem.yLabel + "," + tooltipItem.xLabel;
                          }
                      }
@@ -136,7 +148,7 @@ $(document).ready(function () {
                      callbacks: {
                          label: function(tooltipItem, data) {
                             TriggerAnotherValue(clustering1,0);
-                            return "ID:" + this._data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].id +': ' + tooltipItem.yLabel + "," + tooltipItem.xLabel;
+                            return "ID4:" + this._data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].id +': ' + tooltipItem.yLabel + "," + tooltipItem.xLabel;
                          }
                      }
                  },

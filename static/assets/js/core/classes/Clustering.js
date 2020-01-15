@@ -102,7 +102,7 @@ class Clustering {
             dataset_coordinates.push({
                 x: (this.data[i])[parseInt(this.xCord.value)],
                 y: (this.data[i])[(parseInt(this.yCord.value))],
-                id: (this.data[i])[8]
+                id: (this.data[i])[this.data[i].length-1]
             });
         }
     }
