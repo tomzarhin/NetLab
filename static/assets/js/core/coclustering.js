@@ -77,17 +77,29 @@ $(document).ready(function () {
     var co_length=coclusteringtable.length;
   var table = document.getElementById("myTable");
   header = table.insertRow(0);
+  header.style.backgroundColor = "red";
   head_cell=header.insertCell(0);
+        head_cell.style.position = "absolute";
+        head_cell.style.textAlign="left";
+      head_cell.style.backgroundImage = "url('../assets/img/table.png')";
+     head_cell.style.color = "white";
+head_cell.innerHTML='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+JSON.parse(window.localStorage.getItem("taskName2"))+'<br>'+'&nbsp'+JSON.parse(window.localStorage.getItem("taskName1"));
   for(var i=0;i<co_length;i++ ){
     head_cell=header.insertCell(i+1);
     head_cell.innerHTML='U'+i;
+    head_cell.style.backgroundColor = "#2980B9";
+     head_cell.style.color = "white";
     subcluster=coclusteringtable[i]
     row = table.insertRow(-1);
     cell = row.insertCell(0);
     cell.innerHTML = "V"+i;
+    cell.style.backgroundColor = "#2980B9";
+    cell.style.color = "white";
         for(var j=0;j<subcluster.length;j++){
+
               cell = row.insertCell(j+1);
               cell.innerHTML = subcluster[j];
+              cell.style.backgroundColor = "#F8F8F8";
         }
   }
 
