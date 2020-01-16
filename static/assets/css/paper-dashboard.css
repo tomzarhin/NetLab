@@ -2414,6 +2414,13 @@ p.description {
   font-size: 1em;
 }
 
+div.ex1 {
+  height: 100%;
+  width: 100%;
+  border:1px solid #000;
+  overflow: auto;
+}
+
 .text-primary,
 a.text-primary:focus,
 a.text-primary:hover {

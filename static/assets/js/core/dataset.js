@@ -49,7 +49,7 @@ function addToTable1(checkboxElem) {
         checkboxes1.push(checkboxElem.value);
     else
     {
-        alert("U choose 2 values from 2 tables.")
+        alert("Unable to choose 2 values from 2 tables.")
         checkboxElem.checked = false;
     }
   } else {
@@ -64,7 +64,7 @@ function addToTable2(checkboxElem) {
         checkboxes2.push(checkboxElem.value);
     else
     {
-    alert("U choose 2 values from 2 tables.")
+    alert("Unable to choose 2 values from 2 tables.")
         checkboxElem.checked = false;
     }
 

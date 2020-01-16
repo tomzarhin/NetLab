@@ -51,8 +51,8 @@
           var graph = getGraph();
           jsbayesviz.draw({
             id: '#bbn',
-            width: 800,
-            height: 650,
+            width: 1500,
+            height: 900,
             graph: graph,
             samples: 15000
           });

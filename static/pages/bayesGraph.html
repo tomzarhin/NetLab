@@ -92,15 +92,25 @@
                             <span class="navbar-toggler-bar bar3"></span>
                         </button>
                     </div>
-                     <a class="" href="home.html">Home</a>
+                    <a class="" href="home.html">Home</a>
                     &nbsp;->&nbsp;
                     <a class="" href="experiments.html">Experiments</a>
                     &nbsp;->&nbsp;
-                    <a class="" href="tasks.html"><script>
-                        document.write(JSON.parse(window.localStorage.getItem("expName")))</script></a>
+                    <a class="" href="tasks.html">
+                        <script>
+                        document.write(JSON.parse(window.localStorage.getItem("expName")))
+
+
+                        </script>
+                    </a>
                     &nbsp;->&nbsp;
-                  <a class="" href="dataset.html"><script>
-                        document.write(JSON.parse(window.localStorage.getItem("taskName")))</script></a></a>
+                    <a class="" href="dataset.html">
+                        <script>
+                        document.write(JSON.parse(window.localStorage.getItem("taskName")))
+
+
+                        </script>
+                    </a></a>
                     &nbsp;->&nbsp;
                     <a class="" href="bayesGraph.html">Bayesian network</a>
                 </div>
@@ -115,8 +125,10 @@
                     <div class="card card-stats">
                         <link href="../assets/css/bayesGraph.css" rel="stylesheet"/>
                         <script src="../assets/js/core/bayesGraph.js"></script>
-                        <svg id="bbn">
-                        </svg>
+                        <div class="ex1">
+                            <svg id="bbn">
+                            </svg>
+                        </div>
                         <div>
                             <button id="btnDownloadJson">download samples as json</button>
                             <button id="btnDownloadCsv">download samples as csv</button>
@@ -137,8 +149,12 @@
                                         <div class="numbers">
                                             <p style="font-size:14px" class="card-category text-center">Number of
                                                 allowed parents</p>
-                                            <p class="card-title text-center"><script>
-                        document.write(JSON.parse(window.localStorage.getItem("numberOfParents")))</script>
+                                            <p class="card-title text-center">
+                                                <script>
+                        document.write(JSON.parse(window.localStorage.getItem("numberOfParents")))
+
+
+                                                </script>
                                             <p>
                                         </div>
                                     </div>
@@ -161,8 +177,12 @@
                                         <div class="numbers">
                                             <p style="font-size:14px" class="card-category text-center">Number of
                                                 variables</p>
-                                            <p class="card-title text-center"><script>
-                        document.write(JSON.parse(window.localStorage.getItem("numberOfVars")))</script>
+                                            <p class="card-title text-center">
+                                                <script>
+                        document.write(JSON.parse(window.localStorage.getItem("numberOfVars")))
+
+
+                                                </script>
                                             <p>
                                         </div>
                                     </div>
@@ -187,7 +207,8 @@
                                         <div class="numbers">
                                             <p class="card-category text-center">Dataset</p>
                                             <p class="card-title text-center">
-                                                <a button style="font-size:13px" class="btn btn-warning" href="./dataset.html" role="button">View
+                                                <a button style="font-size:13px" class="btn btn-warning"
+                                                   href="./dataset.html" role="button">View
                                                 </a>
                                             <p>
                                         </div>
