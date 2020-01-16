@@ -92,9 +92,9 @@ $(document).ready(function () {
   }
 
     function TriggerAnotherValue(clustering,idx,numOfGroup) {
-      var meta = (clustering.scatter).getDatasetMeta(numOfGroup),
-        rect = (clustering.scatter).canvas.getBoundingClientRect(),
-        point = meta.data[idx].getCenterPoint(),
+      var meta = (clustering.scatter).getDatasetMeta(numOfGroup);
+        rect = (clustering.scatter).canvas.getBoundingClientRect();
+        point = meta.data[idx].getCenterPoint();
         evt = new MouseEvent('mousemove', {
           clientX: rect.left + point.x,
           clientY: rect.top + point.y
@@ -135,7 +135,7 @@ $(document).ready(function () {
                  },
                 title: {
                     display: true,
-                    text: 'Clustering By Kmeans'
+                    text: JSON.parse(window.localStorage.getItem("taskName1"))
                 },
             }
         });
@@ -154,7 +154,7 @@ $(document).ready(function () {
                  },
                 title: {
                     display: true,
-                    text: 'Clustering By Kmeans'
+                    text: JSON.parse(window.localStorage.getItem("taskName2"))
                 },
             }
         });

@@ -129,6 +129,8 @@ $( document ).ready(function() { //get all the tasks from the database
         alert("unable to analyze the same task");
         return;
     }
+    window.localStorage.setItem("taskName1", JSON.stringify(document.getElementById("firstDataset").value));
+    window.localStorage.setItem("taskName2", JSON.stringify(document.getElementById("secoundDataset").value));
     var form_data = new FormData();
     var exp=experiments.filter(x => x.id === parseInt(idExp));
 

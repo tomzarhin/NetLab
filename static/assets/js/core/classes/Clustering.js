@@ -15,7 +15,7 @@ class Clustering {
     plotPointsLoop(){
             for (var counter=0; counter<this.numberOfClusters; counter++) {
             this.datasetValue[counter] = {
-                label: 'dataset '+(counter+1),
+                label: 'cluster '+(counter+1),
                 borderColor: window.chartColors.black,
                 backgroundColor: this.getRandomColor(),
                 data: this.dataset_coordinates_func(counter)
@@ -39,7 +39,7 @@ class Clustering {
                  },
                 title: {
                     display: true,
-                    text: 'Clustering By Kmeans'
+                    text: 'Clustering By Kmeans1'
                 },
             }
         });
@@ -62,7 +62,7 @@ class Clustering {
                  },
                 title: {
                     display: true,
-                    text: 'Clustering By Kmeans'
+                    text: JSON.parse(window.localStorage.getItem("taskName"))
                 },
             }
         });
