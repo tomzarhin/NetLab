@@ -131,6 +131,9 @@ def goCoClustering():
     dataset1 = np.array(dataset1)
     dataset2 = np.array(dataset2)
 
+    if(len(dataset1)!=len(dataset2)):
+        return jsonify({"error":"Different length"})
+
     float_list_of_dataset1 = list(list(float(a) for a in b if BN.is_number(a)) for b in dataset1)
     float_list_of_dataset2 = list(list(float(a) for a in b if BN.is_number(a)) for b in dataset2)
 

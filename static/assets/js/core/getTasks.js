@@ -163,6 +163,7 @@ $( document ).ready(function() { //get all the tasks from the database
         .done(function (data) {
             if (data.error) {
                 confirm(data.error);
+                return;
             }
             window.localStorage.setItem("coclusteringtable", JSON.stringify(data.contingency_table));
             window.localStorage.setItem("labels1", JSON.stringify(data.labels1));
