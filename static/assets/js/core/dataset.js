@@ -19,17 +19,8 @@ var checkboxes1=[];
 var checkboxes2=[];
 
 
-    function makeCheckboxes1(str) {
-        var checkbox = document.getElementById("category1");
-        var arr = str;
-        var returnStr = "";
-        for (i = 0; i < arr.length; i++) {
-            returnStr += '<input type="checkbox" onchange="addToTable1(this)" name="theCheckbox" value="' + arr[i] + '" />' + arr[i] + "<br>";
-        }
-        checkbox.innerHTML = returnStr;
-    }
-            function makeCheckboxes2(str) {
-        var checkbox = document.getElementById("category2");
+    function makeCheckboxes(str,cat) {
+        var checkbox = document.getElementById(cat);
         var arr = str;
         var returnStr = "";
         for (i = 0; i < arr.length; i++) {
@@ -38,9 +29,7 @@ var checkboxes2=[];
         checkbox.innerHTML = returnStr;
     }
     window.onload = function () {
-        var arr=experiments[idExpArray].task[idTaskArray].datasetcols.split(",");
-        makeCheckboxes1(arr);
-        makeCheckboxes2(arr);
+
     };
 
 function addToTable1(checkboxElem) {
@@ -103,7 +92,7 @@ var spanClustering = document.getElementsByClassName("close")[0];
 var spanBayes = document.getElementsByClassName("close")[1];
 
 $(document).ready(function () {
-    var headArray=experiments[idExpArray].task[idTaskArray].datasetcols.split(",")
+    var headArray=experiments[idExpArray].task[idTaskArray].datasetcols.split(",");
     jexcelSpreadSheet = jexcel(document.getElementById('spreadsheet1'), {
         colHeaders: headArray,
         loadingSpin: true,
@@ -256,6 +245,9 @@ $('#goKmeans').click(function () {
 // When the user clicks the button, open the modal
 bayesianModalButton.onclick = function() {
   bayesianModal.style.display = "block";
+  colsArr=jexcelSpreadSheet.getHeaders().split(",");
+  makeCheckboxes(colsArr,"category1");
+  makeCheckboxes(colsArr,"category2");
 }
 
 clusteringModalButton.onclick = function() {
