@@ -39,7 +39,7 @@ class Clustering {
                  },
                 title: {
                     display: true,
-                    text: 'Clustering By Kmeans'
+                    text: 'Clustering By Kmeans1'
                 },
             }
         });
@@ -62,7 +62,7 @@ class Clustering {
                  },
                 title: {
                     display: true,
-                    text: 'Clustering By Kmeans'
+                    text: JSON.parse(window.localStorage.getItem("taskName"))
                 },
             }
         });

@@ -102,10 +102,18 @@
                     &nbsp;->&nbsp;
                     <a class="" href="dataset.html">
                         <script>
-                        document.write(JSON.parse(window.localStorage.getItem("taskName")))
+                        document.write(JSON.parse(window.localStorage.getItem("taskName1")))
 
 
                         </script>
+                        vs
+                                                <script>
+                        document.write(JSON.parse(window.localStorage.getItem("taskName2")))
+
+
+                        </script>
+
+
                     </a></a>
                 </div>
 
@@ -127,20 +135,35 @@
                 <div class="card card-stats">
                     <canvas id="canvas1"></canvas>
                 </div>
-                <select id="xCord1">
-                </select>
-                <select id="yCord1">
-                </select>
+                <div class="row col-lg-10 col-md-6 col-sm-6">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <h6>X-axis</h6>
+                        <select id="xCord1">
+                        </select>
+                        </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                <h6>Y-axis</h6>
+                    <select id="yCord1">
+                    </select>
+                    </div>
+                </div>
             </div>
 
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <canvas id="canvas2"></canvas>
                 </div>
+                 <div class="row col-lg-10 col-md-6 col-sm-6">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <h6>X-axis</h6>
                 <select id="xCord2">
                 </select>
+                        </div>
+                                             <div class="col-lg-6 col-md-6 col-sm-6">
+                            <h6>Y-axis</h6>
                 <select id="yCord2">
                 </select>
+                                             </div>
             </div>
         </div>
         </div>
