@@ -61,8 +61,8 @@ $(document).ready(function () {
     for(i=0;i<data2.length;i++)
         data2[i][dataLength] = i+1;
 
-    var clustering1=new Clustering(kmeansLabels1,data1,dataset_clustering_cols1,ctx1,xCord1,yCord1);
-    var clustering2=new Clustering(kmeansLabels2,data2,dataset_clustering_cols2,ctx2,xCord2,yCord2);
+    var clustering1=new Clustering(kmeansLabels1,data1,dataset_clustering_cols1,ctx1,xCord1,yCord1,JSON.parse(window.localStorage.getItem("taskName1")));
+    var clustering2=new Clustering(kmeansLabels2,data2,dataset_clustering_cols2,ctx2,xCord2,yCord2,JSON.parse(window.localStorage.getItem("taskName2")));
 
     clustering1.plotPoints();
 
@@ -83,16 +83,17 @@ $(document).ready(function () {
         head_cell.style.textAlign="left";
       head_cell.style.backgroundImage = "url('../assets/img/table.png')";
      head_cell.style.color = "white";
-head_cell.innerHTML='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+JSON.parse(window.localStorage.getItem("taskName2"))+'<br>'+'&nbsp'+JSON.parse(window.localStorage.getItem("taskName1"));
+
+head_cell.innerHTML='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+JSON.parse(window.localStorage.getItem("taskName2"))+'<br>'+ JSON.parse(window.localStorage.getItem("taskName1"));
   for(var i=0;i<co_length;i++ ){
     head_cell=header.insertCell(i+1);
-    head_cell.innerHTML='U'+i;
+    head_cell.innerHTML='U'+(i+1);
     head_cell.style.backgroundColor = "#2980B9";
      head_cell.style.color = "white";
     subcluster=coclusteringtable[i]
     row = table.insertRow(-1);
     cell = row.insertCell(0);
-    cell.innerHTML = "V"+i;
+    cell.innerHTML = "V"+(i+1);
     cell.style.backgroundColor = "#2980B9";
     cell.style.color = "white";
         for(var j=0;j<subcluster.length;j++){

@@ -12,7 +12,7 @@ window.onload = function() { //build the clustering model graph by using the dat
     var dataLength=data[0].length;
     for(i=0;i<data.length;i++)
         data[i][dataLength] = i+1;
-    var clustering=new Clustering(kmeansLabels,data,dataset_clustering_cols,ctx,xCord,yCord);
+    var clustering=new Clustering(kmeansLabels,data,dataset_clustering_cols,ctx,xCord,yCord,JSON.parse(window.localStorage.getItem("taskName")));
     clustering.setElbowValue(elbow_value);
     clustering.setSilhouetteValue(silhouetteValue);
     clustering.plotPoints();
