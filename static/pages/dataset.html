@@ -18,7 +18,6 @@
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
           name='viewport'/>
     <!--     Fonts and icons     -->
-    <link href="../assets/demo/demo.css" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet"/>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <!-- CSS Files -->
@@ -31,6 +30,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jexcel/2.1.0/js/jquery.jexcel.min.js"></script>
     <script src="https://bossanova.uk/jexcel/v3/jexcel.js"></script>
     <script src="https://bossanova.uk/jsuites/v2/jsuites.js"></script>
+    <script src="../assets/js/core/logout.js"></script>
 
 </head>
 
@@ -102,16 +102,18 @@
                     <a class="" href="tasks.html">
                         <script>
                         document.write(JSON.parse(window.localStorage.getItem("expName")))
+
                         </script>
                     </a>
                     &nbsp;->&nbsp;
                     <a class="" href="dataset.html">
                         <script>
                         document.write(JSON.parse(window.localStorage.getItem("taskName")))
+
                         </script>
                     </a></a>
-                        ->
-                        Dataset
+                    ->
+                    Dataset
                 </div>
             </div>
         </nav>
@@ -142,15 +144,16 @@
                 </div>
             </div>
         </div>
-<style>
+        <style>
 .modal-body{
   height: 250px;
   overflow-y: auto;
 }
-</style>
-        <div id="bayesianModal"  class="modal" tabindex="-1" role="dialog">
+
+        </style>
+        <div id="bayesianModal" class="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
-                <div class="modal-content" >
+                <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Bayesian network model</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -200,9 +203,10 @@
 
             <center>
                 <h5>Dataset -
-                                        <script>
+                    <script>
                         document.write(JSON.parse(window.localStorage.getItem("taskName")))
-                        </script>
+
+                    </script>
                 </h5>
             </center>
             <div class="card card-stats col-lg-12 col-md-12 col-sm-12">
@@ -216,7 +220,7 @@
                         </footer>
                     </div>
                     <div>
-<h6>Select a variable for normalization </h6>
+                        <h6>Select a variable for normalization </h6>
                         <select id="comboCols" onchange="reset()">
 
                             <option selected disabled>Choose var</option>

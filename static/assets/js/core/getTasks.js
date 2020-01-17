@@ -1,7 +1,6 @@
 $( document ).ready(function() { //get all the tasks from the database
     var coModalButton = document.getElementById("coModalButton");
     var span = document.getElementsByClassName("close")[0];
-    var userNameDB = JSON.parse(window.localStorage.getItem("userNameDB"));
     var idExp = JSON.parse(window.localStorage.getItem("idExp"));
     var experiments = JSON.parse(window.localStorage.getItem("experiments"));
     var buttons = document.getElementsByName('taskButton');
