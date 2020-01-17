@@ -1,5 +1,5 @@
 class Clustering {
-  constructor(kmeansLabels,dataset_clustering,dataset_clustering_cols,ctx,xCord,yCord) {
+  constructor(kmeansLabels,dataset_clustering,dataset_clustering_cols,ctx,xCord,yCord,headline) {
     this.datasetValue = [];
     this.kmeansLabels = kmeansLabels;
     this.numberOfClusters = Math.max.apply(Math, kmeansLabels)+1;
@@ -10,6 +10,7 @@ class Clustering {
     this.yCord=yCord;
     this.labelsInsert();
     this.scatter=window.myScatter;
+    this.headline=headline;
   }
 
     plotPointsLoop(){
@@ -39,30 +40,7 @@ class Clustering {
                  },
                 title: {
                     display: true,
-                    text: 'Clustering By Kmeans1'
-                },
-            }
-        });
-        this.scatter=window.myScatter;
-    }
-
-    plotPoints(clustering2){
-        this.plotPointsLoop();
-        window.myScatter = Chart.Scatter(this.ctx, {
-            data: {
-                datasets:this.datasetValue
-            },
-            options: {
-                 tooltips: {
-                     callbacks: {
-                         label: function(tooltipItem, data) {
-                            return "ID:" + this._data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].id +': ' + tooltipItem.yLabel + "," + tooltipItem.xLabel;
-                         }
-                     }
-                 },
-                title: {
-                    display: true,
-                    text: JSON.parse(window.localStorage.getItem("taskName"))
+                    text: this.headline
                 },
             }
         });
