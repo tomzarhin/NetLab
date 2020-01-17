@@ -27,7 +27,7 @@
         }
 
          for(i=0; i<vertices.length; i++) //add all the vertices to the graph.
-             nodes[i]=graph.addNode(vertices[i].name, vertices[i].values);
+             nodes[i]=graph.addNode((vertices[i].name).replace(/ /g,''), vertices[i].values);
 
          for(i=0; i<vertices.length; i++) //set the connection between the nodes (parents)
               for (j = 0; j < vertices.length; j++)

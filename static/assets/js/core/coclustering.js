@@ -97,7 +97,6 @@ head_cell.innerHTML='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbs
     cell.style.backgroundColor = "#2980B9";
     cell.style.color = "white";
         for(var j=0;j<subcluster.length;j++){
-
               cell = row.insertCell(j+1);
               cell.innerHTML = subcluster[j];
               cell.style.backgroundColor = "#F8F8F8";
