@@ -1,5 +1,4 @@
 $( document ).ready(function() { //get all the experiments from the database
-  var userNameDB = JSON.parse(window.localStorage.getItem("userNameDB"));
   var experiments = JSON.parse(window.localStorage.getItem("experiments"));
   var j=0;
   for (exp of experiments) { //goes through all experiments and prints them on screen

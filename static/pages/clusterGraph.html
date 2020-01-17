@@ -19,9 +19,8 @@
     <!-- CSS Files -->
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="../assets/css/paper-dashboard.css?v=2.0.0" rel="stylesheet"/>
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="../assets/demo/demo.css" rel="stylesheet"/>
     <script src="../assets/js/plugins/jquery.min.js"></script>
+    <script src="../assets/js/core/logout.js"></script>
 
 </head>
 
@@ -89,11 +88,17 @@
                     &nbsp;->&nbsp;
                     <a class="" href="experiments.html">Experiments</a>
                     &nbsp;->&nbsp;
-                    <a class="" href="tasks.html"><script>
-                        document.write(JSON.parse(window.localStorage.getItem("expName")))</script></a>
+                    <a class="" href="tasks.html">
+                        <script>
+                        document.write(JSON.parse(window.localStorage.getItem("expName")))
+                        </script>
+                    </a>
                     &nbsp;->&nbsp;
-                  <a class="" href="dataset.html"><script>
-                        document.write(JSON.parse(window.localStorage.getItem("taskName")))</script></a></a>
+                    <a class="" href="dataset.html">
+                        <script>
+                        document.write(JSON.parse(window.localStorage.getItem("taskName")))
+                        </script>
+                    </a></a>
                     &nbsp;->&nbsp;
                     <a class="" href="clusterGraph.html">Clustering</a>
                 </div>
@@ -124,12 +129,11 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <h6>Y-axis</h6>
-                        <select id="yCord">
-                    </select>
-                    </div>
+                            <select id="yCord">
+                            </select>
+                        </div>
 
                     </div>
-
 
 
                 </div>
@@ -193,7 +197,8 @@
                                         <div class="numbers">
                                             <p class="card-category text-center">Dataset</p>
                                             <p class="card-title text-center">
-                                                <a button style="font-size:13px" class="btn btn-warning" href="./dataset.html" role="button">View
+                                                <a button style="font-size:13px" class="btn btn-warning"
+                                                   href="./dataset.html" role="button">View
                                                 </a>
 
                                             <p>
@@ -232,8 +237,7 @@
 <script src="../assets/js/plugins/bootstrap-notify.js"></script>
 <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="../assets/js/plugins/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
-<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-<script src="../assets/demo/demo.js"></script>
+
 </body>
 
 </html>

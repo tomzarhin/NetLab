@@ -1,6 +1,7 @@
 var currId;
 document.getElementById("createExp").addEventListener("click", function() { //create new experiment and send it to database
-  var userNameDB = JSON.parse(window.localStorage.getItem("userNameDB"));
+  var user = JSON.parse(window.localStorage.getItem("user"));
+  var userNameDB=user["username"];
   var name = document.getElementById("name").value;
   var description = document.getElementById("description").value;
   var form_data = new FormData();

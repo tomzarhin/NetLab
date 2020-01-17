@@ -24,7 +24,15 @@ localStorage.clear();
                 if(data.experiments!=null)
                 {
                     var userNameDB = document.getElementById("your_name").value;
-                    window.localStorage.setItem("userNameDB", JSON.stringify(userNameDB));
+
+                    var today = new Date();
+                    var dd = String(today.getDate()).padStart(2, '0');
+                    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                    var yyyy = today.getFullYear();
+
+                    today = mm + '/' + dd + '/' + yyyy;
+                    window.localStorage.setItem("user", JSON.stringify(new User(userNameDB,today)));
+
                     var experiments=[];
                     for(exp of data.experiments){
                     //transform exp["tasks"] to Task objects
