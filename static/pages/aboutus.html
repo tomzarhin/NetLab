@@ -22,8 +22,7 @@
     <script src="../assets/js/plugins/jquery.min.js"></script>
     <script src="../assets/js/core/logout.js"></script>
 </head>
-
-<body class="">
+<body>
 <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
         <div class="logo">
@@ -38,7 +37,7 @@
         </div>
         <div class="sidebar-wrapper">
             <ul class="nav">
-                <li class="active ">
+                <li>
                     <a href="./home.html">
                         <i class="nc-icon nc-bank"></i>
                         <p>Home</p>
@@ -56,7 +55,7 @@
                         <p>New experiments</p>
                     </a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="aboutus.html">
                         <i class="nc-icon nc-bell-55"></i>
                         <p>About us</p>
@@ -77,92 +76,48 @@
                             <span class="navbar-toggler-bar bar3"></span>
                         </button>
                     </div>
-                    <a class="" href="home.html">Home</a>
+                    <a class="" href="aboutus.html">About Us</a>
                 </div>
             </div>
         </nav>
         <div class="content">
-            <center>
-                <h5>Welcome back!</h5>
-            </center>
+            <div class="card card-stats">
+                <div class="card-body ">
+                    <div class="row">
 
-            <div class="row justify-content-center">
-
-
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="card card-stats">
-                        <div class="card-body ">
-                            <div class="row">
-
-                                <div class="col-7 col-md-8">
-                                    <div class="numbers text-left">
-                                        <p class="card-category">New experiment</p>
-                                    </div>
-                                </div>
-                                <div class="col-3 col-md-4">
-                                    <div class="icon-big text-left icon-warning">
-                                        <i class="nc-icon nc-simple-add text-warning"></i>
-                                    </div>
-                                </div>
+                        <div class="col-7 col-md-8">
+                            <div class="icon-big text-left icon-warning">
+                                <p class="card-category">Tom Zarhin</p>
+                            </div>
+                            <h6>Information System Engineering Student</h6>
+                            <h6></h6>
+                            <div class="crop">
+                                <img src="..\assets\img\tomzarhin.jpg" height="300" width="250">
                             </div>
                         </div>
-                        <center>
-                            <div class="card-footer ">
-                                <hr>
-                                <div class="stats ">
-                                    <a class="btn btn-warning " href="newExperiment.html" role="button">Create now</a>
-                                </div>
+                        <div class="col-3 col-md-4">
+                            <div class="icon-big text-left icon-warning">
+                                <p class="card-category">Or Edri</p>
                             </div>
-                        </center>
-                    </div>
-
-                </div>
-
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="card card-stats">
-                        <div class="card-body ">
-                            <div class="row">
-
-                                <div class="col-7 col-md-8">
-                                    <div class="numbers text-left">
-                                        <p class="card-category">Experminets</p>
-                                        <p class="card-title">
-                                            <script>
-                                            </script>
-                                        <p>
-                                    </div>
-                                </div>
-                                <div class="col-3 col-md-4">
-                                    <div class="icon-big text-left icon-warning">
-                                        <i class="nc-icon nc-paper text-warning"></i>
-                                    </div>
-                                </div>
+                            <h6>Software Engineering Student</h6>
+                            <h6></h6>
+                            <div class="crop">
+                                <img src="..\assets\img\oredri.jpg" height="500" width="200">
                             </div>
+
                         </div>
-                        <center>
-                            <div class="card-footer ">
-                                <hr>
-                                <div class="stats ">
-                                    <a class="btn btn-warning " href="experiments.html" role="button">See all</a>
-                                </div>
-                            </div>
-                        </center>
                     </div>
-
                 </div>
-
-            </div>
-            <hr>
-            <center>
-                <h5>Last experiments</h5>
-            </center>
-            <div id="p1" class="row justify-content-center">
-                <script src="../assets/js/core/getExperiments.js"></script>
+                <center>
+                    <div class="card-footer ">
+                    </div>
+                </center>
             </div>
         </div>
 
     </div>
 </div>
+
 </body>
 <footer>
     <script src="../assets/js/plugins/jquery.min.js"></script>
@@ -173,6 +128,8 @@
     <!--  Google Maps Plugin    -->
     <!-- Chart JS -->
     <script src="../assets/js/plugins/chartjs.min.js"></script>
+    <!--  Notifications Plugin    -->
+    <script src="../assets/js/plugins/bootstrap-notify.js"></script>
     <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="../assets/js/plugins/paper-dashboard.min.js?v=2.0.0" type="text/javascript"></script>
 </footer>
