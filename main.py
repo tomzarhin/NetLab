@@ -157,7 +157,7 @@ def goCoClustering():
     for id in range(len(float_list_of_dataset1)):
         contingency_table[labels12[id]][labels11[id]]+=int(1)
     contingency_table= zip(*contingency_table)
-    return jsonify({'contingency_table':contingency_table,'labels1':labels11.tolist(),'labels2':labels12.tolist()})
+    return jsonify({'contingency_table':list(contingency_table),'labels1':labels11.tolist(),'labels2':labels12.tolist()})
 
 
 @app.route('/deleteTask', methods=['GET', 'POST'])
