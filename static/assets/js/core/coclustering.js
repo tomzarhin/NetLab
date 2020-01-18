@@ -60,7 +60,9 @@ $(document).ready(function () {
     var dataLength=data2[0].length;
     for(i=0;i<data2.length;i++)
         data2[i][dataLength] = i+1;
-
+    var indexForTrigger=0;
+    var flagTrigger1=0;
+    var flagTrigger2=0;
     var clustering1=new Clustering(kmeansLabels1,data1,dataset_clustering_cols1,ctx1,xCord1,yCord1,JSON.parse(window.localStorage.getItem("taskName1")));
     var clustering2=new Clustering(kmeansLabels2,data2,dataset_clustering_cols2,ctx2,xCord2,yCord2,JSON.parse(window.localStorage.getItem("taskName2")));
 
@@ -84,7 +86,7 @@ $(document).ready(function () {
       head_cell.style.backgroundImage = "url('../assets/img/table.png')";
      head_cell.style.color = "white";
 
-head_cell.innerHTML='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+JSON.parse(window.localStorage.getItem("taskName2"))+'<br>'+ JSON.parse(window.localStorage.getItem("taskName1"));
+head_cell.innerHTML='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+JSON.parse(window.localStorage.getItem("taskName1"))+'<br>'+ JSON.parse(window.localStorage.getItem("taskName2"));
   for(var i=0;i<co_length;i++ ){
     head_cell=header.insertCell(i+1);
     head_cell.innerHTML='U'+(i+1);
@@ -103,7 +105,12 @@ head_cell.innerHTML='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbs
         }
   }
 
-    function TriggerAnotherValue(clustering,idx,numOfGroup) {
+    function TriggerAnotherValue(clustering,idx,numOfGroup,numberOfFlag) {
+    if(numberOfFlag==1)
+        flagTrigger1=1;
+    if(numberOfFlag==2)
+        flagTrigger2=1;
+     indexForTrigger=idx;
       var meta = (clustering.scatter).getDatasetMeta(numOfGroup);
         rect = (clustering.scatter).canvas.getBoundingClientRect();
         point = meta.data[idx].getCenterPoint();
@@ -140,10 +147,18 @@ head_cell.innerHTML='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbs
                                         numOfGroup=1;
                                     }
                             }
-                            TriggerAnotherValue(clustering2,index,numOfGroup);
-                            return "ID:" + this._data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].id +': ' + tooltipItem.yLabel + "," + tooltipItem.xLabel;
-                         }
-                     }
+                           if(flagTrigger1==1)
+                          {
+                                flagTrigger1=0;
+                                return "ID:" + this._data.datasets[tooltipItem.datasetIndex].data[indexForTrigger].id +': ' + tooltipItem.yLabel + "," + tooltipItem.xLabel;
+                          }
+                           else
+                           {
+                                   TriggerAnotherValue(clustering2,index,numOfGroup,2);
+                                   return "ID:" + this._data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].id +': ' + tooltipItem.yLabel + "," + tooltipItem.xLabel;            }
+
+                           }
+                                      }
                  },
                 title: {
                     display: true,
@@ -159,9 +174,37 @@ head_cell.innerHTML='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbs
                  tooltips: {
                      callbacks: {
                          label: function(tooltipItem, data) {
-                            TriggerAnotherValue(clustering1,0);
-                            return "ID4:" + this._data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].id +': ' + tooltipItem.yLabel + "," + tooltipItem.xLabel;
-                         }
+                                                     var index;
+                            var numOfGroup;
+                            for(i=0;i<clustering1.scatter.tooltip._data.datasets[0].data.length;i++)
+                            {
+                                if(parseInt(clustering1.scatter.tooltip._data.datasets[0].data[i].id) == this._data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].id)
+                                {
+                                    index=i;
+                                    numOfGroup=0;
+                                }
+                            }
+                            for(i=0;i<clustering1.scatter.tooltip._data.datasets[1].data.length;i++)
+                            {
+                                 if(parseInt(clustering1.scatter.tooltip._data.datasets[1].data[i].id) == this._data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].id)
+                                    {
+                                        index=i;
+                                        numOfGroup=1;
+                                    }
+                            }
+
+                          if(flagTrigger2==1)
+                          {
+                                flagTrigger2=0;
+                                return "ID:" + this._data.datasets[tooltipItem.datasetIndex].data[indexForTrigger].id +': ' + tooltipItem.yLabel + "," + tooltipItem.xLabel;
+                          }
+                           else
+                           {
+                                TriggerAnotherValue(clustering1,index,numOfGroup,1);
+                                 return "ID:" + this._data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].id +': ' + tooltipItem.yLabel + "," + tooltipItem.xLabel;
+
+                           }
+                                    }
                      }
                  },
                 title: {

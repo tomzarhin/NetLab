@@ -52,7 +52,7 @@
           jsbayesviz.draw({
             id: '#bbn',
             width: 1500,
-            height: 900,
+            height: 700,
             graph: graph,
             samples: 15000
           });
