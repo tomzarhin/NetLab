@@ -131,22 +131,17 @@ head_cell.innerHTML='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+clustering2.
                          label: function(tooltipItem, data) {
                             var index;
                             var numOfGroup;
-                            for(i=0;i<clustering2.scatter.tooltip._data.datasets[0].data.length;i++)
+                            for(j=0;j<clustering2.datasetValue.length;j++)
                             {
-                                if(parseInt(clustering2.scatter.tooltip._data.datasets[0].data[i].id) == this._data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].id)
+                                for(i=0;i<clustering2.scatter.tooltip._data.datasets[j].data.length;i++)
                                 {
-                                    index=i;
-                                    numOfGroup=0;
-                                }
-                            }
-                            for(i=0;i<clustering2.scatter.tooltip._data.datasets[1].data.length;i++)
-                            {
-                                 if(parseInt(clustering2.scatter.tooltip._data.datasets[1].data[i].id) == this._data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].id)
+                                    if(parseInt(clustering2.scatter.tooltip._data.datasets[j].data[i].id) == this._data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].id)
                                     {
                                         index=i;
-                                        numOfGroup=1;
+                                        numOfGroup=j;
                                     }
-                            }
+                                }
+                             }
                            if(flagTrigger1==1)
                           {
                                 flagTrigger1=0;
@@ -174,25 +169,19 @@ head_cell.innerHTML='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+clustering2.
                  tooltips: {
                      callbacks: {
                          label: function(tooltipItem, data) {
-                                                     var index;
+                            var index;
                             var numOfGroup;
-                            for(i=0;i<clustering1.scatter.tooltip._data.datasets[0].data.length;i++)
+                            for(j=0;j<clustering1.datasetValue.length;j++)
                             {
-                                if(parseInt(clustering1.scatter.tooltip._data.datasets[0].data[i].id) == this._data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].id)
+                                for(i=0;i<clustering1.scatter.tooltip._data.datasets[j].data.length;i++)
                                 {
-                                    index=i;
-                                    numOfGroup=0;
-                                }
-                            }
-                            for(i=0;i<clustering1.scatter.tooltip._data.datasets[1].data.length;i++)
-                            {
-                                 if(parseInt(clustering1.scatter.tooltip._data.datasets[1].data[i].id) == this._data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].id)
+                                    if(parseInt(clustering1.scatter.tooltip._data.datasets[j].data[i].id) == this._data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].id)
                                     {
                                         index=i;
-                                        numOfGroup=1;
+                                        numOfGroup=j;
                                     }
-                            }
-
+                                }
+                             }
                           if(flagTrigger2==1)
                           {
                                 flagTrigger2=0;
