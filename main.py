@@ -143,15 +143,12 @@ def goCoClustering():
     labels11=kmeans_dataset1.labels_
     labels12=kmeans_dataset2.labels_
 
-    index_id1=0
-
     contingency_table = [[0 for x in range(int(float(clusteringNum)))] for y in range(int(float(clusteringNum)))]
 
     for id in range(len(float_list_of_dataset1)):
-        contingency_table[labels11[id]-1][labels12[id]-1]+=1
-        index_id1+=1
-
-    return jsonify({'contingency_table':list(contingency_table),'labels1':labels11.tolist(),'labels2':labels12.tolist()})
+        contingency_table[labels12[id]][labels11[id]]+=int(1)
+    contingency_table= zip(*contingency_table)
+    return jsonify({'contingency_table':contingency_table,'labels1':labels11.tolist(),'labels2':labels12.tolist()})
 
 
 @app.route('/deleteTask', methods=['GET', 'POST'])

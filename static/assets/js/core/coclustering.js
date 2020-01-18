@@ -86,16 +86,16 @@ $(document).ready(function () {
       head_cell.style.backgroundImage = "url('../assets/img/table.png')";
      head_cell.style.color = "white";
 
-head_cell.innerHTML='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+JSON.parse(window.localStorage.getItem("taskName1"))+'<br>'+ JSON.parse(window.localStorage.getItem("taskName2"));
+head_cell.innerHTML='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+clustering2.headline+'<br>'+ clustering1.headline;
   for(var i=0;i<co_length;i++ ){
     head_cell=header.insertCell(i+1);
-    head_cell.innerHTML='U'+(i+1);
+    head_cell.innerHTML=clustering2.headline+' Cluster'+(i+1);
     head_cell.style.backgroundColor = "#2980B9";
      head_cell.style.color = "white";
     subcluster=coclusteringtable[i]
     row = table.insertRow(-1);
     cell = row.insertCell(0);
-    cell.innerHTML = "V"+(i+1);
+    cell.innerHTML = clustering1.headline+' Cluster'+(i+1);
     cell.style.backgroundColor = "#2980B9";
     cell.style.color = "white";
         for(var j=0;j<subcluster.length;j++){
