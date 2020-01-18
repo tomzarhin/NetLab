@@ -9,24 +9,15 @@ __email__ = "Tom Zarhin@s.braude.ac.il"
 __status__ = "Production"
 """
 from flask import request,json,jsonify,render_template,Flask
-#from sklearn.cluster import KMeans
-#from yellowbrick.cluster import KElbowVisualizer,SilhouetteVisualizer
+from sklearn.cluster import KMeans
+from yellowbrick.cluster import KElbowVisualizer,SilhouetteVisualizer
 #from pgmpy.estimators import MaximumLikelihoodEstimator
 from server.models.mongoDB import Mongo
-#import server.models.BayesianNetworkModel as BN
+import server.models.BayesianNetworkModel as BN
 import numpy as np
 
 app = Flask(__name__, static_url_path='/static')
 mongo=Mongo()
-
-def is_number(s):
-    # Getting a character and returning if it is a number
-    # Author: Tom Zarhin
-    try:
-        float(s)
-        return True
-    except ValueError:
-        return False
 
 @app.route("/")
 #Getting the experiments of the user
@@ -87,7 +78,7 @@ def goKmeans():
       clusteringNum=2
     dataset = np.array(dataset)
     #dataset = np.delete(dataset, 0, 1)
-    new_list = list(list(float(a) for a in b if is_number(a)) for b in dataset)
+    new_list = list(list(float(a) for a in b if BN.is_number(a)) for b in dataset)
     kmeans = KMeans(n_clusters=int(float(clusteringNum)), random_state=0).fit(new_list)
     new_list_as_array=np.array(new_list)
     SilhouetteVisualize = SilhouetteVisualizer(kmeans)
@@ -102,7 +93,7 @@ def goKmeans():
     elbow = KElbowVisualize.elbow_value_
     return jsonify({'inputArray': list(new_list),'kmeansLabels':(kmeans.labels_.tolist()),'elbowValue':str(elbow),'silhouetteValue':('%.3f' % silhouette)})
 
-"""@app.route('/goK2', methods=['GET', 'POST'])
+@app.route('/goK2', methods=['GET', 'POST'])
 #Running K2 algorithm for Bayesian Network Correlation
 #Author: Tom Zarhin
 def goK2():
@@ -126,7 +117,7 @@ def goK2():
         {'status': 'done', 'dataset_k2': dag.tolist(), 'categories': list(categories), 'cpt_list': cpds_array,
          'element_categories': categories_each_element})
     #return bayesianNetworkK2AndTables(dataset,categories.split(','),int(numberOfParents))
-"""
+
 @app.route('/goCoClustering', methods=['GET', 'POST'])
 #Contingency table for two different clusters by using kmeans function
 #Author: Tom Zarhin
@@ -143,8 +134,8 @@ def goCoClustering():
     if(len(dataset1)!=len(dataset2)):
         return jsonify({"error":"Different length"})
 
-    float_list_of_dataset1 = list(list(float(a) for a in b if is_number(a)) for b in dataset1)
-    float_list_of_dataset2 = list(list(float(a) for a in b if is_number(a)) for b in dataset2)
+    float_list_of_dataset1 = list(list(float(a) for a in b if BN.is_number(a)) for b in dataset1)
+    float_list_of_dataset2 = list(list(float(a) for a in b if BN.is_number(a)) for b in dataset2)
 
     kmeans_dataset1 = KMeans(n_clusters=int(float(clusteringNum)), random_state=0).fit(float_list_of_dataset1)
     kmeans_dataset2 = KMeans(n_clusters=int(float(clusteringNum)), random_state=0).fit(float_list_of_dataset2)
@@ -170,7 +161,7 @@ def deleteTask():
     idExp=int(list(idExp)[1])
     mongo.deleteTask(idTask,idExp)
     return jsonify({'status':'deleted'})
-"""
+
 @app.route('/goExpBaysienNetwork', methods=['GET', 'POST'])
 #Bayesian network for entire experiment
 #Author: Tom Zarhin
@@ -195,6 +186,6 @@ def goExpBaysienNetwork():
     return jsonify(
         {'status': 'done', 'dataset_k2': dag.tolist(), 'categories': list(data_cols), 'cpt_list': cpds_array,
          'element_categories': categories_each_element})
-"""
+
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
