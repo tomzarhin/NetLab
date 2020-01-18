@@ -173,9 +173,9 @@ head_cell.innerHTML='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+JSON.parse(w
                             var numOfGroup;
                             for(j=0;j<clustering1.datasetValue.length;j++)
                             {
-                                for(i=0;i<clustering1.scatter.tooltip._data.datasets[0].data.length;i++)
+                                for(i=0;i<clustering1.scatter.tooltip._data.datasets[j].data.length;i++)
                                 {
-                                    if(parseInt(clustering1.scatter.tooltip._data.datasets[0].data[i].id) == this._data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].id)
+                                    if(parseInt(clustering1.scatter.tooltip._data.datasets[j].data[i].id) == this._data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index].id)
                                     {
                                         index=i;
                                         numOfGroup=j;
