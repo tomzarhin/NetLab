@@ -19,7 +19,7 @@ localStorage.clear();
         })
             .done(function (data) {
                 if (data.error) {
-                    confirm(data.error);
+                    alert(data.error);
                 }
                 if(data.experiments!=null)
                 {
