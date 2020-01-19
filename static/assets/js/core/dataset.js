@@ -101,8 +101,6 @@ $(document).ready(function () {
         tableOverflow: true,
         lazyLoading:true,
     });
-    for(i=0;i<colsArr.length+1;i++)
-        jexcelSpreadSheet.setStyle(((i+10).toString(36)).toUpperCase()+5,'background-color','orange');
     window.localStorage.setItem("dataset_clustering", JSON.stringify(experiments[idExpArray].task[idTaskArray].dataset));
     window.localStorage.setItem("dataset_clustering_cols", JSON.stringify(jexcelSpreadSheet.getHeaders()));
 });
