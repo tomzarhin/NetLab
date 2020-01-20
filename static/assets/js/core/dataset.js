@@ -24,7 +24,11 @@ var checkboxes2=[];
         var arr = str;
         var returnStr = "";
         for (i = 0; i < arr.length; i++) {
-            returnStr += '<input type="checkbox" onchange="addToTable2(this)" name="theCheckbox" value="' + arr[i] + '" />' + arr[i] + "<br>";
+            if(cat=="category1")
+                returnStr += '<input type="checkbox" onchange="addToTable1(this)" name="theCheckbox" value="' + arr[i] + '" />' + arr[i] + "<br>";
+            if(cat=="category2")
+                returnStr += '<input type="checkbox" onchange="addToTable2(this)" name="theCheckbox" value="' + arr[i] + '" />' + arr[i] + "<br>";
+
         }
         checkbox.innerHTML = returnStr;
     }

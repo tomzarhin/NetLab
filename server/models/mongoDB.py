@@ -62,8 +62,7 @@ class Mongo:
             self.db.users.insert({
                 u'userName': u'' + inputEmail + '',
                 u'userPassword': u'' + password + '',
-                u'userFullName': u'' + userFullName + '',
-                u'status': u'Disconnected'
+                u'userFullName': u'' + userFullName + ''
             })
             return("OK")
         except:
