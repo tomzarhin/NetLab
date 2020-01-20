@@ -11,6 +11,9 @@ function getDataFromjexcel(){ //put dataset from excel in from_data variable for
                     return true;
             });
         }
+        else{
+            data_after_cleaning=jexcelSpreadSheet.getData();
+        }
     form_data.append('dataset',JSON.stringify(data_after_cleaning));
     form_data.append('datasetcols',JSON.stringify(jexcelSpreadSheet.getHeaders()));
     return(form_data);

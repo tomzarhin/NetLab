@@ -125,7 +125,7 @@ $( document ).ready(function() { //get all the tasks from the database
 
     $('#goCoClustering').click(function () {
     if(firstDataset.value === secoundDataset.value){
-        alert("unable to analyze the same task");
+        alerty.toasts("unable to analyze the same task");
         return;
     }
     window.localStorage.setItem("taskName1", JSON.stringify(document.getElementById("firstDataset").value));
@@ -168,7 +168,6 @@ $( document ).ready(function() { //get all the tasks from the database
             window.localStorage.setItem("labels1", JSON.stringify(data.labels1));
             window.localStorage.setItem("labels2", JSON.stringify(data.labels2));
 
-            alert(data.contingency_table);
             location.href = "../pages/coclustering.html";
         });
 });

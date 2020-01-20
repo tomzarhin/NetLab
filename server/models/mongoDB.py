@@ -8,7 +8,7 @@ class Mongo:
         experiment_array=[]
         experiments=self.db.experiments.find({"userName": userName})
         for exp in experiments:
-            exp.pop('_id')
+            #exp.pop('_id')
             experiment_array.append(exp)
         return experiment_array
 
@@ -21,7 +21,7 @@ class Mongo:
         return tasks_array
 
     def login(self,inputEmail,password):
-        for user in self.db.users.find({"userName":inputEmail, "userPassword":password}):#, "status":"Disconnected"}):
+        for user in self.db.users.find({"_id":inputEmail, "userPassword":password}):#, "status":"Disconnected"}):
             experiment_array = []
             experiments = self.db.experiments.find({"userName": inputEmail})
             for exp in experiments:
@@ -31,13 +31,13 @@ class Mongo:
         return(None)
 
     def createExperiment(self,description,userName,name):
-        nextId = self.db.experiments.find_one(sort=[("id", pymongo.DESCENDING)])
+        nextId = self.db.experiments.find_one(sort=[("_id", pymongo.DESCENDING)])
         if (nextId == None):
             nextId = 1
         else:
-            nextId = int(nextId.pop('id')) + 1
+            nextId = int(nextId.pop('_id')) + 1
         self.db.experiments.insert_one({
-            u'id': nextId,
+            u'_id':nextId,
             u'experimentName': u'' + name + '',
             u'experimentDescription': u'' + description + '',
             u'userName': u'' + userName + '',
@@ -45,12 +45,12 @@ class Mongo:
         })
         return nextId
     def createTask(self,dataset,datasetcols,name,description,current_experiment_id):
-        nextId = self.db.experiments.find_one({"id": current_experiment_id})
+        nextId = self.db.experiments.find_one({"_id": current_experiment_id})
         if (len(nextId["tasks"]) == 0):
             nextId = 1
         else:
             nextId = int(nextId["tasks"][-1].pop('task_id')) + 1
-        myquery = {"id": current_experiment_id}
+        myquery = {"_id": current_experiment_id}
         newvalues = {"$push": {
             "tasks": {"task_id": nextId, "taskName": name, "taskDescription": description, "datasetcols": datasetcols,
                       "dataset": dataset}}}
@@ -59,17 +59,19 @@ class Mongo:
 
     def register(self,inputEmail,password,userFullName):
         try:
+            #self.db.users.createIndex({"userName": 1}, {unique: true})
             self.db.users.insert({
-                u'userName': u'' + inputEmail + '',
+                u'_id': u'' + inputEmail + '',
                 u'userPassword': u'' + password + '',
                 u'userFullName': u'' + userFullName + ''
             })
             return("OK")
         except:
+            print("error")
             return("except")
 
     def deleteTask(self, idTask, idExp):
-        myquery = {"id": idExp}
+        myquery = {"_id": idExp}
         newvalues = {"$pull": {"tasks": {"task_id":idTask}}}
         #self.db.experiments.update({},{ $pull: {tasks: { $ in: ["apples", "oranges"]}}},{multi: true})
         value=self.db.experiments.update(myquery, newvalues)

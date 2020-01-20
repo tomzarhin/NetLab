@@ -42,7 +42,7 @@ function addToTable1(checkboxElem) {
         checkboxes1.push(checkboxElem.value);
     else
     {
-        alert("Unable to choose 2 values from 2 tables.")
+        alerty.toasts("Unable to choose 2 values from 2 tables.")
         checkboxElem.checked = false;
     }
   } else {
@@ -57,7 +57,7 @@ function addToTable2(checkboxElem) {
         checkboxes2.push(checkboxElem.value);
     else
     {
-    alert("Unable to choose 2 values from 2 tables.")
+    alerty.toasts("Unable to choose 2 values from 2 tables.")
         checkboxElem.checked = false;
     }
 
@@ -80,7 +80,7 @@ function sendWithPrior(){
       }
       else
       {
-           alert("U didnt choose all the variables")
+           alerty.toasts("Please choose all variables")
       }
 }
 // Get the modals
@@ -213,7 +213,7 @@ $('#goK2').click(function () {
                 });
         }
         else
-            alert("x");
+            alerty.toasts("Please choose clasification for entire variables");
 });
 $('#goKmeans').click(function () {
     document.getElementById("loadingbar").style.visibility = 'visible';
