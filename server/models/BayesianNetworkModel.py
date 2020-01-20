@@ -9,8 +9,6 @@ def log_gamma(x):
 	'''
 	return sum(np.log(range(1,x+1)))
 
-
-
 def score_function(M_cache):
 	'''
 	M is a dictionary with (i,j,k) as the key
@@ -53,8 +51,6 @@ def Graph_to_M(D,parents,states):
 	for key in sum_M.keys():
 		sum_alp[key] = len(states[key[0]])
 	return (M, sum_M, sum_alp)
-
-
 
 def GraphUpdate(G,D,topologicalOrder,parents,states,numberOfParents):
 	'''
@@ -247,7 +243,6 @@ def createBayesGraph(graph_list,mapping,data):
         cpds_list[str(list(cpd.variables))] = cpd_matrix_values
         cpds_array.append(cpds_list)
     return(bayes_model,cpds_array,categories_each_element)
-
 
 def is_number(s):
     # Getting a character and returning if it is a number

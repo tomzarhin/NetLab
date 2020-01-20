@@ -1,4 +1,6 @@
-    window.onload = function () { //login function to the system
+function submit_register_screen(){document.getElementById("registerform").submit();}
+
+window.onload = function () { //login function to the system
     document.getElementById("signin").addEventListener("click", function() {
         document.getElementById("loadingbar").style.visibility = 'visible';
         var form_data = new FormData();
@@ -46,7 +48,3 @@
             });
     });
 };
-
- function submit_register_screen(){
-        document.getElementById("registerform").submit();
-    }

@@ -1,3 +1,12 @@
+function changeFlagValue(){
+  var checkBox = document.getElementById("dontKnowTheArrangement");
+  if (checkBox.checked == true){
+    checkBox.value = "block";
+  } else {
+     checkBox.value = "none";
+  }
+}
+
 $( document ).ready(function() { //get all the tasks from the database
     var coModalButton = document.getElementById("coModalButton");
     var span = document.getElementsByClassName("close")[0];
@@ -218,12 +227,3 @@ window.onclick = function(event) {
 }
 
 });
-
-function changeFlagValue(){
-  var checkBox = document.getElementById("dontKnowTheArrangement");
-  if (checkBox.checked == true){
-    checkBox.value = "block";
-  } else {
-     checkBox.value = "none";
-  }
-}
