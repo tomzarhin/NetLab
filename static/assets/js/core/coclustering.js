@@ -5,7 +5,7 @@ function addListenerToBar(xCord,yCord,index,clustering){
     xCord.addEventListener("change",function(){
             if(xCord.value == yCord.value)
         {
-            alert("Choose different values.");
+            alerty.toasts("Choose different values.");
             xCord.selectedIndex = lastX[index];
         }
         else
@@ -19,7 +19,7 @@ function addListenerToBar(xCord,yCord,index,clustering){
     yCord.addEventListener("change",function(){
         if(xCord.value == yCord.value)
         {
-            alert("Choose different values.");
+            alerty.toasts("Choose different values.");
             yCord.selectedIndex = lastY[index];
         }
         else

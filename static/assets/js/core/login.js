@@ -18,7 +18,7 @@
         })
             .done(function (data) {
                 if (data.error) {
-                    alert(data.error);
+                    alerty.toasts(data.error);
                 }
                 if(data.experiments!=null)
                 {
@@ -41,7 +41,7 @@
                     window.location.pathname = 'static/pages/home.html'
                 }
                 else
-                    alert("The details are incorrect, please try again.");
+                    alerty.toasts("The details are incorrect, please try again.");
                     document.getElementById("loadingbar").style.visibility = 'hidden';
             });
     });

@@ -1,7 +1,7 @@
     window.onload = function () { //register function to the system
     document.getElementById("register").addEventListener("click", function() {
         if(document.getElementById("your_name").value=="" || document.getElementById("your_pass").value=="" || document.getElementById("your_username").value==null)
-            alert("1 or more of the fields is empty, please fill the all the fields");
+            alerty.toasts("1 or more of the fields is empty, please fill the all the fields");
         else
         {
             document.getElementById("loadingbar").style.visibility = 'visible';

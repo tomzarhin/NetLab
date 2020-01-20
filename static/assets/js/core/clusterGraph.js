@@ -20,7 +20,7 @@ window.onload = function() { //build the clustering model graph by using the dat
     xCord.addEventListener("change",function(){ //change the parameter of x-axis for clustering analyze
             if(xCord.value == yCord.value)
         {
-            alert("Choose different values.");
+            alerty.toasts("Choose different values.");
             xCord.selectedIndex = lastX;
         }
         else
@@ -34,7 +34,7 @@ window.onload = function() { //build the clustering model graph by using the dat
     yCord.addEventListener("change",function(){ //change the parameter of y-axis for clustering analyze
         if(xCord.value == yCord.value)
         {
-            alert("Choose different values.");
+            alerty.toasts("Choose different values.");
             yCord.selectedIndex = lastY;
         }
         else

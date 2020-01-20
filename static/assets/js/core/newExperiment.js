@@ -27,7 +27,7 @@ document.getElementById("createExp").addEventListener("click", function() { //cr
             var experiments = JSON.parse(window.localStorage.getItem("experiments"));
             experiments.push(new Experiment(data.nextId,name,description,userNameDB,null));
             window.localStorage.setItem("experiments",JSON.stringify(experiments));
-            alert("Experiment has been added successfully");
+            alerty.toasts("Experiment has been added successfully");
             location.reload();
         });
 
