@@ -1,9 +1,9 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="../assets/js/core/register.js"></script>
-<script src="../assets/js/core/classes/Experiment.js"></script>
+<script src="{{ url_for('static',filename='assets/js/core/register.js') }}"></script>
+<script src="{{ url_for('static',filename='assets/js/core/classes/Experiment.js') }}"></script>
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='assets/css/login.css') }}">
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='assets/css/loadingbar.css') }}">
 
-<link rel="stylesheet" href="../assets/css/login.css">
-<link href="../assets/css/loadingbar.css" rel="stylesheet"/>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 
 <!------ Include the above in your HEAD tag ---------->
@@ -14,7 +14,7 @@
 
     <!-- Icon -->
     <div class="fadeIn first">
-      <img src="../assets/img/logo.png" style="width:90px;height:90px;"vid="icon" alt="User Icon" />
+      <img src="{{ url_for('static',filename='assets/img/logo.png') }}" style="width:90px;height:90px;"vid="icon" alt="User Icon" />
     </div>
 
     <!-- Login Form -->

@@ -1,4 +1,3 @@
-localStorage.clear();
     window.onload = function () { //login function to the system
     document.getElementById("signin").addEventListener("click", function() {
         document.getElementById("loadingbar").style.visibility = 'visible';
@@ -47,3 +46,7 @@ localStorage.clear();
             });
     });
 };
+
+ function submit_register_screen(){
+        document.getElementById("registerform").submit();
+    }

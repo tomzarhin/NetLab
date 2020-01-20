@@ -1,4 +1,3 @@
-localStorage.clear();
     window.onload = function () { //register function to the system
     document.getElementById("register").addEventListener("click", function() {
         document.getElementById("loadingbar").style.visibility = 'visible';

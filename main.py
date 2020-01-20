@@ -20,10 +20,16 @@ app = Flask(__name__, static_url_path='/static')
 mongo=Mongo()
 
 @app.route("/")
-#Getting the experiments of the user
+#returning login template
 #Author: Tom Zarhin
 def netLabStart():
     return render_template('login.html')
+
+@app.route('/registerscreen', methods=['GET', 'POST'])
+#Getting the experiments of the user
+#Author: Tom Zarhin
+def registerscreen():
+    return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 #Getting the user details and returning his experiments if he exist or else the function returning null
