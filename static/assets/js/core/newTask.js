@@ -65,7 +65,11 @@ $('#createTask').click(function() { //create new task and send it to database
         }
         exp[0].task.push(task);
         window.localStorage.setItem("experiments",JSON.stringify(experiments));
-        alerty.toasts("added succesfully");
+        alerty.toasts('added succesfully', {
+                              bgColor: '#ccc',
+                              fontColor: '#000',
+                              place: 'top',
+                            })
         location.reload();
     });
 });
