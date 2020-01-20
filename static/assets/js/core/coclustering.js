@@ -30,6 +30,22 @@ function addListenerToBar(xCord,yCord,index,clustering){
         }
     });
 }
+function TriggerAnotherValue(clustering,idx,numOfGroup,numberOfFlag) {
+    if(numberOfFlag==1)
+        flagTrigger1=1;
+    if(numberOfFlag==2)
+        flagTrigger2=1;
+     indexForTrigger=idx;
+      var meta = (clustering.scatter).getDatasetMeta(numOfGroup);
+        rect = (clustering.scatter).canvas.getBoundingClientRect();
+        point = meta.data[idx].getCenterPoint();
+        evt = new MouseEvent('mousemove', {
+          clientX: rect.left + point.x,
+          clientY: rect.top + point.y
+        }),
+        node = (clustering.scatter).canvas;
+      node.dispatchEvent(evt);
+    }
 
 $(document).ready(function () {
     var task1 = JSON.parse(window.localStorage.getItem("task1"));
@@ -63,13 +79,13 @@ $(document).ready(function () {
     var indexForTrigger=0;
     var flagTrigger1=0;
     var flagTrigger2=0;
+
     var clustering1=new Clustering(kmeansLabels1,data1,dataset_clustering_cols1,ctx1,xCord1,yCord1,JSON.parse(window.localStorage.getItem("taskName1")));
     var clustering2=new Clustering(kmeansLabels2,data2,dataset_clustering_cols2,ctx2,xCord2,yCord2,JSON.parse(window.localStorage.getItem("taskName2")));
 
     clustering1.plotPoints();
 
     clustering2.plotPoints();
-
 
     addListenerToBar(xCord1,yCord1,0,clustering1);
     addListenerToBar(xCord2,yCord2,1,clustering2);
@@ -105,22 +121,6 @@ head_cell.innerHTML='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+clustering2.
         }
   }
 
-    function TriggerAnotherValue(clustering,idx,numOfGroup,numberOfFlag) {
-    if(numberOfFlag==1)
-        flagTrigger1=1;
-    if(numberOfFlag==2)
-        flagTrigger2=1;
-     indexForTrigger=idx;
-      var meta = (clustering.scatter).getDatasetMeta(numOfGroup);
-        rect = (clustering.scatter).canvas.getBoundingClientRect();
-        point = meta.data[idx].getCenterPoint();
-        evt = new MouseEvent('mousemove', {
-          clientX: rect.left + point.x,
-          clientY: rect.top + point.y
-        }),
-        node = (clustering.scatter).canvas;
-      node.dispatchEvent(evt);
-    }
             window.myScatter = Chart.Scatter(clustering1.ctx, {
             data: {
                 datasets:clustering1.datasetValue
@@ -157,7 +157,7 @@ head_cell.innerHTML='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+clustering2.
                  },
                 title: {
                     display: true,
-                    text: JSON.parse(window.localStorage.getItem("taskName1"))
+                    text: JSON.parse(window.clustering1.headline)
                 },
             }
         });
@@ -198,7 +198,7 @@ head_cell.innerHTML='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+clustering2.
                  },
                 title: {
                     display: true,
-                    text: JSON.parse(window.localStorage.getItem("taskName2"))
+                    text: JSON.parse(clustering2.headline)
                 },
             }
         });

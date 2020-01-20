@@ -1,70 +1,21 @@
+    var idExp = JSON.parse(window.localStorage.getItem("idExp"));
+    var idTask = JSON.parse(window.localStorage.getItem("idTask"));
+    var experiments = JSON.parse(window.localStorage.getItem("experiments"));
+    var idExpArray = experiments.findIndex(x => x.id === parseInt(idExp));
+    var idTaskArray = experiments[idExpArray].task.findIndex(x => x.task_id === parseInt(idTask))
+    var datasetToBayes = JSON.parse(JSON.stringify(experiments[idExpArray].task[idTaskArray].dataset));
+    var dataset=experiments[idExpArray].task[idTaskArray].dataset;
+    var checkboxes;
+    var colsArr = experiments[idExpArray].task[idTaskArray].datasetcols.split(",");
+    var datasetWithPrior=JSON.parse(JSON.stringify(experiments[idExpArray].task[idTaskArray].dataset));
+    var checkboxes1=[];
+    var checkboxes2=[];
+
 function getDataFromjexcel() { //put dataset from excel in from_data variable for sending to the server
     var form_data = new FormData();
     form_data.append('dataset', JSON.stringify(jexcelSpreadSheet.getData()));
     form_data.append('datasetcols', JSON.stringify(jexcelSpreadSheet.getHeaders()));
     return (form_data);
-}
-
-var idExp = JSON.parse(window.localStorage.getItem("idExp"));
-var idTask = JSON.parse(window.localStorage.getItem("idTask"));
-var experiments = JSON.parse(window.localStorage.getItem("experiments"));
-var idExpArray = experiments.findIndex(x => x.id === parseInt(idExp));
-var idTaskArray = experiments[idExpArray].task.findIndex(x => x.task_id === parseInt(idTask))
-var datasetToBayes = JSON.parse(JSON.stringify(experiments[idExpArray].task[idTaskArray].dataset));
-var dataset=experiments[idExpArray].task[idTaskArray].dataset;
-var checkboxes;
-var colsArr = experiments[idExpArray].task[idTaskArray].datasetcols.split(",");
-var datasetWithPrior=JSON.parse(JSON.stringify(experiments[idExpArray].task[idTaskArray].dataset));
-var checkboxes1=[];
-var checkboxes2=[];
-
-
-    function makeCheckboxes(str,cat) {
-        var checkbox = document.getElementById(cat);
-        var arr = str;
-        var returnStr = "";
-        for (i = 0; i < arr.length; i++) {
-            if(cat=="category1")
-                returnStr += '<input type="checkbox" onchange="addToTable1(this)" name="theCheckbox" value="' + arr[i] + '" />' + arr[i] + "<br>";
-            if(cat=="category2")
-                returnStr += '<input type="checkbox" onchange="addToTable2(this)" name="theCheckbox" value="' + arr[i] + '" />' + arr[i] + "<br>";
-
-        }
-        checkbox.innerHTML = returnStr;
-    }
-    window.onload = function () {
-
-    };
-
-function addToTable1(checkboxElem) {
-  if (checkboxElem.checked) {
-    if(checkboxes2.indexOf(checkboxElem.value) == -1)
-        checkboxes1.push(checkboxElem.value);
-    else
-    {
-        alerty.toasts("Unable to choose 2 values from 2 tables.")
-        checkboxElem.checked = false;
-    }
-  } else {
-    var index = checkboxes1.indexOf(checkboxElem.value);
-        checkboxes1.splice(index, 1);
-  }
-}
-
-function addToTable2(checkboxElem) {
-  if (checkboxElem.checked) {
-    if(checkboxes1.indexOf(checkboxElem.value) == -1)
-        checkboxes2.push(checkboxElem.value);
-    else
-    {
-    alerty.toasts("Unable to choose 2 values from 2 tables.")
-        checkboxElem.checked = false;
-    }
-
-  } else {
-    var index = checkboxes2.indexOf(checkboxElem.value);
-        checkboxes2.splice(index, 1);
-  }
 }
 function sendWithPrior(){
       if(checkboxes.length == colsArr.length)
@@ -83,40 +34,47 @@ function sendWithPrior(){
            alerty.toasts("Please choose all variables")
       }
 }
-// Get the modals
-var bayesianModal = document.getElementById("bayesianModal");
-var clusteringModal = document.getElementById("clusteringModal");
+function makeCheckboxes(str,cat) {
+        var checkbox = document.getElementById(cat);
+        var arr = str;
+        var returnStr = "";
+        for (i = 0; i < arr.length; i++) {
+            if(cat=="category1")
+                returnStr += '<input type="checkbox" onchange="addToTable1(this)" name="theCheckbox" value="' + arr[i] + '" />' + arr[i] + "<br>";
+            if(cat=="category2")
+                returnStr += '<input type="checkbox" onchange="addToTable2(this)" name="theCheckbox" value="' + arr[i] + '" />' + arr[i] + "<br>";
 
-// Get the button that opens the modal
-var bayesianModalButton = document.getElementById("bayesianModalButton");
-var clusteringModalButton = document.getElementById("clusteringModalButton");
+        }
+        checkbox.innerHTML = returnStr;
+    }
+function addToTable1(checkboxElem) {
+  if (checkboxElem.checked) {
+    if(checkboxes2.indexOf(checkboxElem.value) == -1)
+        checkboxes1.push(checkboxElem.value);
+    else
+    {
+        alerty.toasts("Unable to choose 2 values from 2 tables.")
+        checkboxElem.checked = false;
+    }
+  } else {
+    var index = checkboxes1.indexOf(checkboxElem.value);
+        checkboxes1.splice(index, 1);
+  }
+}
+function addToTable2(checkboxElem) {
+  if (checkboxElem.checked) {
+    if(checkboxes1.indexOf(checkboxElem.value) == -1)
+        checkboxes2.push(checkboxElem.value);
+    else
+    {
+    alerty.toasts("Unable to choose 2 values from 2 tables.")
+        checkboxElem.checked = false;
+    }
 
-// Get the <span> element that closes the modal
-var spanClustering = document.getElementsByClassName("close")[0];
-var spanBayes = document.getElementsByClassName("close")[1];
-
-$(document).ready(function () {
-    var headArray=experiments[idExpArray].task[idTaskArray].datasetcols.split(",");
-    jexcelSpreadSheet = jexcel(document.getElementById('spreadsheet1'), {
-        colHeaders: headArray,
-        loadingSpin: true,
-        data: experiments[idExpArray].task[idTaskArray].dataset,
-        csvHeaders: false,
-        tableOverflow: true,
-        lazyLoading:true,
-    });
-    window.localStorage.setItem("dataset_clustering", JSON.stringify(experiments[idExpArray].task[idTaskArray].dataset));
-    window.localStorage.setItem("dataset_clustering_cols", JSON.stringify(jexcelSpreadSheet.getHeaders()));
-});
-
-var colsArr = experiments[idExpArray].task[idTaskArray].datasetcols.split(",");
-var select = document.getElementById("comboCols");
-for(var i = 0; i < colsArr.length; i++) {
-    var option = colsArr[i];
-    var element = document.createElement("option");
-    element.textContent = option;
-    element.value = option;
-    select.appendChild(element);
+  } else {
+    var index = checkboxes2.indexOf(checkboxElem.value);
+        checkboxes2.splice(index, 1);
+  }
 }
 function setGroupByMedian() {
 const arrayColumn = (arr, n) => arr.map(x => x[n]);
@@ -141,7 +99,7 @@ const calcMedian = arr => {
                 medianOrAverageOrCustom = average((arrayColumn(dataset, index)).map(Number));
                 CheckIfHighOrLowFromValue(index,medianOrAverageOrCustom);
             }
-            
+
             else if(method=="custom value")
             {
                 alerty.prompt('Set your custom value',
@@ -157,9 +115,7 @@ const calcMedian = arr => {
                 jexcelSpreadSheet.setColumnData(index, arrayColumn(datasetToBayes, index));
             }
 }
-
-function CheckIfHighOrLowFromValue(index,medianOrAverageOrCustom)
-{
+function CheckIfHighOrLowFromValue(index,medianOrAverageOrCustom){
             const arrayColumn = (arr, n) => arr.map(x => x[n]);
            for(var i=0;i<dataset.length;i++)
            {
@@ -170,11 +126,52 @@ function CheckIfHighOrLowFromValue(index,medianOrAverageOrCustom)
            }
             jexcelSpreadSheet.setColumnData(index, arrayColumn(datasetToBayes, index));
 }
-function reset(){
-        document.getElementById("norOrMed").selectedIndex = 0;
+function reset(){document.getElementById("norOrMed").selectedIndex = 0;}
+function changeFlagValue(){
+  var checkBox = document.getElementById("dontKnowTheArrangement");
+  if (checkBox.checked == true){
+    checkBox.value = "block";
+  } else {
+     checkBox.value = "none";
+  }
 }
 
-$('#goK2').click(function () {
+$(document).ready(function () {
+
+    // Get the modals
+    var bayesianModal = document.getElementById("bayesianModal");
+    var clusteringModal = document.getElementById("clusteringModal");
+
+    // Get the button that opens the modal
+    var bayesianModalButton = document.getElementById("bayesianModalButton");
+    var clusteringModalButton = document.getElementById("clusteringModalButton");
+
+    // Get the <span> element that closes the modal
+    var spanClustering = document.getElementsByClassName("close")[0];
+    var spanBayes = document.getElementsByClassName("close")[1];
+
+    var colsArr = experiments[idExpArray].task[idTaskArray].datasetcols.split(",");
+    var select = document.getElementById("comboCols");
+    for(var i = 0; i < colsArr.length; i++) {
+        var option = colsArr[i];
+        var element = document.createElement("option");
+        element.textContent = option;
+        element.value = option;
+        select.appendChild(element);
+    }
+    var headArray=experiments[idExpArray].task[idTaskArray].datasetcols.split(",");
+    jexcelSpreadSheet = jexcel(document.getElementById('spreadsheet1'), {
+        colHeaders: headArray,
+        loadingSpin: true,
+        data: experiments[idExpArray].task[idTaskArray].dataset,
+        csvHeaders: false,
+        tableOverflow: true,
+        lazyLoading:true,
+    });
+
+    window.localStorage.setItem("dataset_clustering", JSON.stringify(experiments[idExpArray].task[idTaskArray].dataset));
+    window.localStorage.setItem("dataset_clustering_cols", JSON.stringify(jexcelSpreadSheet.getHeaders()));
+    $('#goK2').click(function () {
     if((document.getElementById("numberOfParents").value) != null)
         window.localStorage.setItem("numberOfParents", JSON.stringify(document.getElementById("numberOfParents").value));
     else
@@ -215,7 +212,7 @@ $('#goK2').click(function () {
         else
             alerty.toasts("Please choose clasification for entire variables");
 });
-$('#goKmeans').click(function () {
+    $('#goKmeans').click(function () {
     document.getElementById("loadingbar").style.visibility = 'visible';
     var form_data = new FormData();
     form_data = getDataFromjexcel();
@@ -245,41 +242,24 @@ $('#goKmeans').click(function () {
 
         });
 });
-
-// When the user clicks the button, open the modal
-bayesianModalButton.onclick = function() {
-  bayesianModal.style.display = "block";
-  colsArr=jexcelSpreadSheet.getHeaders().split(",");
-  makeCheckboxes(colsArr,"category1");
-  makeCheckboxes(colsArr,"category2");
-}
-
-clusteringModalButton.onclick = function() {
-  clusteringModal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-spanClustering.onclick = function() {
-  clusteringModal.style.display = "none";
-}
-spanBayes.onclick = function() {
-  bayesianModal.style.display = "none";
-}
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  if (event.target == bayesianModal) {
-    bayesianModal.style.display = "none";
-  }
-  if(event.target == clusteringModal){
-    clusteringModal.style.display = "none";
-  }
-}
-
-function changeFlagValue(){
-  var checkBox = document.getElementById("dontKnowTheArrangement");
-  if (checkBox.checked == true){
-    checkBox.value = "block";
-  } else {
-     checkBox.value = "none";
-  }
-}
+    // When the user clicks the button, open the modal
+    bayesianModalButton.onclick = function() {
+      bayesianModal.style.display = "block";
+      colsArr=jexcelSpreadSheet.getHeaders().split(",");
+      makeCheckboxes(colsArr,"category1");
+      makeCheckboxes(colsArr,"category2");
+    }
+    clusteringModalButton.onclick = function() {clusteringModal.style.display = "block";}
+    // When the user clicks on <span> (x), close the modal
+    spanClustering.onclick = function(){clusteringModal.style.display = "none";}
+    spanBayes.onclick = function(){bayesianModal.style.display = "none";}
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == bayesianModal) {
+        bayesianModal.style.display = "none";
+      }
+      if(event.target == clusteringModal){
+        clusteringModal.style.display = "none";
+      }
+    }
+});
