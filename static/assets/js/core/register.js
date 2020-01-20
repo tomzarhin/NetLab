@@ -25,6 +25,15 @@
                     if (data.error) {
                         confirm(data.error);
                     }
+                    else
+                    {
+                         alerty.toasts('Registration complete!', {
+                              bgColor: '#ccc',
+                              fontColor: '#000',
+                              place: 'top',
+                            })
+                            setTimeout(function(){window.history.back();},2500);
+                    }
                 });
         }
      });
