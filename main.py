@@ -37,10 +37,10 @@ def registerscreen():
 def login():
     inputEmail=request.form.get('inputEmail')
     password = request.form.get('password')
-    experiment_array=mongo.login(inputEmail,password)
+    experiment_array,user_fullname=mongo.login(inputEmail,password)
     if(experiment_array==None):
         return jsonify({'pstatus':"NOT OK"})
-    return jsonify({'experiments': experiment_array})
+    return jsonify({'experiments': experiment_array,"fullname":user_fullname})
     #ret= jsonify({'experiments': experiment_array})
     #return render_template('home.html',data=ret)
 

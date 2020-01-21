@@ -32,7 +32,7 @@ window.onload = function () { //login function to the system
                     var yyyy = today.getFullYear();
 
                     today = mm + '/' + dd + '/' + yyyy;
-                    window.localStorage.setItem("user", JSON.stringify(new User(userNameDB,today)));
+                    window.localStorage.setItem("user", JSON.stringify(new User(userNameDB,today,data.fullname)));
 
                     var experiments=[];
                     for(exp of data.experiments){

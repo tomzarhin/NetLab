@@ -26,7 +26,7 @@ class Mongo:
             experiments = self.db.experiments.find({"userName": inputEmail})
             for exp in experiments:
                 experiment_array.append(exp)
-            return(experiment_array)
+            return(experiment_array,user)
         return(None)
 
     def createExperiment(self,description,userName,name):
