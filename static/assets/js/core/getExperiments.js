@@ -25,6 +25,7 @@ $( document ).ready(function() { //get all the experiments from the database
                 "            </div>\n" +
                 "          </div>");
           }
+
   var buttons = document.getElementsByClassName('btn btn-warning');
   for (var i = 0; i < buttons.length; i++) { //create events for every experiment to save id and name of the experiment
       buttons[i].onclick = function(){
