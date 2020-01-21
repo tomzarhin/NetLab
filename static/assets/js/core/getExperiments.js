@@ -7,10 +7,10 @@ $( document ).ready(function() { //get all the experiments from the database
                 "            <div class=\"card card-stats\">\n" +
                 "              <div class=\"card-body \">\n" +
                 "                <div class=\"row\">\n" +
-                "                  <div class=\"col-7 col-md-9\">\n" +
+                "                  <div class=\"col-12 col-md-12\">\n" +
                 "                    <div class=\"numbers\">\n" +
-                "                      <p class=\"card-title text-left\">"+exp.experimentName+"</p>\n" +
-                "                      <p class=\"card-category text-left\">"+exp.experimentDescription+"\n" +
+                "                      <p style=\"font-size:17px;\" class=\"card-title text-left\">"+exp.experimentName+"</p>\n" +
+                "                      <p style=\"font-size:13px;\" class=\"card-category text-left\">"+exp.experimentDescription+"\n" +
                 "                        <p>\n" +
                 "                    </div>\n" +
                 "                  </div>\n" +

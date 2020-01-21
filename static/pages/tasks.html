@@ -151,10 +151,10 @@
 
         <div class="content">
             <center>
-                <h5>Tasks</h5>
+
                 <div class="col-lg-8 col-md-8 col-sm-8">
                     <div class="card card-stats col-lg-12 col-md-12 col-sm-12">
-                        <div style="padding-top:5px;padding-bottom:5px;">Task Options:
+                        <div style="padding-top:5px;padding-bottom:5px;">Experiment Options:
                             <a href="newTask.html" type="button" class="btn btn-default btn-sm">
                                 <i class="far fa-plus-square"></i> New task
                             </a>
@@ -167,8 +167,15 @@
                         </div>
                     </div>
                 </div>
+                <hr>
+                                <h5>Tasks Of                       <script>
+                        document.write(JSON.parse(window.localStorage.getItem("expName")))
+
+                        </script>
+                    </h5>
             </center>
-            <div id="p10" class="row justify-content-left">
+
+            <div id="p10" class="row justify-content-center">
                 <script src="../assets/js/core/getTasks.js"></script>
             </div>
         </div>

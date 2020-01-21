@@ -38,8 +38,8 @@ $( document ).ready(function() { //get all the tasks from the database
                           "                  <div class=\"col-12 col-md-12\">\n" +
                           "                    <div class=\"numbers\">\n" +
                           "                      <div style='font-size:11px;cursor: pointer;'name=\"xButton\" id="+task.task_id+">&#10006;</div>\n"+
-                          "                      <p style=\"font-size:25px\" class=\"card-title text-left\">"+task.taskName+"</p>\n" +
-                          "                      <p class=\"card-category text-left\">"+task.taskDescription+"\n" +
+                          "                      <p style=\"font-size:17px\" class=\"card-title text-left\">"+task.taskName+"</p>\n" +
+                          "                      <p style=\"font-size:13px;\" class=\"card-category text-left\">"+task.taskDescription+"\n" +
                           "                        <p>\n" +
                           "                    </div>\n" +
                           "                  </div>\n" +
