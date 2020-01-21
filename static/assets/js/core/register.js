@@ -1,3 +1,4 @@
+    function submit_login_screen(){location.href="/";}
     window.onload = function () { //register function to the system
     document.getElementById("register").addEventListener("click", function() {
         if(document.getElementById("your_name").value=="" || document.getElementById("your_pass").value=="" || document.getElementById("your_username").value==null)
@@ -23,7 +24,9 @@
             })
                 .done(function (data) {
                     if (data.error) {
-                        confirm(data.error);
+                        alerty.toasts(data.error);
+                         setTimeout(function(){location.reload();},2500);
+
                     }
                     else
                     {
@@ -32,7 +35,7 @@
                               fontColor: '#000',
                               place: 'top',
                             })
-                            setTimeout(function(){window.history.back();},2500);
+                            setTimeout(function(){location.href = "/";},2500);
                     }
                 });
         }

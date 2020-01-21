@@ -65,10 +65,10 @@ class Mongo:
                 u'userPassword': u'' + password + '',
                 u'userFullName': u'' + userFullName + ''
             })
-            return("OK")
+            return({"status":"registered"})
         except:
             print("error")
-            return("except")
+            return({"error":"User already exist"})
 
     def deleteTask(self, idTask, idExp):
         myquery = {"_id": idExp}

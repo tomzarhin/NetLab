@@ -52,7 +52,7 @@ def register():
     password = request.form.get('password')
     userFullName=request.form.get('userFullName')
     ack=mongo.register(inputEmail,password,userFullName)
-    return jsonify({'nextId':ack})
+    return jsonify(ack)
 
 @app.route('/createExperiment', methods=['GET', 'POST'])
 #Getting the experiment details and creating a new one
