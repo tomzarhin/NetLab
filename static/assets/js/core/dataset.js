@@ -17,7 +17,7 @@ function getDataFromjexcel() { //put dataset from excel in from_data variable fo
     form_data.append('datasetcols', JSON.stringify(jexcelSpreadSheet.getHeaders()));
     return (form_data);
 }
-function sendWithPrior(){
+function sendWithPrior(){ //Responsible for arranging the Bayesian network variability in the set according to the order we want
       if(checkboxes.length == colsArr.length)
       {
           for(i=0;i<checkboxes.length;i++)
@@ -47,7 +47,7 @@ function makeCheckboxes(str,cat) {
         }
         checkbox.innerHTML = returnStr;
     }
-function addToTable1(checkboxElem) {
+function addToTable1(checkboxElem) { //Adds variables to the Reasons category
   if (checkboxElem.checked) {
     if(checkboxes2.indexOf(checkboxElem.value) == -1)
         checkboxes1.push(checkboxElem.value);
@@ -61,7 +61,7 @@ function addToTable1(checkboxElem) {
         checkboxes1.splice(index, 1);
   }
 }
-function addToTable2(checkboxElem) {
+function addToTable2(checkboxElem) {  //Adds variables to the Results category
   if (checkboxElem.checked) {
     if(checkboxes1.indexOf(checkboxElem.value) == -1)
         checkboxes2.push(checkboxElem.value);
@@ -76,9 +76,9 @@ function addToTable2(checkboxElem) {
         checkboxes2.splice(index, 1);
   }
 }
-function setGroupByMedian() {
+function setGroupByMethod() { //Arranges the group by a particular method, average median, or custom value
 const arrayColumn = (arr, n) => arr.map(x => x[n]);
-const calcMedian = arr => {
+const calcMedian = arr => { //Calculate the median of an array
   const mid = Math.floor(arr.length / 2),
     nums = [...arr].sort((a, b) => a - b);
   return arr.length % 2 !== 0 ? nums[mid] : (nums[mid - 1] + nums[mid]) / 2;
@@ -160,7 +160,7 @@ $(document).ready(function () {
         select.appendChild(element);
     }
     var headArray=experiments[idExpArray].task[idTaskArray].datasetcols.split(",");
-    jexcelSpreadSheet = jexcel(document.getElementById('spreadsheet1'), {
+    jexcelSpreadSheet = jexcel(document.getElementById('spreadsheet1'), { //get data from array to excel view
         colHeaders: headArray,
         loadingSpin: true,
         data: experiments[idExpArray].task[idTaskArray].dataset,
@@ -171,7 +171,8 @@ $(document).ready(function () {
 
     window.localStorage.setItem("dataset_clustering", JSON.stringify(experiments[idExpArray].task[idTaskArray].dataset));
     window.localStorage.setItem("dataset_clustering_cols", JSON.stringify(jexcelSpreadSheet.getHeaders()));
-    $('#goK2').click(function () {
+
+    $('#goK2').click(function () { //ask from the server to produce bayesian network model
     if((document.getElementById("numberOfParents").value) != null)
         window.localStorage.setItem("numberOfParents", JSON.stringify(document.getElementById("numberOfParents").value));
     else
@@ -212,7 +213,7 @@ $(document).ready(function () {
         else
             alerty.toasts("Please choose clasification for entire variables");
 });
-    $('#goKmeans').click(function () {
+    $('#goKmeans').click(function () { //ask from the server to produce clustering model
     document.getElementById("loadingbar").style.visibility = 'visible';
     var form_data = new FormData();
     form_data = getDataFromjexcel();

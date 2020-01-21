@@ -30,7 +30,7 @@ function addListenerToBar(xCord,yCord,index,clustering){
         }
     });
 }
-function TriggerAnotherValue(clustering,idx,numOfGroup,numberOfFlag) {
+function TriggerAnotherValue(clustering,idx,numOfGroup,numberOfFlag) { //when user move on some point, he see the same point in the second clustering model
     if(numberOfFlag==1)
         flagTrigger1=1;
     if(numberOfFlag==2)
@@ -79,7 +79,7 @@ $(document).ready(function () {
     var indexForTrigger=0;
     var flagTrigger1=0;
     var flagTrigger2=0;
-
+    //create 2 clustering models for Comparison
     var clustering1=new Clustering(kmeansLabels1,data1,dataset_clustering_cols1,ctx1,xCord1,yCord1,JSON.parse(window.localStorage.getItem("taskName1")));
     var clustering2=new Clustering(kmeansLabels2,data2,dataset_clustering_cols2,ctx2,xCord2,yCord2,JSON.parse(window.localStorage.getItem("taskName2")));
 
@@ -103,7 +103,7 @@ $(document).ready(function () {
      head_cell.style.color = "white";
 
 head_cell.innerHTML='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+clustering2.headline+'<br>'+ clustering1.headline;
-  for(var i=0;i<co_length;i++ ){
+  for(var i=0;i<co_length;i++ ){ //create the co-clustering table.
     head_cell=header.insertCell(i+1);
     head_cell.innerHTML=clustering2.headline+' Cluster'+(i+1);
     head_cell.style.backgroundColor = "#2980B9";
@@ -121,7 +121,7 @@ head_cell.innerHTML='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+clustering2.
         }
   }
 
-            window.myScatter = Chart.Scatter(clustering1.ctx, {
+            window.myScatter = Chart.Scatter(clustering1.ctx, { //print the first clustering on the screen
             data: {
                 datasets:clustering1.datasetValue
             },
@@ -161,7 +161,7 @@ head_cell.innerHTML='&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'+clustering2.
                 },
             }
         });
-                    window.myScatter = Chart.Scatter(clustering2.ctx, {
+                    window.myScatter = Chart.Scatter(clustering2.ctx, { //print the first clustering on the screen
             data: {
                 datasets:clustering2.datasetValue
             },
