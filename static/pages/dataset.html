@@ -123,6 +123,10 @@
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
             <form>
               <div class="input-group no-border">
+                                                <button type="button" class="btn btn-outline-dark btn-sm" style="pointer-events: none;background-color:transparent;color:black;">
+                                  <i class="fas fa-user"></i> <script>document.write(JSON.parse((window.localStorage.getItem("user")))["fullname"])</script>
+                            </button>
+&nbsp;
             <button type="button" class="btn btn-default btn-sm" id="logoutBtn">
                               <i class="fas fa-sign-out-alt"></i> Logout
                             </button>
@@ -225,25 +229,25 @@
                 </h5>
             </center>
             <div class="card card-stats col-lg-12 col-md-12 col-sm-12">
-                <br>
+<br>
                 <div class="card card-stats" id="spreadsheet1"></div>
                 <center>
                     <div id="optionsToAnalyze" ustify-content-center>
                         <button class="btn btn-warning" id="bayesianModalButton">Bayesian Network</button>
                         <button class="btn btn-warning" id="clusteringModalButton">Clustering</button>
-                        <footer class="footer footer-black  footer-white ">
-                        </footer>
+
                     </div>
                     <div>
 <hr>
-                        <h5>Select a variable for normalization </h5>
+
+                      <div style="font-size:17px;">Select a variable for normalization</div><br>
                         <select id="comboCols" onchange="reset()">
 
                             <option selected disabled>Choose var</option>
                         </select>
-                        <p id="median"></p>
+
                         <hr>
-                        <h5>Select method for normalization (Median/Average/Custom value) </h5>
+                        <div style="font-size:17px;">Select method for normalization</div>
                         <select id="norOrMed" onchange="setGroupByMedian()">
                             <option selected disabled>Choose method</option>
                             <option>normal</option>
