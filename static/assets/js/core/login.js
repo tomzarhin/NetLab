@@ -37,7 +37,7 @@ window.onload = function () { //login function to the system
                     var experiments=[];
                     for(exp of data.experiments){
                     //transform exp["tasks"] to Task objects
-                        experiments.push(new Experiment(exp["id"],exp["experimentName"],exp["experimentDescription"],userNameDB,exp["tasks"])); //continue from here
+                        experiments.push(new Experiment(exp["_id"],exp["experimentName"],exp["experimentDescription"],userNameDB,exp["tasks"])); //continue from here
                     }
                     window.localStorage.setItem("experiments",JSON.stringify(experiments));
                     window.location.pathname = 'static/pages/home.html'

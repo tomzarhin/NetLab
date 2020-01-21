@@ -25,7 +25,6 @@ class Mongo:
             experiment_array = []
             experiments = self.db.experiments.find({"userName": inputEmail})
             for exp in experiments:
-                exp.pop('_id')
                 experiment_array.append(exp)
             return(experiment_array)
         return(None)
