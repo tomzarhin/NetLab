@@ -164,8 +164,8 @@ def bayesianNetworkK2AndTables(dataset,categories,numberOfParents,dontKnowTheArr
         G = np.zeros([n, n])
         if(dontKnowTheArrangement=='block'):
             topologicalOrder = list(np.random.choice(numOfReasons, numOfReasons, replace=False))
-            topologicalOrder2 = list(np.random.choice(n - numOfReasons, n - numOfReasons, replace=False))
-            topologicalOrder.append(topologicalOrder2+numOfReasons)
+            topologicalOrder2 = list(np.random.choice(n - numOfReasons, n - numOfReasons, replace=False)+numOfReasons)
+            topologicalOrder.extend(topologicalOrder2)
         else:
             topologicalOrder = list(np.arange(n))
 
