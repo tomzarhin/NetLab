@@ -13,6 +13,7 @@ window.onunload = function () {
 }
 
 window.onload = function () {
+$('#helpUser').tooltip();
 document.getElementById("logoutBtn").addEventListener("click", function(){
   localStorage.clear();
   location.href = "/";

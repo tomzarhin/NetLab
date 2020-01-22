@@ -79,6 +79,7 @@
             </ul>
         </div>
     </div>
+
     <div class="main-panel">
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
@@ -105,6 +106,7 @@
                     &nbsp;->&nbsp;
                     Create new task
                 </div>
+
  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-bar navbar-kebab"></span>
             <span class="navbar-toggler-bar navbar-kebab"></span>
@@ -116,6 +118,7 @@
                                                 <button type="button" class="btn btn-outline-dark btn-sm" style="pointer-events: none;background-color:transparent;color:black;">
                                   <i class="fas fa-user"></i> <script>document.write(JSON.parse((window.localStorage.getItem("user")))["fullname"])</script>
                             </button>
+
 &nbsp;
             <button type="button" class="btn btn-default btn-sm" id="logoutBtn">
                               <i class="fas fa-sign-out-alt"></i> Logout
@@ -126,7 +129,8 @@
             </div>
         </nav>
         <div class="content">
-
+     <a style="position:absolute;bottom:5px;right:15px;margin:0;padding:5px 3px;z-index:1;" href="#" data-toggle="tooltip" data-placement="top" title="Tooltip on top" id="helpUser">
+                        <i class="fas fa-question-circle fa-3x"></i></a>
             <div class="row justify-content-center">
                 <div class="col-md-5">
                     <div class="card card-user">

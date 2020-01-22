@@ -19,7 +19,7 @@ function getDataFromjexcel(){ //put dataset from excel in from_data variable for
     return(form_data);
 }
 
-window.onload = function () {
+$(window).on('load',function() {
 $(function() {
     $('#fileElem').change(function() {
            var tmppath = URL.createObjectURL(event.target.files[0]);
@@ -73,5 +73,5 @@ $('#createTask').click(function() { //create new task and send it to database
         location.reload();
     });
 });
-}
+});
 

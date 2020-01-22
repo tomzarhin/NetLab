@@ -1,6 +1,6 @@
 var lastX;
 var lastY;
-window.onload = function() { //build the clustering model graph by using the database
+$(window).on('load',function() { //build the clustering model graph by using the database
     var kmeansLabels = JSON.parse(window.localStorage.getItem("kmeansLabels"));
     var data = JSON.parse(window.localStorage.getItem("dataset_clustering"));
     var dataset_clustering_cols = JSON.parse(window.localStorage.getItem("dataset_clustering_cols"));
@@ -45,4 +45,4 @@ window.onload = function() { //build the clustering model graph by using the dat
         }
     } );
 
-};
+});

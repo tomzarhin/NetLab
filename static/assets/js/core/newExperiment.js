@@ -1,5 +1,5 @@
 var currId;
-window.onload = function () {
+$(window).on('load',function() {
 document.getElementById("createExp").addEventListener("click", function() { //create new experiment and send it to database
   var user = JSON.parse(window.localStorage.getItem("user"));
   var userNameDB=user["username"];
@@ -37,4 +37,4 @@ document.getElementById("createExp").addEventListener("click", function() { //cr
         });
 
 });
-}
+});

@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+    <script src="../assets/js/core/logout.js"></script>
 <script src="../assets/js/core/classes/experiment.js"></script>
+
 <script src="../assets/js/core/classes/Clustering.js"></script>
+
 <script src="../assets/js/plugins/alerty.js"></script>
 <link rel="stylesheet" href="../assets/css/alerty.css">
 <head>
@@ -22,7 +25,7 @@
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="../assets/css/paper-dashboard.css?v=2.0.0" rel="stylesheet"/>
     <script src="../assets/js/plugins/jquery.min.js"></script>
-    <script src="../assets/js/core/logout.js"></script>
+
 
 </head>
 
@@ -93,36 +96,43 @@
                     <a class="" href="tasks.html">
                         <script>
                         document.write(JSON.parse(window.localStorage.getItem("expName")))
+
                         </script>
                     </a>
                     &nbsp;->&nbsp;
                     <a class="" href="dataset.html">
                         <script>
                         document.write(JSON.parse(window.localStorage.getItem("taskName")))
+
                         </script>
                     </a></a>
                     &nbsp;->&nbsp;
                     <a class="" href="clusterGraph.html">Clustering</a>
                 </div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-            <span class="navbar-toggler-bar navbar-kebab"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-end" id="navigation">
-            <form>
-              <div class="input-group no-border">
-                                                <button type="button" class="btn btn-outline-dark btn-sm" style="pointer-events: none;background-color:transparent;color:black;">
-                                  <i class="fas fa-user"></i> <script>document.write(JSON.parse((window.localStorage.getItem("user")))["fullname"])</script>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+                        aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-bar navbar-kebab"></span>
+                    <span class="navbar-toggler-bar navbar-kebab"></span>
+                    <span class="navbar-toggler-bar navbar-kebab"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                    <form>
+                        <div class="input-group no-border">
+                            <button type="button" class="btn btn-outline-dark btn-sm"
+                                    style="pointer-events: none;background-color:transparent;color:black;">
+                                <i class="fas fa-user"></i>
+                                <script>document.write(JSON.parse((window.localStorage.getItem("user")))["fullname"])
+                                </script>
                             </button>
-&nbsp;
-            <button type="button" class="btn btn-default btn-sm" id="logoutBtn">
-                              <i class="fas fa-sign-out-alt"></i> Logout
+                            &nbsp;
+                            <button type="button" class="btn btn-default btn-sm" id="logoutBtn">
+                                <i class="fas fa-sign-out-alt"></i> Logout
                             </button>
-          </div>
-            </form>
+                        </div>
 
-          </div>
+                    </form>
+
+                </div>
             </div>
         </nav>
 
@@ -130,7 +140,8 @@
             <center><h5>Clustering analyze</h5></center>
             <br><br>
             <div class="row justify-content-center">
-
+ <a style="position:absolute;bottom:5px;right:15px;margin:0;padding:5px 3px;z-index:1;" href="#" data-toggle="tooltip" data-placement="top" title="Tooltip on top" id="helpUser">
+                        <i class="fas fa-question-circle fa-3x"></i></a>
                 <script src="../assets/js/plugins/Chart.min.js"></script>
                 <script src="../assets/js/plugins/utils.js"></script>
                 <link href="../assets/css/clusterGraph.css" rel="stylesheet"/>
