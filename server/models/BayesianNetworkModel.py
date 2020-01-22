@@ -135,7 +135,7 @@ def PruneGraphUpdate(G,D,topologicalOrder,parents,states):
 
     return (G,parents,score)
 
-def bayesianNetworkK2AndTables(dataset,categories,numberOfParents,dontKnowTheArrangement):
+def bayesianNetworkK2AndTables(dataset,categories,numberOfParents,dontKnowTheArrangement,numOfReasons):
     """
     Running K2 algorithm and returning its result in order to built the network probabilities
     :param dataset: the dataset of the task
@@ -163,7 +163,9 @@ def bayesianNetworkK2AndTables(dataset,categories,numberOfParents,dontKnowTheArr
 
         G = np.zeros([n, n])
         if(dontKnowTheArrangement=='block'):
-            topologicalOrder = list(np.random.choice(n, n, replace=False))
+            topologicalOrder = list(np.random.choice(numOfReasons, numOfReasons, replace=False))
+            topologicalOrder2 = list(np.random.choice(n - numOfReasons, n - numOfReasons, replace=False))
+            topologicalOrder.append(topologicalOrder2+numOfReasons)
         else:
             topologicalOrder = list(np.arange(n))
 

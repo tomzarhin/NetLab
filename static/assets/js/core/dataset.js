@@ -179,6 +179,7 @@ $(document).ready(function() {
         else
             window.localStorage.setItem("numberOfParents", JSON.stringify("opt"));
         window.localStorage.setItem("numberOfVars", JSON.stringify(colsArr.length));
+        var numberOfReasons = checkboxes1.length;
         checkboxes = checkboxes1.concat(checkboxes2);
         if (checkboxes.length == 0 || checkboxes.length == colsArr.length) {
             document.getElementById("loadingbar").style.visibility = 'visible';
@@ -188,6 +189,7 @@ $(document).ready(function() {
             form_data = getDataFromjexcel();
             form_data.append('numberOfParents', document.getElementById("numberOfParents").value);
             form_data.append('dontKnowTheArrangement', document.getElementById("dontKnowTheArrangement").value);
+            form_data.append('numberOfReasons',numberOfReasons);
             $.ajax({
                     type: 'POST',
                     url: '/goK2',

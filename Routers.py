@@ -107,12 +107,13 @@ def goK2():
     categories = json.loads(request.form['datasetcols'])
     data = json.loads(request.form['dataset'])
     numberOfParents = request.form['numberOfParents']
+    numberOfReasons = request.form['numberOfReasons']
     if(numberOfParents=='' or numberOfParents==None):
         numberOfParents='1000'
     categories=categories.split(',')
     dontKnowTheArrangement = request.form['dontKnowTheArrangement']
 
-    graph_list,dag,data=BN.bayesianNetworkK2AndTables(data,categories,int(numberOfParents),dontKnowTheArrangement)
+    graph_list,dag,data=BN.bayesianNetworkK2AndTables(data,categories,int(numberOfParents),dontKnowTheArrangement,int(numberOfReasons))
     # Finding the Conditional Probabilities Tables
     bayes_model,cpds_array,categories_each_element = BN.createBayesGraph(graph_list, categories, data)
 
