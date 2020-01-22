@@ -136,6 +136,14 @@ def PruneGraphUpdate(G,D,topologicalOrder,parents,states):
     return (G,parents,score)
 
 def bayesianNetworkK2AndTables(dataset,categories,numberOfParents,dontKnowTheArrangement):
+    """
+    Running K2 algorithm and returning its result in order to built the network probabilities
+    :param dataset: the dataset of the task
+    :param categories: categories exist
+    :param numberOfParents: number of parent allowed for each node
+    :param dontKnowTheArrangement: flag to determine if the algorithm performs Monta Carlo method
+    :return: K2 result
+    """
     data = list(list(int(a) for a in b if a.isdigit()) for b in dataset)
     data = np.array(data)
     # dataset = np.delete(dataset, 0, 1)
@@ -201,8 +209,14 @@ def bayesianNetworkK2AndTables(dataset,categories,numberOfParents,dontKnowTheArr
     return(graph_list,dag,data)
 
 def createBayesGraph(graph_list,mapping,data):
-# Creating bayesian network graph function
-# Author: Tom Zarhin
+    '''
+    Creating the bayesian network graph and table
+    the graph_list, mapping and data are the parameters needed for creating the tables
+    this function returns:
+        bayes_model - the bayes model and its order
+        cpds_array - array of the tables
+        categories_each_element - categories of each element in the graph
+    '''
     cpds_array = []
     categories_each_element = {}  # Returning an array with the values of each element
     bayes_model = BayesianModel()
@@ -238,11 +252,14 @@ def createBayesGraph(graph_list,mapping,data):
         cpds_array.append(cpds_list)
     return(bayes_model,cpds_array,categories_each_element)
 
-def is_number(s):
-    # Getting a character and returning if it is a number
-    # Author: Tom Zarhin
+def is_number(digit):
+    """
+    Check whether the digit is number or not
+    :param digit: some character
+    :return:true if it is a number, false otherwise
+    """
     try:
-        float(s)
+        float(digit)
         return True
     except ValueError:
         return False
