@@ -13,7 +13,7 @@ window.onunload = function() {
 }
 
 window.onload = function() {
-    document.getElementById("logoutBtn").addEventListener("click", function() {
+    document.getElementById("logoutBtn").addEventListener("click", function() {//logout button listener
         localStorage.clear();
         location.href = "/";
     });

@@ -26,7 +26,7 @@ window.onload = function() {
                     confirm(data.error);
                 }
                 var experiments = JSON.parse(window.localStorage.getItem("experiments"));
-                experiments.push(new Experiment(data.nextId, name, description, userNameDB, null));
+                experiments.push(new Experiment(data.nextId, name, description, userNameDB, null));//adding the experiment into the experiment array
                 window.localStorage.setItem("experiments", JSON.stringify(experiments));
                 alerty.toasts('Experiment has been added successfully', {
                     bgColor: '#ccc',

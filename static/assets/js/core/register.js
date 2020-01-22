@@ -2,7 +2,7 @@ function submit_login_screen() {
     location.href = "/";
 }
 window.onload = function() { //register function to the system
-    document.getElementById("register").addEventListener("click", function() {
+    document.getElementById("register").addEventListener("click", function() {//this function contain constraint for the register logic
         if (document.getElementById("your_name").value == "" || document.getElementById("your_pass").value == "" || document.getElementById("your_username").value == null)
             alerty.toasts("1 or more of the fields is empty, please fill the all the fields");
         else {

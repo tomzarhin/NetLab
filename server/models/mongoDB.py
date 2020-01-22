@@ -5,6 +5,11 @@ class Mongo:
         self.db = client.netlabdb
 
     def getExperiments(self,userName):
+        """
+        Getting the experiment of particular user
+        :param userName:the user name key
+        :return:experiments
+        """
         experiment_array=[]
         experiments=self.db.experiments.find({"userName": userName})
         for exp in experiments:
@@ -13,6 +18,11 @@ class Mongo:
         return experiment_array
 
     def getTask(self,idExp):
+        """
+        Getting the task of particular experiment
+        :param idExp: experiment id
+        :return: Tasks
+        """
         tasks_array=[]
         tasks=self.db.tasks.find({"idExp": idExp})
         for task in tasks:
@@ -30,6 +40,13 @@ class Mongo:
         return(None)
 
     def createExperiment(self,description,userName,name):
+        """
+        creating new experiment
+        :param description: The description of the new experiment
+        :param userName: the user name which created the experiment
+        :param name: the name of the experiment
+        :return: the generated id of the new experiment
+        """
         nextId = self.db.experiments.find_one(sort=[("_id", pymongo.DESCENDING)])
         if (nextId == None):
             nextId = 1
@@ -45,6 +62,15 @@ class Mongo:
         return nextId
 
     def createTask(self,dataset,datasetcols,name,description,current_experiment_id):
+        """
+        Creating new task
+        :param dataset: the dataset of the experiment
+        :param datasetcols: the cols of the experiment
+        :param name: the name of the experiment
+        :param description: the description of the experiment
+        :param current_experiment_id: current experiment id in order to add the new task inside of it
+        :return: the task id
+        """
         nextId = self.db.experiments.find_one({"_id": current_experiment_id})
         if (len(nextId["tasks"]) == 0):
             nextId = 1
@@ -58,6 +84,13 @@ class Mongo:
         return(nextId)
 
     def register(self,inputEmail,password,userFullName):
+        """
+        Register for a new user
+        :param inputEmail: the user key - his email
+        :param password: password of the user
+        :param userFullName: the user full name
+        :return: an error  or successful msg
+        """
         try:
             #self.db.users.createIndex({"userName": 1}, {unique: true})
             self.db.users.insert({
@@ -71,6 +104,12 @@ class Mongo:
             return({"error":"User already exist"})
 
     def deleteTask(self, idTask, idExp):
+        """
+        deleting existing task
+        :param idTask: task id
+        :param idExp: experiment id
+        :return: successful or error msg
+        """
         myquery = {"_id": idExp}
         newvalues = {"$pull": {"tasks": {"task_id":idTask}}}
         #self.db.experiments.update({},{ $pull: {tasks: { $ in: ["apples", "oranges"]}}},{multi: true})

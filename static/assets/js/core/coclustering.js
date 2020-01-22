@@ -78,9 +78,9 @@ $(document).ready(function() {
     var clustering1 = new Clustering(kmeansLabels1, data1, dataset_clustering_cols1, ctx1, xCord1, yCord1, JSON.parse(window.localStorage.getItem("taskName1")));
     var clustering2 = new Clustering(kmeansLabels2, data2, dataset_clustering_cols2, ctx2, xCord2, yCord2, JSON.parse(window.localStorage.getItem("taskName2")));
 
-    clustering1.plotPoints();
+    clustering1.plotPoints();//ploting points to cluster1
 
-    clustering2.plotPoints();
+    clustering2.plotPoints();//ploting points to cluster2
 
     addListenerToBar(xCord1, yCord1, 0, clustering1);
     addListenerToBar(xCord2, yCord2, 1, clustering2);
