@@ -147,7 +147,7 @@ $(document).ready(function() {
             },
             title: {
                 display: true,
-                text: JSON.parse(window.clustering1.headline)
+                text: clustering1.headline
             },
         }
     });
@@ -182,8 +182,8 @@ $(document).ready(function() {
             },
             title: {
                 display: true,
-                text: JSON.parse(clustering2.headline)
+                text: clustering2.headline
             },
         }
     });
-});
+})
