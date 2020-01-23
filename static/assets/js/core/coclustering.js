@@ -94,8 +94,8 @@ $(document).ready(function() {
     head_cell = header.insertCell(0);
     head_cell.style.position = "absolute";
     head_cell.style.textAlign = "left";
-    head_cell.style.backgroundImage = "url('../assets/img/table.png')";
     head_cell.style.color = "white";
+    head_cell.style.backgroundColor = "#2980B9";
 
     for (var i = 0; i < co_length; i++) { //create the co-clustering table.
         head_cell = header.insertCell(i + 1);
