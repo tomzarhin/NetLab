@@ -2,7 +2,7 @@ from flask import request,json,jsonify,render_template,Flask
 from sklearn.cluster import KMeans
 from yellowbrick.cluster import KElbowVisualizer,SilhouetteVisualizer
 from server.models.mongoDB import Mongo
-#import server.models.BayesianNetworkModel as BN
+import server.models.BayesianNetworkModel as BN
 import numpy as np
 
 app = Flask(__name__, static_url_path='/static')
@@ -96,7 +96,7 @@ def goKmeans():
     silhouette = SilhouetteVisualize.silhouette_score_
     elbow = KElbowVisualize.elbow_value_
     return jsonify({'inputArray': list(new_list),'kmeansLabels':(kmeans.labels_.tolist()),'elbowValue':str(elbow),'silhouetteValue':('%.3f' % silhouette)})
-"""
+
 @app.route('/goK2', methods=['GET', 'POST'])
 #Running K2 algorithm for Bayesian Network Correlation
 #Author: Tom Zarhin
@@ -122,7 +122,7 @@ def goK2():
         {'status': 'done', 'dataset_k2': dag.tolist(), 'categories': list(categories), 'cpt_list': cpds_array,
          'element_categories': categories_each_element})
     #return bayesianNetworkK2AndTables(dataset,categories.split(','),int(numberOfParents))
-"""
+
 def is_number(digit):
     """
     Check whether the digit is number or not
@@ -134,6 +134,7 @@ def is_number(digit):
         return True
     except ValueError:
         return False
+
 @app.route('/goCoClustering', methods=['GET', 'POST'])
 #Contingency table for two different clusters by using kmeans function
 #Author: Tom Zarhin
@@ -177,7 +178,7 @@ def deleteTask():
     idExp=int(list(idExp)[1])
     mongo.deleteTask(idTask,idExp)
     return jsonify({'status':'deleted'})
-"""
+
 @app.route('/goExpBaysienNetwork', methods=['GET', 'POST'])
 #Bayesian network for entire experiment
 #Author: Tom Zarhin
@@ -203,6 +204,6 @@ def goExpBaysienNetwork():
         {'status': 'done', 'dataset_k2': dag.tolist(), 'categories': list(data_cols), 'cpt_list': cpds_array,
          'element_categories': categories_each_element})
 
-"""
+
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=1000, debug=False)
