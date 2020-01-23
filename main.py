@@ -39,7 +39,7 @@ def closeClicked():
     secound_label.configure(text="Server not active...")
     initial_btn.config(state="normal")
     close_btn.config(state=DISABLED)
-
+"""
 if __name__ == '__main__':
     window = Tk()
     window.title("Welcome to Netlab")
@@ -58,3 +58,4 @@ if __name__ == '__main__':
     secound_label = Label(window, text="Server not active...")
     secound_label.grid(column=0, row=5)
     window.mainloop()
+"""

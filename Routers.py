@@ -9,12 +9,15 @@ import os
 
 app = Flask(__name__, static_url_path='/static')
 mongo=Mongo()
-
+"""
 def run_server(port):
    url = "http://127.0.0.1:" + port + "/"
    chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
    webbrowser.get(chrome_path).open(url)
    app.run(threaded=True, host='127.0.0.1', port=port, debug=False)
+"""
+if __name__ == '__main__':
+    app.run(host='127.0.0.1', port=8080, debug=False)
 
 @app.route("/")
 #returning login template
