@@ -33,7 +33,9 @@ document.getElementById("createExp").addEventListener("click", function() { //cr
                               fontColor: '#000',
                               place: 'top',
                             })
+        setTimeout(function() {
             location.reload();
+        }, 2500);
         });
 
 });

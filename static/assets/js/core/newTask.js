@@ -70,7 +70,9 @@ $('#createTask').click(function() { //create new task and send it to database
                               fontColor: '#000',
                               place: 'top',
                             })
-        location.reload();
+        setTimeout(function() {
+            location.reload();
+        }, 2500);
     });
 });
 });
