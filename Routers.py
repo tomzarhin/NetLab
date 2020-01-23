@@ -39,7 +39,6 @@ def login():
         return jsonify({'pstatus':"NOT OK"})
     return jsonify({'experiments': experiment_array,"fullname":user_fullname})
     #ret= jsonify({'experiments': experiment_array})
-    #return render_template('home.html',data=ret)
 
 @app.route('/register', methods=['GET', 'POST'])
 #Getting the user details and creating a new task
