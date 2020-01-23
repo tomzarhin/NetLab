@@ -13,7 +13,12 @@ window.onunload = function () {
 }
 
 window.onload = function () {
+$('#helpUser').tooltip();
+document.getElementById("logoutBtn").addEventListener("click", function(){
+  localStorage.clear();
+  location.href = "/";
+});
     if (window.localStorage.length == 0) {
-        location.href = "../pages/loginpage.html";
+        location.href = "/";
     };
 }

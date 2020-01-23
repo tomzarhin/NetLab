@@ -5,8 +5,9 @@
     <meta charset="utf-8"/>
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
-    <script src="../assets/js/plugins/alerty.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
     <link href="../assets/css/loadingbar.css" rel="stylesheet"/>
+    <script src="../assets/js/plugins/alerty.js"></script>
     <link rel="stylesheet" href="../assets/css/alerty.css">
     <link rel="stylesheet" href="https://bossanova.uk/jsuites/v2/jsuites.css" type="text/css"/>
     <link rel="stylesheet" href="../assets/css/jexcel.css" type="text/css"/>
@@ -75,7 +76,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="notifications.html">
+                    <a href="aboutus.html">
                         <i class="nc-icon nc-bell-55"></i>
                         <p>About us</p>
                     </a>
@@ -112,9 +113,27 @@
 
                         </script>
                     </a></a>
-                    ->
-                    Dataset
+
                 </div>
+                          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <form>
+              <div class="input-group no-border">
+                                                <button type="button" class="btn btn-outline-dark btn-sm" style="pointer-events: none;background-color:transparent;color:black;">
+                                  <i class="fas fa-user"></i> <script>document.write(JSON.parse((window.localStorage.getItem("user")))["fullname"])</script>
+                            </button>
+&nbsp;
+            <button type="button" class="btn btn-default btn-sm" id="logoutBtn">
+                              <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+          </div>
+            </form>
+
+          </div>
             </div>
         </nav>
         <div id="clusteringModal" class="modal" tabindex="-1" role="dialog">
@@ -151,6 +170,8 @@
 }
 
         </style>
+ <a style="position:absolute;bottom:5px;right:15px;margin:0;padding:5px 3px;z-index:1;" href="#" data-toggle="tooltip" data-placement="top" title="You can view that dataset, you can change or delete data, and you can normalize the variables by median or average for the bayesian network, you can analyze by bayesian network or clustring." id="helpUser">
+                        <i class="fas fa-question-circle fa-3x"></i></a>
         <div id="bayesianModal" class="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -210,30 +231,34 @@
                 </h5>
             </center>
             <div class="card card-stats col-lg-12 col-md-12 col-sm-12">
-                <br>
-                <div class="card card-stats" id="spreadsheet1"></div>
+
+<br>
+<center>
+                <div id="spreadsheet1"></div>
+</center>
                 <center>
                     <div id="optionsToAnalyze" ustify-content-center>
                         <button class="btn btn-warning" id="bayesianModalButton">Bayesian Network</button>
                         <button class="btn btn-warning" id="clusteringModalButton">Clustering</button>
-                        <footer class="footer footer-black  footer-white ">
-                        </footer>
+
                     </div>
                     <div>
-                        <h6>Select a variable for normalization </h6>
-                        <select id="comboCols" onchange="reset()">
+<hr>
 
+                      <div style="font-size:17px;">Select a variable for normalization</div>
+                        <select id="comboCols" onchange="reset()">
                             <option selected disabled>Choose var</option>
                         </select>
-                        <p id="median"></p>
-                        <h6>Select method for normalization (Median/Average/Custom value) </h6>
-                        <select id="norOrMed" onchange="setGroupByMedian()">
+                        <hr>
+                        <div style="font-size:17px;">Select method for normalization</div>
+                        <select id="norOrMed" onchange="setGroupByMethod()">
                             <option selected disabled>Choose method</option>
                             <option>normal</option>
                             <option>median</option>
                             <option>average</option>
                             <option>custom value</option>
                         </select>
+                    </div>
                 </center>
                 <br><br>
                 <div>

@@ -1,0 +1,41 @@
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="{{ url_for('static',filename='assets/js/core/register.js') }}"></script>
+<script src="{{ url_for('static',filename='assets/js/core/classes/Experiment.js') }}"></script>
+<script src="{{ url_for('static',filename='assets/js/plugins/alerty.js') }}"></script>
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='assets/css/alerty.css') }}">
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='assets/css/login.css') }}">
+<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='assets/css/loadingbar.css') }}">
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="{{ url_for('static',filename='assets/img/logo.png') }}" style="width:90px;height:90px;"vid="icon" alt="User Icon" />
+    </div>
+
+    <!-- Login Form -->
+    <form>
+      <input type="text" id="your_username" class="fadeIn second" name="login" placeholder="Full name">
+      <input type="text" id="your_name" class="fadeIn second" name="login" placeholder="email">
+      <input type="password" id="your_pass" class="fadeIn third" name="login" placeholder="password">
+
+      <br><br>
+      <input type="button" id="register" class="fadeIn fourth" value="Register">
+    </form>
+
+    <!-- Remind Passowrd -->
+
+            <div id="formFooter">
+                <a onclick="submit_login_screen()" class="underlineHover">Already User? Login Here</a>
+            </div>
+
+<div class="lds-facebook" id="loadingbar" style="visibility:hidden;"><div></div><div></div><div></div></div>
+
+  </div>
+</div>

@@ -3,6 +3,9 @@
 <script src="../assets/js/core/classes/Experiment.js"></script>
 <head>
     <meta charset="utf-8"/>
+
+    <script src="../assets/js/plugins/alerty.js"></script>
+    <link rel="stylesheet" href="../assets/css/alerty.css">
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -13,6 +16,7 @@
           name='viewport'/>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
     <!-- CSS Files -->
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet"/>
@@ -23,7 +27,8 @@
     <script src="../assets/js/core/logout.js"></script>
 
 </head>
-
+ <a style="position:absolute;bottom:5px;right:15px;margin:0;padding:5px 3px;z-index:1;" href="#" data-toggle="tooltip" data-placement="top" title="You can see here all the experiments of the user, you can delete experiment, or enter to experiment to see all the tasks of the experiment." id="helpUser">
+                        <i class="fas fa-question-circle fa-3x"></i></a>
 <body class="">
 <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
@@ -64,7 +69,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="notifications.html">
+                    <a href="aboutus.html">
                         <i class="nc-icon nc-bell-55"></i>
                         <p>About us</p>
                     </a>
@@ -88,7 +93,21 @@
                     &nbsp;->&nbsp;
                     <a class="" href="experiments.html">Experiments</a>
                 </div>
-
+ <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <form>
+              <div class="input-group no-border">
+                                                <button type="button" class="btn btn-outline-dark btn-sm" style="pointer-events: none;background-color:transparent;color:black;">
+                                  <i class="fas fa-user"></i> <script>document.write(JSON.parse((window.localStorage.getItem("user")))["fullname"])</script>
+                            </button>
+&nbsp;
+            <button type="button" class="btn btn-default btn-sm" id="logoutBtn">
+                              <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
             </div>
         </nav>
 

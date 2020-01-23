@@ -11,11 +11,15 @@ function getDataFromjexcel(){ //put dataset from excel in from_data variable for
                     return true;
             });
         }
+        else{
+            data_after_cleaning=jexcelSpreadSheet.getData();
+        }
     form_data.append('dataset',JSON.stringify(data_after_cleaning));
     form_data.append('datasetcols',JSON.stringify(jexcelSpreadSheet.getHeaders()));
     return(form_data);
 }
 
+$(window).on('load',function() {
 $(function() {
     $('#fileElem').change(function() {
            var tmppath = URL.createObjectURL(event.target.files[0]);
@@ -61,9 +65,13 @@ $('#createTask').click(function() { //create new task and send it to database
         }
         exp[0].task.push(task);
         window.localStorage.setItem("experiments",JSON.stringify(experiments));
-        alert("added succesfully");
+        alerty.toasts('added succesfully', {
+                              bgColor: '#ccc',
+                              fontColor: '#000',
+                              place: 'top',
+                            })
         location.reload();
     });
 });
-
+});
 

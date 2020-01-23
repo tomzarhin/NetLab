@@ -1,4 +1,5 @@
 var currId;
+$(window).on('load',function() {
 document.getElementById("createExp").addEventListener("click", function() { //create new experiment and send it to database
   var user = JSON.parse(window.localStorage.getItem("user"));
   var userNameDB=user["username"];
@@ -27,8 +28,13 @@ document.getElementById("createExp").addEventListener("click", function() { //cr
             var experiments = JSON.parse(window.localStorage.getItem("experiments"));
             experiments.push(new Experiment(data.nextId,name,description,userNameDB,null));
             window.localStorage.setItem("experiments",JSON.stringify(experiments));
-            alert("Experiment has been added successfully");
+            alerty.toasts('Experiment has been added successfully', {
+                              bgColor: '#ccc',
+                              fontColor: '#000',
+                              place: 'top',
+                            })
             location.reload();
         });
 
+});
 });

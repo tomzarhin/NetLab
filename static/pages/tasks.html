@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8"/>
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-
+    <script src="../assets/js/plugins/alerty.js"></script>
+    <link rel="stylesheet" href="../assets/css/alerty.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
           integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 </head>
@@ -66,7 +67,8 @@
     </div>
   </div>
 </div>
-
+ <a style="position:absolute;bottom:5px;right:15px;margin:0;padding:5px 3px;z-index:1;" href="#" data-toggle="tooltip" data-placement="top" title="you can see here all the tasks, you can choose task to see dataset and analyze with clustring method or bayesian network, you can delete tasks by click on 'x' you can create new task, compare between tasks, and do bayesian networkd for all the task as a group" id="helpUser">
+                        <i class="fas fa-question-circle fa-3x"></i></a>
 <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
         <div class="logo">
@@ -100,7 +102,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="notifications.html">
+                    <a href="aboutus.html">
                         <i class="nc-icon nc-bell-55"></i>
                         <p>About us</p>
                     </a>
@@ -131,16 +133,33 @@
                         </script>
                     </a>
                 </div>
-
+ <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <form>
+              <div class="input-group no-border">
+                                                <button type="button" class="btn btn-outline-dark btn-sm" style="pointer-events: none;background-color:transparent;color:black;">
+                                  <i class="fas fa-user"></i> <script>document.write(JSON.parse((window.localStorage.getItem("user")))["fullname"])</script>
+                            </button>
+&nbsp;
+            <button type="button" class="btn btn-default btn-sm" id="logoutBtn">
+                              <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+            </div>
+            </form>
+          </div>
             </div>
         </nav>
 
         <div class="content">
             <center>
-                <h5>Tasks</h5>
+
                 <div class="col-lg-8 col-md-8 col-sm-8">
                     <div class="card card-stats col-lg-12 col-md-12 col-sm-12">
-                        <div style="padding-top:5px;padding-bottom:5px;">Task Options:
+                        <div style="padding-top:5px;padding-bottom:5px;">Experiment Options:
                             <a href="newTask.html" type="button" class="btn btn-default btn-sm">
                                 <i class="far fa-plus-square"></i> New task
                             </a>
@@ -153,8 +172,15 @@
                         </div>
                     </div>
                 </div>
+                <hr>
+                                <h5>Tasks Of                       <script>
+                        document.write(JSON.parse(window.localStorage.getItem("expName")))
+
+                        </script>
+                    </h5>
             </center>
-            <div id="p10" class="row justify-content-left">
+
+            <div id="p10" class="row justify-content-center">
                 <script src="../assets/js/core/getTasks.js"></script>
             </div>
         </div>
