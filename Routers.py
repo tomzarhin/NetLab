@@ -193,4 +193,3 @@ def goExpBaysienNetwork():
     return jsonify(
         {'status': 'done', 'dataset_k2': dag.tolist(), 'categories': list(data_cols), 'cpt_list': cpds_array,
          'element_categories': categories_each_element})
-
