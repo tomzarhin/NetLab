@@ -135,10 +135,6 @@ $(document).ready(function() { //paint the bayesian network graph on the screen
             samples: 15000
         });
 
-        $('#btnDownloadJson').click(function() {
-            jsbayesviz.downloadSamples(graph, true);
-        });
-
         $('#btnDownloadCsv').click(function() {
             var svgData = exportSVG(document.getElementById('bbn'));
             var a = document.getElementById('btnDownloadCsv');
