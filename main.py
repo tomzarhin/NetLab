@@ -1,11 +1,9 @@
-import webbrowser
 from flask import request,json,jsonify,render_template,Flask
 from sklearn.cluster import KMeans
 from yellowbrick.cluster import KElbowVisualizer,SilhouetteVisualizer
 from server.models.mongoDB import Mongo
-import server.models.BayesianNetworkModel as BN
+#import server.models.BayesianNetworkModel as BN
 import numpy as np
-import os
 
 app = Flask(__name__, static_url_path='/static')
 mongo=Mongo()
