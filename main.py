@@ -7,7 +7,7 @@ __version__ = "1.0.0"
 __maintainer__ = "Tom Zarhin"
 __email__ = "Tom Zarhin@s.braude.ac.il"
 __status__ = "Production"
-"""
+
 from tkinter import *
 import Routers as Routers
 import multiprocessing
@@ -39,7 +39,7 @@ def closeClicked():
     secound_label.configure(text="Server not active...")
     initial_btn.config(state="normal")
     close_btn.config(state=DISABLED)
-"""
+
 if __name__ == '__main__':
     window = Tk()
     window.title("Welcome to Netlab")
