@@ -5,6 +5,10 @@ document.getElementById("createExp").addEventListener("click", function() { //cr
   var userNameDB=user["username"];
   var name = document.getElementById("name").value;
   var description = document.getElementById("description").value;
+  if(name=="" || description=="")
+      alerty.toasts("1 or more of the fields is empty, please fill the all fields");
+  else
+  {
   var form_data = new FormData();
   form_data.append('name', name);
   form_data.append('description',description);
@@ -37,6 +41,6 @@ document.getElementById("createExp").addEventListener("click", function() { //cr
             location.reload();
         }, 2500);
         });
-
+}
 });
 });

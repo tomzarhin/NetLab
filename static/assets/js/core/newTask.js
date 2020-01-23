@@ -1,6 +1,6 @@
 var idExp = JSON.parse(window.localStorage.getItem("idExp")); //id of the current experiment
 var data_after_cleaning;
-
+var flagJexcel=0;
 function getDataFromjexcel(){ //put dataset from excel in from_data variable for sending to the server
     var form_data = new FormData();
         if(document.getElementById("empty_cell").checked==true){
@@ -22,6 +22,7 @@ function getDataFromjexcel(){ //put dataset from excel in from_data variable for
 $(window).on('load',function() {
 $(function() {
     $('#fileElem').change(function() {
+            flagJexcel=1;
            var tmppath = URL.createObjectURL(event.target.files[0]);
             jexcelSpreadSheet=jexcel(document.getElementById('spreadsheet1'), {
                 csv:tmppath,
@@ -35,9 +36,15 @@ $(function() {
 });
 
 $('#createTask').click(function() { //create new task and send it to database
-    var form_data = getDataFromjexcel();
     var taskname = document.getElementById("taskname").value;
     var taskDescription = document.getElementById("taskDescription").value;
+    if(taskname=="" || taskDescription=="")
+          alerty.toasts("1 or more of the fields is empty, please fill the all fields");
+    else if(flagJexcel==0)
+        alerty.toasts("You did not upload any dataset, please upload.");
+    else
+    {
+    var form_data = getDataFromjexcel();
     form_data.append('taskname',taskname );
     form_data.append('taskDescription',taskDescription );
     form_data.append('current_experiment',idExp);
@@ -74,6 +81,7 @@ $('#createTask').click(function() { //create new task and send it to database
             location.reload();
         }, 2500);
     });
+    }
 });
 });
 
