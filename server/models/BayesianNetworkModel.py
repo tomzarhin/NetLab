@@ -1,6 +1,6 @@
 import collections
 import numpy as np
-from pgmpy.models import BayesianModel
+#from pgmpy.models import BayesianModel
 import pandas
 
 def log_gamma(x):
@@ -221,6 +221,7 @@ def createBayesGraph(graph_list,mapping,data):
     '''
     cpds_array = []
     categories_each_element = {}  # Returning an array with the values of each element
+    """
     bayes_model = BayesianModel()
     bayes_model.add_nodes_from(list(mapping))
     for value in graph_list:
@@ -253,7 +254,7 @@ def createBayesGraph(graph_list,mapping,data):
         cpds_list[str(list(cpd.variables))] = cpd_matrix_values
         cpds_array.append(cpds_list)
     return(bayes_model,cpds_array,categories_each_element)
-
+"""
 def is_number(digit):
     """
     Check whether the digit is number or not
