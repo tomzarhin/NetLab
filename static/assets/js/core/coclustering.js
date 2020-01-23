@@ -94,10 +94,9 @@ $(document).ready(function() {
     head_cell = header.insertCell(0);
     head_cell.style.position = "absolute";
     head_cell.style.textAlign = "left";
-    head_cell.style.backgroundImage = "url('../assets/img/table.png')";
     head_cell.style.color = "white";
+    head_cell.style.backgroundColor = "#2980B9";
 
-    head_cell.innerHTML = '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + clustering2.headline + '<br>' + clustering1.headline;
     for (var i = 0; i < co_length; i++) { //create the co-clustering table.
         head_cell = header.insertCell(i + 1);
         head_cell.innerHTML = clustering2.headline + ' Cluster' + (i + 1);
@@ -147,7 +146,7 @@ $(document).ready(function() {
             },
             title: {
                 display: true,
-                text: JSON.parse(window.clustering1.headline)
+                text: clustering1.headline
             },
         }
     });
@@ -182,8 +181,8 @@ $(document).ready(function() {
             },
             title: {
                 display: true,
-                text: JSON.parse(clustering2.headline)
+                text: clustering2.headline
             },
         }
     });
-});
+})
