@@ -151,7 +151,6 @@ $(document).ready(function() {
             },
         }
     });
-
     window.myScatter = Chart.Scatter(clustering2.ctx, { //print the first clustering on the screen
         data: {
             datasets: clustering2.datasetValue
