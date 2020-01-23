@@ -97,7 +97,6 @@ $(document).ready(function() {
     head_cell.style.backgroundImage = "url('../assets/img/table.png')";
     head_cell.style.color = "white";
 
-    head_cell.innerHTML = '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' + clustering2.headline + '<br>' + clustering1.headline;
     for (var i = 0; i < co_length; i++) { //create the co-clustering table.
         head_cell = header.insertCell(i + 1);
         head_cell.innerHTML = clustering2.headline + ' Cluster' + (i + 1);
