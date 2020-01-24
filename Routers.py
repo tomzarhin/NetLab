@@ -11,26 +11,28 @@ app = Flask(__name__, static_url_path='/static')
 mongo=Mongo()
 
 def run_server(port):
-   url = "http://127.0.0.1:" + port + "/"
-   chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
-   webbrowser.get(chrome_path).open(url)
-   app.run(threaded=True, host='127.0.0.1', port=port, debug=False)
+    """
+    running the server on localhost
+    :param port: the input port from the user
+    :return:
+    """
+    url = "http://127.0.0.1:" + port + "/"
+    chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
+    webbrowser.get(chrome_path).open(url)
+    app.run(threaded=True, host='127.0.0.1', port=port, debug=False)
 
 @app.route("/")
 #returning login template
-#Author: Tom Zarhin
 def netLabStart():
     return render_template("login.html")
 
 @app.route('/registerscreen', methods=['GET', 'POST'])
 #Getting the experiments of the user
-#Author: Tom Zarhin
 def registerscreen():
     return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 #Getting the user details and returning his experiments if he exist or else the function returning null
-#Author: Tom Zarhin
 def login():
     inputEmail=request.form.get('inputEmail')
     password = request.form.get('password')
@@ -44,7 +46,6 @@ def login():
 
 @app.route('/register', methods=['GET', 'POST'])
 #Getting the user details and creating a new task
-#Author: Tom Zarhin
 def register():
     inputEmail=request.form.get('inputEmail')
     password = request.form.get('password')
@@ -54,7 +55,6 @@ def register():
 
 @app.route('/createExperiment', methods=['GET', 'POST'])
 #Getting the experiment details and creating a new one
-#Author: Tom Zarhin
 def createExperiment():
     description=request.form.get('description')
     userName=request.form.get('userName')
@@ -64,7 +64,6 @@ def createExperiment():
 
 @app.route('/createTask', methods=['GET', 'POST'])
 #Getting the tasks details and creating a new one
-#Author: Tom Zarhin
 def createTask():
     dataset = json.loads(request.form['dataset'])
     datasetcols = json.loads(request.form['datasetcols'])
@@ -76,7 +75,6 @@ def createTask():
 
 @app.route('/goKmeans', methods=['GET', 'POST'])
 #Running Kmeans algorithm for Clustering graph
-#Author: Tom Zarhin
 def goKmeans():
     clusteringNum = request.form['clusteringNum']
     dataset = json.loads(request.form.get('dataset'))
@@ -101,7 +99,6 @@ def goKmeans():
 
 @app.route('/goK2', methods=['GET', 'POST'])
 #Running K2 algorithm for Bayesian Network Correlation
-#Author: Tom Zarhin
 def goK2():
     print("Starting K2")
 
@@ -123,11 +120,9 @@ def goK2():
     return jsonify(
         {'status': 'done', 'dataset_k2': dag.tolist(), 'categories': list(categories), 'cpt_list': cpds_array,
          'element_categories': categories_each_element})
-    #return bayesianNetworkK2AndTables(dataset,categories.split(','),int(numberOfParents))
 
 @app.route('/goCoClustering', methods=['GET', 'POST'])
 #Contingency table for two different clusters by using kmeans function
-#Author: Tom Zarhin
 def goCoClustering():
 
     clusteringNum = request.form['clusteringNum']
@@ -160,7 +155,6 @@ def goCoClustering():
 
 @app.route('/deleteTask', methods=['GET', 'POST'])
 #Deleting task from experiment
-#Author: Tom Zarhin
 def deleteTask():
     idTask = request.form['idTask']
     idExp = request.form['idExp']
@@ -171,7 +165,6 @@ def deleteTask():
 
 @app.route('/goExpBaysienNetwork', methods=['GET', 'POST'])
 #Bayesian network for entire experiment
-#Author: Tom Zarhin
 def goExpBaysienNetwork():
     expDataset = json.loads(request.form.get('expDataset'))
     data_full=expDataset[0]['dataset']
@@ -180,7 +173,6 @@ def goExpBaysienNetwork():
     for task in expDataset:
         data_cols=np.append(data_cols, task['datasetcols'].split(','))
         data_full=np.append(data_full, task['dataset'], axis=1)
-        #data_cols[:,:-1]=task['datasetcolumn']
     numberOfParents = request.form['numberOfParents']
     if(numberOfParents=='' or numberOfParents==None):
         numberOfParents='1000'

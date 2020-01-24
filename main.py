@@ -14,6 +14,11 @@ import multiprocessing
 
 
 def number_constraint(digit):
+    """
+    Is digit a number or not
+    :param digit: some string
+    :return: ok for number
+    """
     v = str(digit)
     try:
         v = int(v)
@@ -23,6 +28,10 @@ def number_constraint(digit):
     return "ok"
 
 def initialclicked():
+    """
+    listener for clicking the start server button
+    :return:
+    """
     if(number_constraint(txt.get())=="break"):
         return
     first_label.configure(text="Running on http://127.0.0.1:" + txt.get() + "/")
@@ -34,6 +43,10 @@ def initialclicked():
     close_btn.config(state="normal")
 
 def closeClicked():
+    """
+    listener for closing the connection of the server
+    :return:
+    """
     routers.terminate()
     first_label.configure(text="Please choose port to run localhost")
     secound_label.configure(text="Server not active...")
