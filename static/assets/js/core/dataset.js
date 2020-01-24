@@ -19,7 +19,7 @@ function getDataFromjexcel() { //put dataset from excel in from_data variable fo
 }
 
 function sendWithPrior() { //Responsible for arranging the Bayesian network variability in the set according to the order we want
-    if (checkboxes.length == colsArr.length) {
+    if (checkboxes.length == jexcelSpreadSheet.getHeaders().split(",").length) {
         for (i = 0; i < checkboxes.length; i++) {
             for (j = 0; j < datasetToBayes.length; j++)
                 datasetWithPrior[j][i] = jexcelSpreadSheet.getValueFromCoords((jexcelSpreadSheet.getHeaders().split(",")).indexOf(checkboxes[i]), j);
@@ -181,9 +181,9 @@ $(document).ready(function() {
         window.localStorage.setItem("numberOfVars", JSON.stringify(colsArr.length));
         var numberOfReasons = checkboxes1.length;
         checkboxes = checkboxes1.concat(checkboxes2);
-        if (checkboxes.length == 0 || checkboxes.length == colsArr.length) {
+        if (checkboxes.length == 0 || checkboxes.length == jexcelSpreadSheet.getHeaders().split(",").length) {
             document.getElementById("loadingbar").style.visibility = 'visible';
-            if (checkboxes.length == colsArr.length)
+            if (checkboxes.length == jexcelSpreadSheet.getHeaders().split(",").length)
                 sendWithPrior();
             var form_data = new FormData();
             form_data = getDataFromjexcel();
