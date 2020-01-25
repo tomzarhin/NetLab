@@ -5,26 +5,17 @@ from yellowbrick.cluster import KElbowVisualizer,SilhouetteVisualizer
 from server.models.mongoDB import Mongo
 import server.models.BayesianNetworkModel as BN
 import numpy as np
+
 import os
 
 app = Flask(__name__, static_url_path='/static')
 mongo=Mongo()
 
-def run_server(port):
-    """
-    running the server on localhost
-    :param port: the input port from the user
-    :return:
-    """
+def applicationStart(port):
     url = "http://127.0.0.1:" + port + "/"
     chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
     webbrowser.get(chrome_path).open(url)
-    app.run(threaded=True, host='127.0.0.1', port=port, debug=False)
-
-@app.route("/")
-#returning login template
-def netLabStart():
-    return render_template("login.html")
+    app.run(threaded=True, host='127.0.0.1',port=port, debug=False)
 
 @app.route('/registerscreen', methods=['GET', 'POST'])
 #Getting the experiments of the user
@@ -152,7 +143,6 @@ def goCoClustering():
     contingency_table= zip(*contingency_table)
     return jsonify({'contingency_table':list(contingency_table),'labels1':labels11.tolist(),'labels2':labels12.tolist()})
 
-
 @app.route('/deleteTask', methods=['GET', 'POST'])
 #Deleting task from experiment
 def deleteTask():
@@ -162,6 +152,13 @@ def deleteTask():
     idExp=int(list(idExp)[1])
     mongo.deleteTask(idTask,idExp)
     return jsonify({'status':'deleted'})
+
+
+@app.route("/")
+
+#returning login template
+def netLabStart():
+    return render_template("login.html")
 
 @app.route('/goExpBaysienNetwork', methods=['GET', 'POST'])
 #Bayesian network for entire experiment
@@ -185,3 +182,4 @@ def goExpBaysienNetwork():
     return jsonify(
         {'status': 'done', 'dataset_k2': dag.tolist(), 'categories': list(data_cols), 'cpt_list': cpds_array,
          'element_categories': categories_each_element})
+
