@@ -6,8 +6,6 @@ from server.models.mongoDB import Mongo
 import server.models.BayesianNetworkModel as BN
 import numpy as np
 
-import os
-
 app = Flask(__name__, static_url_path='/static')
 mongo=Mongo()
 
